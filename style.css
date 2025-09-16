@@ -1,0 +1,212 @@
+:root {
+    --body-bg: #1a1b26;
+    --text-color: #a9b1d6;
+    --nav-bg: #24283b;
+    --component-bg: #24283b;
+    --accent-color: #c0a6ed;
+    --accent-hover: #d6c1f1;
+    --button-primary-bg: #c0a6ed;
+    --button-primary-hover: #d6c1f1;
+    --button-secondary-bg: #414863;
+    --button-secondary-hover: #545c77;
+    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --border-color: #414863;
+    --footer-bg: #161720;
+    --footer-text: #787c99;
+    --hero-text: #a9b1d6;
+    --profile-placeholder-bg: #3b4261;
+    --profile-placeholder-border: #c0a6ed;
+}
+
+/* Tokyo Night Theme */
+.tokyo-night {
+    --body-bg: #1a1b26;
+    --text-color: #a9b1d6;
+    --nav-bg: #24283b;
+    --component-bg: #24283b;
+    --accent-color: #c0a6ed;
+    --accent-hover: #d6c1f1;
+    --button-primary-bg: #c0a6ed;
+    --button-primary-hover: #d6c1f1;
+    --button-secondary-bg: #414863;
+    --button-secondary-hover: #545c77;
+    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --border-color: #414863;
+    --footer-bg: #161720;
+    --footer-text: #787c99;
+    --hero-text: #a9b1d6;
+    --profile-placeholder-bg: #3b4261;
+    --profile-placeholder-border: #c0a6ed;
+}
+
+/* Rose Pine Theme */
+.rose-pine {
+    --body-bg: #faf4ed;
+    --text-color: #575279;
+    --nav-bg: #f2e9e1;
+    --component-bg: #f2e9e1;
+    --accent-color: #d7827e;
+    --accent-hover: #e69996;
+    --button-primary-bg: #d7827e;
+    --button-primary-hover: #e69996;
+    --button-secondary-bg: #e6e1e8;
+    --button-secondary-hover: #d5cfd7;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --border-color: #e6e1e8;
+    --footer-bg: #e6e1e8;
+    --footer-text: #9893a5;
+    --hero-text: #575279;
+    --profile-placeholder-bg: #d5cfd7;
+    --profile-placeholder-border: #d7827e;
+}
+
+/* Vibrant Theme (Original) */
+.vibrant {
+    --body-bg: #0f172a; /* slate-900 */
+    --text-color: #e0e7ff; /* indigo-200 */
+    --nav-bg: #1e293b; /* slate-800 */
+    --component-bg: #1e293b; /* slate-800 */
+    --accent-color: #c084fc; /* purple-400 */
+    --accent-hover: #d8b4fe; /* purple-300 */
+    --button-primary-bg: #2563eb; /* blue-600 */
+    --button-primary-hover: #3b82f6; /* blue-500 */
+    --button-secondary-bg: #334155; /* slate-700 */
+    --button-secondary-hover: #475569; /* slate-600 */
+    --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --border-color: #334155; /* slate-700 */
+    --footer-bg: #020617; /* slate-950 */
+    --footer-text: #64748b; /* slate-500 */
+    --hero-text: #ffffff; /* white */
+    --profile-placeholder-bg: #334155; /* slate-700 */
+    --profile-placeholder-border: #a855f7; /* purple-500 */
+}
+
+/* Base styles using CSS variables */
+body {
+    background-color: var(--body-bg);
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.nav-link {
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.nav-link:hover {
+    color: var(--accent-hover);
+    opacity: 1;
+}
+
+.nav-link.active {
+    background-color: var(--component-bg);
+    color: var(--accent-color);
+    opacity: 1;
+}
+
+.main-content-wrapper {
+    background-color: var(--body-bg);
+    color: var(--text-color);
+}
+
+.sidebar {
+    background-color: var(--nav-bg);
+    box-shadow: var(--shadow);
+}
+
+main {
+    border-color: var(--border-color);
+    box-shadow: var(--shadow);
+}
+
+.accent-color {
+    color: var(--accent-color);
+}
+
+.hero-text {
+    color: var(--hero-text);
+}
+
+.component-bg {
+    background-color: var(--component-bg);
+    box-shadow: var(--shadow);
+    color: var(--text-color);
+}
+
+.profile-placeholder {
+    background-color: var(--profile-placeholder-bg);
+    box-shadow: var(--shadow);
+    border-color: var(--profile-placeholder-border);
+}
+
+.button-primary-bg {
+    background-color: var(--button-primary-bg);
+}
+
+.button-primary-hover:hover {
+    background-color: var(--button-primary-hover);
+}
+
+.button-secondary-bg {
+    background-color: var(--button-secondary-bg);
+}
+
+.button-secondary-hover:hover {
+    background-color: var(--button-secondary-hover);
+}
+
+.dropup-link {
+    color: var(--text-color);
+}
+
+.dropup-link:hover {
+    background-color: white;
+    background-opacity: 0.2;
+}
+
+/* Animations */
+@keyframes background-pan {
+    from {
+        background-position: 0% 0%;
+    }
+    to {
+        background-position: -200% 0%;
+    }
+}
+
+.animated-background {
+    animation: background-pan 30s linear infinite;
+    background-size: 200% auto;
+    background-image: linear-gradient(to right, var(--body-bg), var(--nav-bg), var(--body-bg));
+    transition: background-image 0.5s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.drop-in-element {
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: opacity 0.8s cubic-bezier(.25,.8,.25,1), transform 0.8s cubic-bezier(.25,.8,.25,1);
+    will-change: opacity, transform;
+}
+
+.drop-in-element.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Mobile sidebar styles */
+.sidebar.open {
+    transform: translateX(0);
+}
+
+/* Drop-up menu styles */
+#dropup-menu.open {
+opacity: 1;
+transform: scale(1);
+}
