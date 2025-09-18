@@ -9,7 +9,8 @@
     --button-primary-hover: #d6c1f1;
     --button-secondary-bg: #414863;
     --button-secondary-hover: #545c77;
-    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow:
+        0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     --border-color: #414863;
     --footer-bg: #161720;
     --footer-text: #787c99;
@@ -30,7 +31,8 @@
     --button-primary-hover: #d6c1f1;
     --button-secondary-bg: #414863;
     --button-secondary-hover: #545c77;
-    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow:
+        0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     --border-color: #414863;
     --footer-bg: #161720;
     --footer-text: #787c99;
@@ -51,7 +53,8 @@
     --button-primary-hover: #e69996;
     --button-secondary-bg: #e6e1e8;
     --button-secondary-hover: #d5cfd7;
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --border-color: #e6e1e8;
     --footer-bg: #e6e1e8;
     --footer-text: #9893a5;
@@ -72,7 +75,9 @@
     --button-primary-hover: #3b82f6; /* blue-500 */
     --button-secondary-bg: #334155; /* slate-700 */
     --button-secondary-hover: #475569; /* slate-600 */
-    --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow:
+        0 20px 25px -5px rgba(0, 0, 0, 0.1),
+        0 10px 10px -5px rgba(0, 0, 0, 0.04);
     --border-color: #334155; /* slate-700 */
     --footer-bg: #020617; /* slate-950 */
     --footer-text: #64748b; /* slate-500 */
@@ -85,8 +90,10 @@
 body {
     background-color: var(--body-bg);
     color: var(--text-color);
-    font-family: 'Inter', sans-serif;
-    transition: background-color 0.5s ease, color 0.5s ease;
+    font-family: "Inter", sans-serif;
+    transition:
+        background-color 0.5s ease,
+        color 0.5s ease;
 }
 
 .nav-link {
@@ -178,7 +185,12 @@ main {
 .animated-background {
     animation: background-pan 30s linear infinite;
     background-size: 200% auto;
-    background-image: linear-gradient(to right, var(--body-bg), var(--nav-bg), var(--body-bg));
+    background-image: linear-gradient(
+        to right,
+        var(--body-bg),
+        var(--nav-bg),
+        var(--body-bg)
+    );
     transition: background-image 0.5s ease;
     position: fixed;
     top: 0;
@@ -191,7 +203,9 @@ main {
 .drop-in-element {
     opacity: 0;
     transform: translateY(-50px);
-    transition: opacity 0.8s cubic-bezier(.25,.8,.25,1), transform 0.8s cubic-bezier(.25,.8,.25,1);
+    transition:
+        opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1),
+        transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
     will-change: opacity, transform;
 }
 
@@ -207,6 +221,6 @@ main {
 
 /* Drop-up menu styles */
 #dropup-menu.open {
-opacity: 1;
-transform: scale(1);
+    opacity: 1;
+    transform: scale(1);
 }
