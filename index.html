@@ -1,878 +1,499 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Saugat Chaudhary Tharu | Portfolio</title>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-            rel="stylesheet"
-        />
-        <link rel="stylesheet" href="style.css" />
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saugat Chaudhary Tharu - AI/ML Enthusiast & Full Stack Developer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
     <body>
-        <div
-            id="app-container"
-            class="relative min-h-screen font-sans transition-colors duration-500 overflow-hidden"
-        >
-            <div id="animated-background" class="animated-background"></div>
+    <!-- Parallax Background -->
+    <div class="parallax-container">
+        <div class="parallax-layer parallax-back"></div>
+        <div class="parallax-layer parallax-mid"></div>
+        <div class="parallax-layer parallax-front"></div>
+    </div>
 
-            <div
-                id="main-content-wrapper"
-                class="flex min-h-screen bg-opacity-80 backdrop-blur-sm transition-colors duration-500"
-            >
-                <button
-                    id="mobile-menu-button"
-                    class="md:hidden fixed top-4 left-4 z-50 p-2 rounded-full transition-colors duration-500"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16"
-                        />
-                    </svg>
-                </button>
-
-                <nav
-                    id="sidebar"
-                    class="fixed inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition-transform duration-300 ease-in-out w-20 z-40 p-4 flex flex-col justify-between items-center shadow-lg"
-                >
-                    <div class="flex-1 flex flex-col items-center">
-                        <button
-                            id="theme-toggle"
-                            class="p-2 rounded-full focus:outline-none transition-colors duration-500 mb-8"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                            >
-                                <path
-                                    d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm0 18c4.41 0 8-3.59 8-8s-3.59-8-8-8-8 3.59-8 8 3.59 8 8 8zM8.5 10c0 .83.67 1.5 1.5 1.5.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5c-.83 0-1.5.67-1.5 1.5zm5.5 0c0 .83.67 1.5 1.5 1.5.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5c-.83 0-1.5.67-1.5 1.5zM12 16.5c-2.33 0-4.32-1.35-5.32-3.28.31-1.46.91-2.91 1.76-4.22.46-.71.95-1.39 1.46-2.02.77-.96 1.74-1.78 2.8-2.42A7.94 7.94 0 0112 4c-4.41 0-8 3.59-8 8s3.59 8 8 8zm-2.48-1.5c.82 0 1.48-.66 1.48-1.48S10.84 12 10 12s-1.48.66-1.48 1.48.66 1.48 1.48 1.48zm4.96 0c.82 0 1.48-.66 1.48-1.48S15.84 12 15 12s-1.48.66-1.48 1.48.66 1.48 1.48 1.48z"
-                                />
-                            </svg>
-                        </button>
-                        <div class="flex flex-col space-y-4 text-xl">
-                            <a
-                                href="#home"
-                                class="nav-link home-link group flex flex-col items-center p-3 rounded-lg transition-colors duration-300 relative"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="w-6 h-6"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M2.25 12l8.954-8.955c.44-.439 1.144-.439 1.583 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125h9.75a1.125 1.125 0 001.125-1.125V9.75M8.25 21.75h8.25"
-                                    />
-                                </svg>
-                            </a>
-                            <a
-                                href="#about"
-                                class="nav-link about-link group flex flex-col items-center p-3 rounded-lg transition-colors duration-300 relative"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="w-6 h-6"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A10.858 10.858 0 0112 21a10.858 10.858 0 01-7.499-.882z"
-                                    />
-                                </svg>
-                            </a>
-                            <a
-                                href="#skills"
-                                class="nav-link skills-link group flex flex-col items-center p-3 rounded-lg transition-colors duration-300 relative"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="w-6 h-6"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M6 13.5V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v7.5m-11.25 0L4.5 20.25l1.5-1.5 1.5 1.5M12 12v6m-3-3h6m3 0l3 3-3-3M12 12V6m-3-3l-3 3-3-3"
-                                    />
-                                </svg>
-                            </a>
-                            <a
-                                href="#projects"
-                                class="nav-link projects-link group flex flex-col items-center p-3 rounded-lg transition-colors duration-300 relative"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="w-6 h-6"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-4.5-5.625v4.25m4.5-4.25a2.25 2.25 0 00-2.25-2.25H4.5A2.25 2.25 0 002.25 12v3.75m19.5-2.25H2.25V15m19.5 0v3.75a2.25 2.25 0 01-2.25 2.25H4.5a2.25 2.25 0 01-2.25-2.25V15"
-                                    />
-                                </svg>
-                            </a>
-                            <a
-                                href="#contact"
-                                class="nav-link contact-link group flex flex-col items-center p-3 rounded-lg transition-colors duration-300 relative"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="w-6 h-6"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25H4.5a2.25 2.25 0 01-2.25-2.25V6.75M2.25 6.75l9.75 5.25m0 0l9.75-5.25M12 12.75v6"
-                                    />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <footer class="mt-auto text-sm text-center opacity-70">
-                        <div
-                            class="rotate-0 md:rotate-90 origin-bottom-left md:origin-center whitespace-nowrap"
-                        >
-                            Designed and Built by Saugat Chaudhary Tharu
-                        </div>
-                    </footer>
-                </nav>
-
-                <main
-                    id="main-content"
-                    class="flex-1 p-6 md:p-12 md:ml-20 transition-all duration-300 ease-in-out border rounded-2xl mt-5"
-                >
-                    <section
-                        id="home"
-                        class="flex flex-col items-center justify-between min-h-screen pt-16 md:pt-24 md:flex-row"
-                    >
-                        <div class="flex-1 text-center md:text-left">
-                            <h1
-                                class="text-4xl md:text-6xl font-extrabold leading-tight"
-                            >
-                                Hey, I'm
-                                <span class="accent-color">Saugat</span>
-                            </h1>
-                            <p
-                                class="mt-4 md:mt-6 text-xl md:text-2xl font-light"
-                            >
-                                A Computer Science Student with a passion for
-                                <span class="accent-color"
-                                    >AI and Software Development</span
-                                >.
-                            </p>
-                            <div
-                                class="mt-8 flex justify-center md:justify-start space-x-4"
-                            >
-                                <a
-                                    href="https://www.linkedin.com/in/saugat-chaudhary-19653b33b/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="button-primary-bg button-primary-hover text-white font-semibold py-2 px-6 rounded-full transition duration-300 shadow-lg"
-                                    >LinkedIn</a
-                                >
-                                <a
-                                    href="https://github.com/ColdWistler"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="button-secondary-bg button-secondary-hover text-white font-semibold py-2 px-6 rounded-full transition duration-300 shadow-lg"
-                                    >GitHub</a
-                                >
-                            </div>
-                        </div>
-                        <div class="flex-1 mt-12 md:mt-0 md:ml-12 text-center">
-                            <div
-                                class="profile-placeholder w-48 h-48 md:w-64 md:h-64 rounded-full flex items-center justify-center mx-auto shadow-lg border-4"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor"
-                                    class="w-40 h-40 md:w-56 md:h-56 p-2"
-                                >
-                                    <path
-                                        fill-rule="evenodd"
-                                        d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.73 0-5.34-1.071-7.25-2.981a.75.75 0 01-.438-.695z"
-                                        clip-rule="evenodd"
-                                    />
-                                </svg>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section id="about" class="py-20 md:py-24 drop-in-element">
-                        <h2
-                            class="text-3xl md:text-4xl font-bold text-center mb-8"
-                        >
-                            About Me
-                        </h2>
-                        <div class="component-bg p-8 rounded-lg shadow-lg">
-                            <p class="text-lg leading-relaxed">
-                                A highly motivated and results-driven Computer
-                                Science student specializing in Artificial
-                                Intelligence, eager to apply foundational
-                                programming knowledge and practical project
-                                experience to real-world challenges. Seeking an
-                                entry-level position to contribute to innovative
-                                teams and further develop expertise in AI, data
-                                analysis, and software development.
-                            </p>
-                            <div
-                                class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8"
-                            >
-                                <div class="flex items-start space-x-4">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-6 w-6 accent-color flex-shrink-0"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
-                                        />
-                                    </svg>
-                                    <div>
-                                        <h3 class="font-semibold">Contact</h3>
-                                        <p>+977 9865711754</p>
-                                        <p>csaugat862@gmail.com</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-4">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-6 w-6 accent-color flex-shrink-0"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                                        />
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                                        />
-                                    </svg>
-                                    <div>
-                                        <h3 class="font-semibold">Location</h3>
-                                        <p>
-                                            Thaiba, Lalitpur, Bagmati Province,
-                                            Nepal
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-4">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-6 w-6 accent-color flex-shrink-0"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M21 13.255A23.931 23.931 0 0112 15.255c-2.478 0-4.87-.412-7.143-1.29a2.004 2.004 0 01-.857-1.782v-2.115c0-1.288.948-2.348 2.213-2.522 1.956-.264 4.01-.396 6.13-.396s4.174.132 6.13.396c1.265.174 2.213 1.234 2.213 2.522v2.115a2.004 2.004 0 01-.857 1.782z"
-                                        />
-                                    </svg>
-                                    <div>
-                                        <h3 class="font-semibold">Education</h3>
-                                        <div>
-                                            <p>Bachelor of Computer Science</p>
-                                            <p class="text-sm">
-                                                IIMS College, Dhobidhara
-                                            </p>
-                                            <p class="text-xs text-gray-500">
-                                                Expected Graduation: Jan 2027
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <p>High School Diploma</p>
-                                            <p class="text-sm">
-                                                ST. XAVIER'S SCHOOL, GODAVARI
-                                            </p>
-                                            <p class="text-xs text-gray-500">
-                                                Graduation: 2080 B.S. (approx.
-                                                May 2024)
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section id="skills" class="py-20 md:py-24 drop-in-element">
-                        <h2
-                            class="text-3xl md:text-4xl font-bold text-center mb-8"
-                        >
-                            Skills
-                        </h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div
-                                class="component-bg p-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-[1.02]"
-                            >
-                                <h3
-                                    class="text-xl font-semibold accent-color capitalize mb-2"
-                                >
-                                    Programming
-                                </h3>
-                                <p>C/C++, Rust, Python, JAVA</p>
-                            </div>
-                            <div
-                                class="component-bg p-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-[1.02]"
-                            >
-                                <h3
-                                    class="text-xl font-semibold accent-color capitalize mb-2"
-                                >
-                                    AI/ML
-                                </h3>
-                                <p>Tensorflow, Burn, Pytorch.</p>
-                            </div>
-                            <div
-                                class="component-bg p-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-[1.02]"
-                            >
-                                <h3
-                                    class="text-xl font-semibold accent-color capitalize mb-2"
-                                >
-                                    Database
-                                </h3>
-                                <p>Firebase, MySQL, Hive</p>
-                            </div>
-                            <div
-                                class="component-bg p-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-[1.02]"
-                            >
-                                <h3
-                                    class="text-xl font-semibold accent-color capitalize mb-2"
-                                >
-                                    Operating Systems
-                                </h3>
-                                <p>Linux/Windows</p>
-                            </div>
-                            <div
-                                class="component-bg p-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-[1.02]"
-                            >
-                                <h3
-                                    class="text-xl font-semibold accent-color capitalize mb-2"
-                                >
-                                    Tools
-                                </h3>
-                                <p>Docker, IDEs & Anaconda</p>
-                            </div>
-                            <div
-                                class="component-bg p-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-[1.02]"
-                            >
-                                <h3
-                                    class="text-xl font-semibold accent-color capitalize mb-2"
-                                >
-                                    Soft Skills
-                                </h3>
-                                <p>
-                                    Problem-Solving, Critical thinking,
-                                    Adaptability, Team Collaboration, Technical
-                                    Communication
-                                </p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section
-                        id="projects"
-                        class="py-20 md:py-24 drop-in-element"
-                    >
-                        <h2
-                            class="text-3xl md:text-4xl font-bold text-center mb-8"
-                        >
-                            Projects
-                        </h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div
-                                class="component-bg p-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-[1.02] cursor-pointer"
-                            >
-                                <div
-                                    class="flex items-center space-x-4 mb-4 accent-color"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-10 w-10 md:h-12 md:w-12"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="1"
-                                            d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                        />
-                                    </svg>
-                                    <h3 class="text-xl font-semibold">
-                                        <a
-                                            href="https://github.com/ColdWistler/WildFire-AlertSystemUAV"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="hover:underline"
-                                            >Wildfire Alert System (UAV)</a
-                                        >
-                                    </h3>
-                                </div>
-                                <p
-                                    class="text-sm font-medium accent-color mb-4"
-                                >
-                                    PyTorch, ResNet CNN, Transformer Encoder,
-                                    GPU training
-                                </p>
-                                <p>
-                                    A CNN + Transformer based disaster warning
-                                    system. Built a fire detection model using
-                                    PyTorch and ResNet CNN. The system
-                                    incorporated a Transformer Encoder for
-                                    enhanced analysis, used data augmentation
-                                    and GPU for performance, and was evaluated
-                                    using ROC and confusion matrices.
-                                </p>
-                            </div>
-                            <div
-                                class="component-bg p-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-[1.02] cursor-pointer"
-                            >
-                                <div
-                                    class="flex items-center space-x-4 mb-4 accent-color"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-10 w-10 md:h-12 md:w-12"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="1"
-                                            d="M9 12h6m-6 4h6m2-6l-3-3-3 3M18 19l-3 3-3-3M3 6l3-3 3 3M6 18l3 3 3-3M12 21a9 9 0 11-18 0 9 9 0 0118 0z"
-                                        />
-                                    </svg>
-                                    <h3 class="text-xl font-semibold">
-                                        <a
-                                            href="https://github.com/ColdWistler/CV_DevnagriDetection"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="hover:underline"
-                                            >CV Devnagri Text Detection</a
-                                        >
-                                    </h3>
-                                </div>
-                                <p
-                                    class="text-sm font-medium accent-color mb-4"
-                                >
-                                    CNN (Convolutional Neural Network), Transfer
-                                    Learning, Data Augmentation, Tensorflow
-                                </p>
-                                <p>
-                                    Developed a CNN-based system for handwritten
-                                    Devanagari text recognition. The project
-                                    involved image segmentation, applying
-                                    transfer learning to improve model accuracy,
-                                    and using data augmentation to expand the
-                                    training dataset.
-                                </p>
-                            </div>
-                            <div
-                                class="component-bg p-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-[1.02] cursor-pointer"
-                            >
-                                <div
-                                    class="flex items-center space-x-4 mb-4 accent-color"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-10 w-10 md:h-12 md:w-12"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="1"
-                                            d="M13 10V3L4 14h7v7l9-11h-7z"
-                                        />
-                                    </svg>
-                                    <h3 class="text-xl font-semibold">
-                                        <a
-                                            href="https://github.com/ColdWistler/Genetic-Algorithm"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="hover:underline"
-                                            >Smart Grid Optimization</a
-                                        >
-                                    </h3>
-                                </div>
-                                <p
-                                    class="text-sm font-medium accent-color mb-4"
-                                >
-                                    CUDA, Genetic Algorithm, PyTorch
-                                </p>
-                                <p>
-                                    Optimized 24-hour energy distribution for a
-                                    smart grid using a CUDA-accelerated Genetic
-                                    Algorithm. The project was implemented on
-                                    simulated smart grid data to improve energy
-                                    efficiency and distribution.
-                                </p>
-                            </div>
-                            <div
-                                class="component-bg p-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-[1.02] cursor-pointer"
-                            >
-                                <div
-                                    class="flex items-center space-x-4 mb-4 accent-color"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-10 w-10 md:h-12 md:w-12"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="1"
-                                            d="M7 12l2 2 4-4m5 4l-4-4 4-4m-4-4v12a2 2 0 01-2 2h-8a2 2 0 01-2-2V4a2 2 0 012-2h8a2 2 0 012 2v8z"
-                                        />
-                                    </svg>
-                                    <h3 class="text-xl font-semibold">
-                                        <a
-                                            href="https://github.com/ColdWistler/KalimatiMachineLearning-"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="hover:underline"
-                                            >Kalimati Machine Learning</a
-                                        >
-                                    </h3>
-                                </div>
-                                <p
-                                    class="text-sm font-medium accent-color mb-4"
-                                >
-                                    CUDA, PyTorch, Python, Scikit-learn, Pandas,
-                                    Matplotlib
-                                </p>
-                                <p>
-                                    An AI/ML based price prediction system for
-                                    agricultural goods. Developed a machine
-                                    learning model to predict vegetable prices
-                                    at the Kalimati market. This project
-                                    involved data analysis, feature engineering,
-                                    and evaluating model performance to provide
-                                    accurate price forecasts.
-                                </p>
-                            </div>
-                            <div
-                                class="component-bg p-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-[1.02] cursor-pointer"
-                            >
-                                <div
-                                    class="flex items-center space-x-4 mb-4 accent-color"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-10 w-10 md:h-12 md:w-12"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="M4 16h16M4 8h16m-4 8v4a2 2 0 01-2 2h-4a2 2 0 01-2-2v-4m-2 0V4a2 2 0 012-2h4a2 2 0 012 2v4m-2 0h-4m2 0a2 2 0 110-4 2 2 0 010 4z"
-                                        />
-                                    </svg>
-                                    <h3 class="text-xl font-semibold">
-                                        <a
-                                            href="https://github.com/ColdWistler/SyntheticDataAnalytics"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="hover:underline"
-                                            >Synthetic Data Analytics</a
-                                        >
-                                    </h3>
-                                </div>
-                                <p
-                                    class="text-sm font-medium accent-color mb-4"
-                                >
-                                    Python, Pandas, NumPy, Matplotlib, PyTorch,
-                                    CUDA
-                                </p>
-                                <p>
-                                    Data analysis and visualization project on a
-                                    synthetic dataset. Explored and analyzed a
-                                    synthetic dataset to derive meaningful
-                                    insights. The project focused on data
-                                    cleaning, statistical analysis, and creating
-                                    visualizations to present findings
-                                    effectively.
-                                </p>
-                            </div>
-                            <div
-                                class="component-bg p-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-[1.02] cursor-pointer"
-                            >
-                                <div
-                                    class="flex items-center space-x-4 mb-4 accent-color"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-10 w-10 md:h-12 md:w-12"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="1"
-                                            d="M9 17v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6h2a2 2 0 002-2zM15 17v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6h2a2 2 0 002-2zM21 17v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6h2a2 2 0 002-2z"
-                                        />
-                                    </svg>
-                                    <h3 class="text-xl font-semibold">
-                                        <a href="#" class="hover:underline"
-                                            >Health Care Data Analysis</a
-                                        >
-                                    </h3>
-                                </div>
-                                <p
-                                    class="text-sm font-medium accent-color mb-4"
-                                >
-                                    Python, PySpark, Hadoop, Hive, Docker
-                                </p>
-                                <p>
-                                    Analysis of a large-scale dataset using big
-                                    data tools. Processed and analyzed a large
-                                    dataset to identify trends and patterns.
-                                    This project demonstrates proficiency in
-                                    using big data technologies to handle and
-                                    interpret complex information.
-                                </p>
-                            </div>
-                            <div
-                                class="component-bg p-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-[1.02] cursor-pointer"
-                            >
-                                <div
-                                    class="flex items-center space-x-4 mb-4 accent-color"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-10 w-10 md:h-12 md:w-12"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="M10 20.25c0 .414-.336.75-.75.75h-.5a.75.75 0 01-.75-.75V19.5c0-.414.336-.75.75-.75h.5a.75.75 0 01.75.75v.75zM14 20.25c0 .414-.336.75-.75.75h-.5a.75.75 0 01-.75-.75V19.5c0-.414.336-.75.75-.75h.5a.75.75 0 01.75.75v.75zM12 21c-.414 0-.75-.336-.75-.75v-.5a.75.75 0 01.75-.75h.5a.75.75 0 01.75.75v.5c0 .414-.336.75-.75.75z"
-                                        />
-                                    </svg>
-                                    <h3 class="text-xl font-semibold">
-                                        <a
-                                            href="https://github.com/ColdWistler/VisiNepal"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="hover:underline"
-                                            >VISINEPAL</a
-                                        >
-                                    </h3>
-                                </div>
-                                <p
-                                    class="text-sm font-medium accent-color mb-4"
-                                >
-                                    JAVA, CSS, JavaFX
-                                </p>
-                                <p>
-                                    Travel and tourism website for exploring
-                                    destinations in Nepal. Designed and
-                                    implemented a full-stack website to showcase
-                                    various tourist locations in Nepal. The site
-                                    provides detailed information and a
-                                    user-friendly interface to help travelers
-                                    plan their trips.
-                                </p>
-                            </div>
-                            <div
-                                class="component-bg p-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-[1.02] cursor-pointer"
-                            >
-                                <div
-                                    class="flex items-center space-x-4 mb-4 accent-color"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-10 w-10 md:h-12 md:w-12"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="1"
-                                            d="M19 11l-7 7-7-7m7 7V5"
-                                        />
-                                    </svg>
-                                    <h3 class="text-xl font-semibold">
-                                        <a
-                                            href="https://github.com/ColdWistler/Agrifresh-Fresh-Veggies"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="hover:underline"
-                                            >AGRIFRESH - FRESH VEGGIES</a
-                                        >
-                                    </h3>
-                                </div>
-                                <p
-                                    class="text-sm font-medium accent-color mb-4"
-                                >
-                                    Flutter, Firebase, Dart
-                                </p>
-                                <p>
-                                    Full-stack e-commerce platform for fresh
-                                    produce. Built a complete e-commerce website
-                                    for a fresh vegetable business. Features
-                                    include a product catalog, shopping cart
-                                    functionality, and a backend for managing
-                                    inventory and orders.
-                                </p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section
-                        id="contact"
-                        class="py-20 md:py-24 text-center drop-in-element"
-                    >
-                        <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                            Get in Touch
-                        </h2>
-                        <p class="text-lg mb-8">
-                            Feel free to reach out to me via email or phone.
-                        </p>
-                        <a
-                            href="mailto:csaugat862@gmail.com"
-                            class="button-primary-bg button-primary-hover text-white font-semibold py-3 px-8 rounded-full transition duration-300 shadow-lg"
-                        >
-                            Email Me
-                        </a>
-                    </section>
-                </main>
+    <!-- Floating Particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-snowflake"></i>
+                <span>Saugat</span>
             </div>
-
-            <div class="fixed bottom-4 right-4 z-50">
-                <div
-                    id="dropup-menu"
-                    class="mb-3 p-2 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out opacity-0 scale-95"
-                >
-                    <ul class="flex flex-col space-y-2">
-                        <li>
-                            <button
-                                data-section="home"
-                                class="dropup-link block w-full text-left py-2 px-4 rounded-md transition-colors duration-200"
-                            >
-                                Home
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                data-section="about"
-                                class="dropup-link block w-full text-left py-2 px-4 rounded-md transition-colors duration-200"
-                            >
-                                About
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                data-section="skills"
-                                class="dropup-link block w-full text-left py-2 px-4 rounded-md transition-colors duration-200"
-                            >
-                                Skills
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                data-section="projects"
-                                class="dropup-link block w-full text-left py-2 px-4 rounded-md transition-colors duration-200"
-                            >
-                                Projects
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                data-section="contact"
-                                class="dropup-link block w-full text-left py-2 px-4 rounded-md transition-colors duration-200"
-                            >
-                                Contact
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-                <button
-                    id="dropup-toggle"
-                    class="w-12 h-12 flex items-center justify-center rounded-full shadow-lg transition-all duration-300 ease-in-out hover:scale-110"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="2.5"
-                        stroke="currentColor"
-                        class="w-6 h-6"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                        />
-                    </svg>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#algorithms" class="nav-link">Algorithms</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#other-projects" class="nav-link">Other Projects</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="theme-switcher">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Theme (Ctrl+K)">
+                    <i class="fas fa-palette"></i>
                 </button>
+                <div class="theme-dropdown" id="themeDropdown">
+                    <div class="theme-option" data-theme="mocha">
+                        <span class="theme-preview mocha-preview"></span>
+                        <span>Mocha</span>
+                        <span class="theme-shortcut">1</span>
+                    </div>
+                    <div class="theme-option" data-theme="macchiato">
+                        <span class="theme-preview macchiato-preview"></span>
+                        <span>Macchiato</span>
+                        <span class="theme-shortcut">2</span>
+                    </div>
+                    <div class="theme-option" data-theme="frappe">
+                        <span class="theme-preview frappe-preview"></span>
+                        <span>Frappé</span>
+                        <span class="theme-shortcut">3</span>
+                    </div>
+                    <div class="theme-option" data-theme="latte">
+                        <span class="theme-preview latte-preview"></span>
+                        <span>Latte</span>
+                        <span class="theme-shortcut">4</span>
+                    </div>
+                    <div class="theme-hint">
+                        <span>Press 1-4 to switch</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
+    </nav>
 
-        <script src="script.js"></script>
-    </body>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <canvas id="matrixCanvas" class="matrix-bg"></canvas>
+        <div class="hero-background">
+            <div class="animated-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+                <div class="shape shape-5"></div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="typing-text">
+                <h1>👋 Hi, I'm Saugat Chaudhary Tharu</h1>
+                <div class="subtitle">
+                    <span id="typing-text"></span>
+                </div>
+            </div>
+            <div class="hero-description">
+                <p>🤖 AI/ML Enthusiast | 💻 Full Stack Developer | 🌟 Professional Dumbass</p>
+                <p>Passionate AI/ML developer with a focus on computer vision, intelligent systems, and real-world problem solving.</p>
+                <p class="fun-fact">💭 *I may be slow to respond, but I'm always thinking about next big project!*</p>
+            </div>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Algorithm Visualization Section -->
+    <section id="algorithms" class="algorithms-section">
+        <div class="container">
+            <h2 class="section-title">⚡ Algorithm Visualization</h2>
+            <div class="algorithm-showcase">
+                <div class="algorithm-container">
+                    <h3>📊 Sorting Algorithms</h3>
+                    <div class="sorting-controls">
+                        <button class="sort-btn" data-algorithm="bubble">Bubble Sort</button>
+                        <button class="sort-btn" data-algorithm="quick">Quick Sort</button>
+                        <button class="sort-btn" data-algorithm="merge">Merge Sort</button>
+                        <button class="sort-btn" id="resetSort">Reset</button>
+                    </div>
+                    <canvas id="sortingCanvas" class="sorting-canvas"></canvas>
+                </div>
+
+                <div class="algorithm-container">
+                    <h3>🧠 Neural Network</h3>
+                    <div class="neural-info">
+                        <span class="neural-stat">Layers: <span id="layerCount">3</span></span>
+                        <span class="neural-stat">Neurons: <span id="neuronCount">12</span></span>
+                    </div>
+                    <canvas id="neuralCanvas" class="neural-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">🚀 About Me</h2>
+            <div class="about-decoration">
+                <div class="floating-icon floating-icon-1">🤖</div>
+                <div class="floating-icon floating-icon-2">💻</div>
+                <div class="floating-icon floating-icon-3">🧠</div>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Passionate AI/ML developer with a focus on computer vision, intelligent systems, and real-world problem solving. I believe in learning by doing and embrace the journey of continuous improvement.</p>
+                    <p>I work with cutting-edge technologies including Rust-based ML frameworks like Burn, traditional Python ML stacks, and full-stack development tools. My goal is to build intelligent systems that make a real impact.</p>
+                    <div class="about-highlights">
+                        <div class="highlight-item">
+                            <i class="fas fa-robot"></i>
+                            <span>AI/ML Enthusiast</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-code"></i>
+                            <span>Full Stack Developer</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-brain"></i>
+                            <span>Computer Vision</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Rust & Systems Programming</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">🤖 AI & Machine Learning Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>🔥 WildFire Alert System</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag python"><i class="fab fa-python"></i> Python</span>
+                            <span class="tech-tag opencv"><i class="fas fa-eye"></i> OpenCV</span>
+                            <span class="tech-tag jupyter"><i class="fas fa-book"></i> Jupyter</span>
+                        </div>
+                    </div>
+                    <p>AI-powered wildfire detection using UAV technology for early warning and prevention systems.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/ColdWistler/WildFire-AlertSystemUAV" target="_blank">
+                            <i class="fab fa-github"></i> View Project
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>👁️ Object Detection</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag tensorflow"><i class="fas fa-brain"></i> TensorFlow</span>
+                            <span class="tech-tag opencv"><i class="fas fa-eye"></i> OpenCV</span>
+                            <span class="tech-tag agpl"><i class="fas fa-file-code"></i> AGPL v3.0</span>
+                        </div>
+                    </div>
+                    <p>Advanced computer vision system for real-time object detection and classification.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/ColdWistler/ObjectDetection" target="_blank">
+                            <i class="fab fa-github"></i> View Project
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>🔤 Devanagri Detection</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag ocr"><i class="fas fa-qrcode"></i> OCR</span>
+                            <span class="tech-tag sklearn"><i class="fas fa-chart-line"></i> Scikit-Learn</span>
+                        </div>
+                    </div>
+                    <p>Computer vision for Devanagari script detection and recognition systems.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/ColdWistler/CV_DevnagriDetection" target="_blank">
+                            <i class="fab fa-github"></i> View Project
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>🧬 Genetic Algorithm</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag algorithm"><i class="fas fa-cogs"></i> Algorithm</span>
+                            <span class="tech-tag evolution"><i class="fas fa-dna"></i> Evolution</span>
+                        </div>
+                    </div>
+                    <p>Optimization algorithms implementing genetic approaches for complex problem solving.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/ColdWistler/Genetic-Algorithm" target="_blank">
+                            <i class="fab fa-github"></i> View Project
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="more-projects">
+                <h3>🔍 More AI Projects</h3>
+                <div class="project-list">
+                    <div class="list-item">
+                        <a href="https://github.com/ColdWistler/SyntheticDataAnalytics" target="_blank">
+                            📊 SyntheticDataAnalytics - Advanced analytics on synthetic datasets for ML model training
+                        </a>
+                    </div>
+                    <div class="list-item">
+                        <a href="https://github.com/ColdWistler/KalimatiMachineLearning-" target="_blank">
+                            🛒 KalimatiML - Machine learning for local market data analysis
+                        </a>
+                    </div>
+                    <div class="list-item">
+                        <a href="https://github.com/ColdWistler/BigDataAssignment2" target="_blank">
+                            📈 BigDataAssignment2 - Big data processing and analytics implementation
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Other Notable Projects Section -->
+    <section id="other-projects" class="other-projects">
+        <div class="container">
+            <h2 class="section-title">🌟 Other Notable Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>📚 Idiot's Guide to Programming</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag python"><i class="fab fa-python"></i> Python</span>
+                            <span class="tech-tag jupyter"><i class="fas fa-book-open"></i> Documentation</span>
+                        </div>
+                    </div>
+                    <p>Comprehensive programming guide for beginners - making complex concepts simple!</p>
+                    <div class="project-links">
+                        <a href="https://github.com/ColdWistler/Idiot-s-Guide-to-Programming." target="_blank">
+                            <i class="fab fa-github"></i> View Project
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>🏪 Agrifresh Apps</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag algorithm"><i class="fas fa-mobile-alt"></i> Flutter</span>
+                            <span class="tech-tag dart"><i class="fas fa-code"></i> Dart</span>
+                            <span class="tech-tag python"><i class="fas fa-mobile"></i> Mobile</span>
+                        </div>
+                    </div>
+                    <p>Fresh vegetables delivery app built with Flutter/Dart - connecting farmers to consumers.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/ColdWistler/AgrifreshAPP" target="_blank">
+                            <i class="fab fa-github"></i> View Project
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>🏛️ VisiNepal</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag tensorflow"><i class="fab fa-java"></i> Java</span>
+                            <span class="tech-tag opencv"><i class="fas fa-desktop"></i> Desktop</span>
+                        </div>
+                    </div>
+                    <p>Java-based application showcasing Nepalese cultural heritage and tourism.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/ColdWistler/VisiNepal" target="_blank">
+                            <i class="fab fa-github"></i> View Project
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>⚙️ Arch Linux Setup</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag algorithm"><i class="fab fa-linux"></i> Linux</span>
+                            <span class="tech-tag evolution"><i class="fab fa-archlinux"></i> Arch Linux</span>
+                            <span class="tech-tag python"><i class="fas fa-cog"></i> Configuration</span>
+                        </div>
+                    </div>
+                    <p>My personalized Arch Linux configuration - rice, themes, and productivity tools.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/ColdWistler/ArchLinux-Dots" target="_blank">
+                            <i class="fab fa-github"></i> View Project
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">🛠️ Tech Stack & Skills</h2>
+
+            <div class="skills-container">
+                <div class="skill-group">
+                    <div class="skill-category-title">🤖 AI/ML</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
+                        <span class="skill-tag"><i class="fas fa-brain"></i> TensorFlow</span>
+                        <span class="skill-tag"><i class="fas fa-fire"></i> PyTorch</span>
+                        <span class="skill-tag"><i class="fas fa-eye"></i> OpenCV</span>
+                        <span class="skill-tag"><i class="fas fa-chart-line"></i> Scikit-Learn</span>
+                        <span class="skill-tag"><i class="fas fa-robot"></i> HuggingFace</span>
+                        <span class="skill-tag"><i class="fas fa-project-diagram"></i> Transformers</span>
+                        <span class="skill-tag"><i class="fas fa-link"></i> LangChain</span>
+                        <span class="skill-tag"><i class="fas fa-cube"></i> ONNX</span>
+                        <span class="skill-tag"><i class="fas fa-fire-alt"></i> Burn</span>
+                        <span class="skill-tag"><i class="fas fa-fire"></i> Candle</span>
+                        <span class="skill-tag"><i class="fas fa-horse"></i> LLaMA</span>
+                        <span class="skill-tag"><i class="fas fa-bullseye"></i> YOLO</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <div class="skill-category-title">🦀 Systems</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag"><i class="fab fa-rust"></i> Rust</span>
+                        <span class="skill-tag"><i class="fas fa-code"></i> C++</span>
+                        <span class="skill-tag"><i class="fas fa-bolt"></i> Go</span>
+                        <span class="skill-tag"><i class="fas fa-zigzag"></i> Zig</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <div class="skill-category-title">💻 Languages</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag"><i class="fab fa-java"></i> Java</span>
+                        <span class="skill-tag"><i class="fas fa-code"></i> Dart</span>
+                        <span class="skill-tag"><i class="fab fa-js"></i> JavaScript</span>
+                        <span class="skill-tag"><i class="fab fa-js-square"></i> TypeScript</span>
+                        <span class="skill-tag"><i class="fas fa-terminal"></i> C</span>
+                        <span class="skill-tag"><i class="fas fa-moon"></i> Lua</span>
+                        <span class="skill-tag"><i class="fab fa-swift"></i> Swift</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <div class="skill-category-title">☁️ Cloud</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag"><i class="fab fa-aws"></i> AWS</span>
+                        <span class="skill-tag"><i class="fab fa-docker"></i> Docker</span>
+                        <span class="skill-tag"><i class="fas fa-dharmachakra"></i> Kubernetes</span>
+                        <span class="skill-tag"><i class="fab fa-github"></i> GitHub Actions</span>
+                        <span class="skill-tag"><i class="fas fa-infinity"></i> CI/CD</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <div class="skill-category-title">🔧 Tools</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag"><i class="fas fa-mobile-alt"></i> Flutter</span>
+                        <span class="skill-tag"><i class="fab fa-react"></i> React</span>
+                        <span class="skill-tag"><i class="fas fa-arrow-right"></i> Next.js</span>
+                        <span class="skill-tag"><i class="fas fa-book"></i> Jupyter</span>
+                        <span class="skill-tag"><i class="fab fa-linux"></i> Linux</span>
+                        <span class="skill-tag"><i class="fab fa-archlinux"></i> Arch Linux</span>
+                        <span class="skill-tag"><i class="fas fa-edit"></i> Neovim</span>
+                        <span class="skill-tag"><i class="fab fa-git-alt"></i> Git</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <div class="skill-category-title">🗄️ Data</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag"><i class="fas fa-database"></i> PostgreSQL</span>
+                        <span class="skill-tag"><i class="fas fa-leaf"></i> MongoDB</span>
+                        <span class="skill-tag"><i class="fas fa-server"></i> Redis</span>
+                        <span class="skill-tag"><i class="fas fa-database"></i> SQLite</span>
+                        <span class="skill-tag"><i class="fas fa-chart-bar"></i> Pandas</span>
+                        <span class="skill-tag"><i class="fas fa-calculator"></i> NumPy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">🤝 Let's Connect!</h2>
+            <div class="contact-content">
+                <p>I'm always interested in collaborating on exciting AI/ML projects or discussing new technologies!</p>
+                <div class="contact-buttons">
+                    <a href="https://github.com/ColdWistler" target="_blank" class="contact-btn">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/saugat-chaudhary-19653b33b" target="_blank" class="contact-btn">
+                        <i class="fab fa-linkedin"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="mailto:csaugat862@gmail.com" class="contact-btn">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email</span>
+                    </a>
+                </div>
+                <div class="contact-info">
+                    <p>📧 csaugat862@gmail.com | 💼 <a href="https://www.linkedin.com/in/saugat-chaudhary-19653b33b" target="_blank">LinkedIn Profile</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-animation">
+            <div class="pulse-circle pulse-1"></div>
+            <div class="pulse-circle pulse-2"></div>
+            <div class="pulse-circle pulse-3"></div>
+        </div>
+        <div class="container">
+            <div class="footer-content">
+                <div class="fun-fact">
+                    <h3>⭐ Fun Fact</h3>
+                    <p>Professional Dumbass who takes pride in learning through trial and error!</p>
+                    <p><em>"Code, break, fix, repeat - that's how we learn!"</em></p>
+                </div>
+                <div class="footer-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-eye"></i>
+                        <span>Profile Views</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <span>Visitors</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Saugat Chaudhary Tharu. Built with ❤️ using Catppuccin theme</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
 </html>
