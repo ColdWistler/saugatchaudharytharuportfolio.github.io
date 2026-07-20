@@ -1,148 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saugat Chaudhary Tharu - AI/ML Enthusiast & Full Stack Developer</title>
+    <title>Saugat Chaudhary Tharu — AI/ML & Full Stack Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6WK3YYB9J8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-6WK3YYB9J8');
-</script>
-
-    <body>
-    <!-- Parallax Background -->
-    <div class="parallax-container">
-        <div class="parallax-layer parallax-back"></div>
-        <div class="parallax-layer parallax-mid"></div>
-        <div class="parallax-layer parallax-front"></div>
-    </div>
-
-    <!-- Floating Particles -->
-    <div class="particles">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-    </div>
 <body>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
-                <i class="fas fa-snowflake"></i>
-                <span>Saugat</span>
-            </div>
+            <a href="#home" class="nav-logo">[SAUGAT]</a>
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#algorithms" class="nav-link">Algorithms</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#other-projects" class="nav-link">Other Projects</a></li>
+                <li><a href="#other-projects" class="nav-link">Other</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <div class="theme-switcher">
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Theme (Ctrl+K)">
-                    <i class="fas fa-palette"></i>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-sun" id="themeIcon"></i>
                 </button>
-                <div class="theme-dropdown" id="themeDropdown">
-                    <div class="theme-option" data-theme="mocha">
-                        <span class="theme-preview mocha-preview"></span>
-                        <span>Mocha</span>
-                        <span class="theme-shortcut">1</span>
-                    </div>
-                    <div class="theme-option" data-theme="macchiato">
-                        <span class="theme-preview macchiato-preview"></span>
-                        <span>Macchiato</span>
-                        <span class="theme-shortcut">2</span>
-                    </div>
-                    <div class="theme-option" data-theme="frappe">
-                        <span class="theme-preview frappe-preview"></span>
-                        <span>Frappé</span>
-                        <span class="theme-shortcut">3</span>
-                    </div>
-                    <div class="theme-option" data-theme="latte">
-                        <span class="theme-preview latte-preview"></span>
-                        <span>Latte</span>
-                        <span class="theme-shortcut">4</span>
-                    </div>
-                    <div class="theme-hint">
-                        <span>Press 1-4 to switch</span>
-                    </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
-            </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section id="home" class="hero">
-        <canvas id="matrixCanvas" class="matrix-bg"></canvas>
-        <div class="hero-background">
-            <div class="animated-shapes">
-                <div class="shape shape-1"></div>
-                <div class="shape shape-2"></div>
-                <div class="shape shape-3"></div>
-                <div class="shape shape-4"></div>
-                <div class="shape shape-5"></div>
-            </div>
-        </div>
-        <div class="hero-content">
-            <div class="typing-text">
-                <h1>👋 Hi, I'm Saugat Chaudhary Tharu</h1>
+        <div class="hero-split">
+            <div class="hero-left">
+                <p class="hero-greeting">HELLO, I'M</p>
+                <h1>Saugat Chaudhary<br>Tharu</h1>
                 <div class="subtitle">
+                    <span class="subtitle-prefix">&gt;&nbsp;</span>
                     <span id="typing-text"></span>
+                    <span class="cursor">|</span>
+                </div>
+                <p class="hero-tagline">AI/ML Enthusiast &middot; Full Stack Developer &middot; Professional Dumbass</p>
+                <p class="hero-desc">Passionate about computer vision, intelligent systems, and building things that matter.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="#contact" class="btn btn-outline">Get In Touch</a>
                 </div>
             </div>
-            <div class="hero-description">
-                <p>🤖 AI/ML Enthusiast | 💻 Full Stack Developer | 🌟 Professional Dumbass</p>
-                <p>Passionate AI/ML developer with a focus on computer vision, intelligent systems, and real-world problem solving.</p>
-                <p class="fun-fact">💭 *I may be slow to respond, but I'm always thinking about next big project!*</p>
-            </div>
-            <div class="hero-buttons">
-                <a href="#projects" class="btn btn-primary">View Projects</a>
-                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            <div class="hero-right">
+                <div class="hero-card">
+                    <div class="hero-card-row">
+                        <span class="hero-stat-label">STACK</span>
+                        <span class="hero-stat-val">Python, Rust, JS</span>
+                    </div>
+                    <div class="hero-card-row">
+                        <span class="hero-stat-label">FOCUS</span>
+                        <span class="hero-stat-val">AI / ML / CV</span>
+                    </div>
+                    <div class="hero-card-row">
+                        <span class="hero-stat-label">STATUS</span>
+                        <span class="hero-stat-val">BUILDING</span>
+                    </div>
+                    <div class="hero-card-row">
+                        <span class="hero-stat-label">LOCATION</span>
+                        <span class="hero-stat-val">Nepal</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Algorithm Visualization Section -->
+    <!-- Featured Project -->
+    <section id="featured" class="featured-project">
+        <div class="container">
+            <div class="featured-inner">
+                <span class="badge">CAPSTONE PROJECT</span>
+                <h2>Flight Sim DQN</h2>
+                <p>Godot 4.7 flight simulation with Dueling Double DQN (D3QN) reinforcement learning agents. Rust GDExtension for native performance, fixed-wing aircraft physics, and prioritized experience replay.</p>
+                <div class="featured-stats">
+                    <div class="stat-box">
+                        <span class="stat-val">D3QN</span>
+                        <span class="stat-lbl">Architecture</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-val">Rust</span>
+                        <span class="stat-lbl">Extension</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-val">512</span>
+                        <span class="stat-lbl">Hidden Units</span>
+                    </div>
+                </div>
+                <div class="featured-tags">
+                    <span class="tag">Godot</span>
+                    <span class="tag">Rust</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">Reinforcement Learning</span>
+                </div>
+                <a href="https://github.com/ColdWistler/Capstone2PCASSIE" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-github"></i> View Project
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Algorithm Visualization -->
     <section id="algorithms" class="algorithms-section">
         <div class="container">
-            <h2 class="section-title">⚡ Algorithm Visualization</h2>
+            <h2 class="section-title">ALGORITHMS</h2>
             <div class="algorithm-showcase">
                 <div class="algorithm-container">
-                    <h3>📊 Sorting Algorithms</h3>
+                    <h3>Sorting Algorithms</h3>
                     <div class="sorting-controls">
-                        <button class="sort-btn" data-algorithm="bubble">Bubble Sort</button>
-                        <button class="sort-btn" data-algorithm="quick">Quick Sort</button>
-                        <button class="sort-btn" data-algorithm="merge">Merge Sort</button>
-                        <button class="sort-btn" id="resetSort">Reset</button>
+                        <button class="btn btn-small sort-btn" data-algorithm="bubble">Bubble Sort</button>
+                        <button class="btn btn-small sort-btn" data-algorithm="quick">Quick Sort</button>
+                        <button class="btn btn-small sort-btn" data-algorithm="merge">Merge Sort</button>
+                        <button class="btn btn-small btn-outline sort-btn" id="resetSort">Reset</button>
                     </div>
                     <canvas id="sortingCanvas" class="sorting-canvas"></canvas>
                 </div>
-
                 <div class="algorithm-container">
-                    <h3>🧠 Neural Network</h3>
+                    <h3>Neural Network</h3>
                     <div class="neural-info">
                         <span class="neural-stat">Layers: <span id="layerCount">3</span></span>
                         <span class="neural-stat">Neurons: <span id="neuronCount">12</span></span>
@@ -153,35 +139,42 @@
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- About -->
     <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title">🚀 About Me</h2>
-            <div class="about-decoration">
-                <div class="floating-icon floating-icon-1">🤖</div>
-                <div class="floating-icon floating-icon-2">💻</div>
-                <div class="floating-icon floating-icon-3">🧠</div>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
+            <h2 class="section-title">ABOUT ME</h2>
+            <div class="about-split">
+                <div class="about-left">
                     <p>Passionate AI/ML developer with a focus on computer vision, intelligent systems, and real-world problem solving. I believe in learning by doing and embrace the journey of continuous improvement.</p>
                     <p>I work with cutting-edge technologies including Rust-based ML frameworks like Burn, traditional Python ML stacks, and full-stack development tools. My goal is to build intelligent systems that make a real impact.</p>
-                    <div class="about-highlights">
-                        <div class="highlight-item">
-                            <i class="fas fa-robot"></i>
-                            <span>AI/ML Enthusiast</span>
+                </div>
+                <div class="about-right">
+                    <div class="about-highlight">
+                        <i class="fas fa-robot"></i>
+                        <div>
+                            <span class="highlight-label">Focus</span>
+                            <span class="highlight-val">AI/ML Enthusiast</span>
                         </div>
-                        <div class="highlight-item">
-                            <i class="fas fa-code"></i>
-                            <span>Full Stack Developer</span>
+                    </div>
+                    <div class="about-highlight">
+                        <i class="fas fa-code"></i>
+                        <div>
+                            <span class="highlight-label">Role</span>
+                            <span class="highlight-val">Full Stack Developer</span>
                         </div>
-                        <div class="highlight-item">
-                            <i class="fas fa-brain"></i>
-                            <span>Computer Vision</span>
+                    </div>
+                    <div class="about-highlight">
+                        <i class="fas fa-brain"></i>
+                        <div>
+                            <span class="highlight-label">Domain</span>
+                            <span class="highlight-val">Computer Vision</span>
                         </div>
-                        <div class="highlight-item">
-                            <i class="fas fa-shield-alt"></i>
-                            <span>Rust & Systems Programming</span>
+                    </div>
+                    <div class="about-highlight">
+                        <i class="fas fa-shield-halved"></i>
+                        <div>
+                            <span class="highlight-label">Systems</span>
+                            <span class="highlight-val">Rust & Low-Level</span>
                         </div>
                     </div>
                 </div>
@@ -189,285 +182,240 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Projects -->
     <section id="projects" class="projects">
         <div class="container">
-            <h2 class="section-title">🤖 AI & Machine Learning Projects</h2>
+            <h2 class="section-title">AI & ML PROJECTS</h2>
             <div class="projects-grid">
                 <div class="project-card">
-                    <div class="project-header">
-                        <h3>🔥 WildFire Alert System</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag python"><i class="fab fa-python"></i> Python</span>
-                            <span class="tech-tag opencv"><i class="fas fa-eye"></i> OpenCV</span>
-                            <span class="tech-tag jupyter"><i class="fas fa-book"></i> Jupyter</span>
-                        </div>
+                    <h3>WildFire Alert System</h3>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">OpenCV</span>
+                        <span class="tag">Jupyter</span>
                     </div>
                     <p>AI-powered wildfire detection using UAV technology for early warning and prevention systems.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/ColdWistler/WildFire-AlertSystemUAV" target="_blank">
-                            <i class="fab fa-github"></i> View Project
-                        </a>
-                    </div>
+                    <a href="https://github.com/ColdWistler/WildFire-AlertSystemUAV" target="_blank" class="card-link">
+                        <i class="fab fa-github"></i> View Project
+                    </a>
                 </div>
 
                 <div class="project-card">
-                    <div class="project-header">
-                        <h3>👁️ Object Detection</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag tensorflow"><i class="fas fa-brain"></i> TensorFlow</span>
-                            <span class="tech-tag opencv"><i class="fas fa-eye"></i> OpenCV</span>
-                            <span class="tech-tag agpl"><i class="fas fa-file-code"></i> AGPL v3.0</span>
-                        </div>
+                    <h3>Object Detection</h3>
+                    <div class="project-tags">
+                        <span class="tag">TensorFlow</span>
+                        <span class="tag">OpenCV</span>
+                        <span class="tag">AGPL v3.0</span>
                     </div>
                     <p>Advanced computer vision system for real-time object detection and classification.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/ColdWistler/ObjectDetection" target="_blank">
-                            <i class="fab fa-github"></i> View Project
-                        </a>
-                    </div>
+                    <a href="https://github.com/ColdWistler/ObjectDetection" target="_blank" class="card-link">
+                        <i class="fab fa-github"></i> View Project
+                    </a>
                 </div>
 
                 <div class="project-card">
-                    <div class="project-header">
-                        <h3>🔤 Devanagri Detection</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag ocr"><i class="fas fa-qrcode"></i> OCR</span>
-                            <span class="tech-tag sklearn"><i class="fas fa-chart-line"></i> Scikit-Learn</span>
-                        </div>
+                    <h3>Devanagri Detection</h3>
+                    <div class="project-tags">
+                        <span class="tag">OCR</span>
+                        <span class="tag">Scikit-Learn</span>
                     </div>
                     <p>Computer vision for Devanagari script detection and recognition systems.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/ColdWistler/CV_DevnagriDetection" target="_blank">
-                            <i class="fab fa-github"></i> View Project
-                        </a>
-                    </div>
+                    <a href="https://github.com/ColdWistler/CV_DevnagriDetection" target="_blank" class="card-link">
+                        <i class="fab fa-github"></i> View Project
+                    </a>
                 </div>
 
                 <div class="project-card">
-                    <div class="project-header">
-                        <h3>🧬 Genetic Algorithm</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag algorithm"><i class="fas fa-cogs"></i> Algorithm</span>
-                            <span class="tech-tag evolution"><i class="fas fa-dna"></i> Evolution</span>
-                        </div>
+                    <h3>Genetic Algorithm</h3>
+                    <div class="project-tags">
+                        <span class="tag">Algorithm</span>
+                        <span class="tag">Evolution</span>
                     </div>
                     <p>Optimization algorithms implementing genetic approaches for complex problem solving.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/ColdWistler/Genetic-Algorithm" target="_blank">
-                            <i class="fab fa-github"></i> View Project
-                        </a>
-                    </div>
+                    <a href="https://github.com/ColdWistler/Genetic-Algorithm" target="_blank" class="card-link">
+                        <i class="fab fa-github"></i> View Project
+                    </a>
                 </div>
             </div>
 
             <div class="more-projects">
-                <h3>🔍 More AI Projects</h3>
+                <h3>More AI Projects</h3>
                 <div class="project-list">
-                    <div class="list-item">
-                        <a href="https://github.com/ColdWistler/SyntheticDataAnalytics" target="_blank">
-                            📊 SyntheticDataAnalytics - Advanced analytics on synthetic datasets for ML model training
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="https://github.com/ColdWistler/KalimatiMachineLearning-" target="_blank">
-                            🛒 KalimatiML - Machine learning for local market data analysis
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="https://github.com/ColdWistler/BigDataAssignment2" target="_blank">
-                            📈 BigDataAssignment2 - Big data processing and analytics implementation
-                        </a>
-                    </div>
+                    <a href="https://github.com/ColdWistler/SyntheticDataAnalytics" target="_blank" class="list-item">
+                        SyntheticDataAnalytics — Advanced analytics on synthetic datasets for ML model training
+                    </a>
+                    <a href="https://github.com/ColdWistler/KalimatiMachineLearning-" target="_blank" class="list-item">
+                        KalimatiML — Machine learning for local market data analysis
+                    </a>
+                    <a href="https://github.com/ColdWistler/BigDataAssignment2" target="_blank" class="list-item">
+                        BigDataAssignment2 — Big data processing and analytics implementation
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Other Notable Projects Section -->
+    <!-- Other Notable Projects -->
     <section id="other-projects" class="other-projects">
         <div class="container">
-            <h2 class="section-title">🌟 Other Notable Projects</h2>
+            <h2 class="section-title">OTHER NOTABLE PROJECTS</h2>
             <div class="projects-grid">
                 <div class="project-card">
-                    <div class="project-header">
-                        <h3>📚 Idiot's Guide to Programming</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag python"><i class="fab fa-python"></i> Python</span>
-                            <span class="tech-tag jupyter"><i class="fas fa-book-open"></i> Documentation</span>
-                        </div>
+                    <h3>Idiot's Guide to Programming</h3>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Documentation</span>
                     </div>
-                    <p>Comprehensive programming guide for beginners - making complex concepts simple!</p>
-                    <div class="project-links">
-                        <a href="https://github.com/ColdWistler/Idiot-s-Guide-to-Programming." target="_blank">
-                            <i class="fab fa-github"></i> View Project
-                        </a>
-                    </div>
+                    <p>Comprehensive programming guide for beginners — making complex concepts simple.</p>
+                    <a href="https://github.com/ColdWistler/Idiot-s-Guide-to-Programming." target="_blank" class="card-link">
+                        <i class="fab fa-github"></i> View Project
+                    </a>
                 </div>
 
                 <div class="project-card">
-                    <div class="project-header">
-                        <h3>🏪 Agrifresh Apps</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag algorithm"><i class="fas fa-mobile-alt"></i> Flutter</span>
-                            <span class="tech-tag dart"><i class="fas fa-code"></i> Dart</span>
-                            <span class="tech-tag python"><i class="fas fa-mobile"></i> Mobile</span>
-                        </div>
+                    <h3>Agrifresh Apps</h3>
+                    <div class="project-tags">
+                        <span class="tag">Flutter</span>
+                        <span class="tag">Dart</span>
+                        <span class="tag">Mobile</span>
                     </div>
-                    <p>Fresh vegetables delivery app built with Flutter/Dart - connecting farmers to consumers.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/ColdWistler/AgrifreshAPP" target="_blank">
-                            <i class="fab fa-github"></i> View Project
-                        </a>
-                    </div>
+                    <p>Fresh vegetables delivery app connecting farmers to consumers.</p>
+                    <a href="https://github.com/ColdWistler/AgrifreshAPP" target="_blank" class="card-link">
+                        <i class="fab fa-github"></i> View Project
+                    </a>
                 </div>
 
                 <div class="project-card">
-                    <div class="project-header">
-                        <h3>🏛️ VisiNepal</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag tensorflow"><i class="fab fa-java"></i> Java</span>
-                            <span class="tech-tag opencv"><i class="fas fa-desktop"></i> Desktop</span>
-                        </div>
+                    <h3>VisiNepal</h3>
+                    <div class="project-tags">
+                        <span class="tag">Java</span>
+                        <span class="tag">Desktop</span>
                     </div>
                     <p>Java-based application showcasing Nepalese cultural heritage and tourism.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/ColdWistler/VisiNepal" target="_blank">
-                            <i class="fab fa-github"></i> View Project
-                        </a>
-                    </div>
+                    <a href="https://github.com/ColdWistler/VisiNepal" target="_blank" class="card-link">
+                        <i class="fab fa-github"></i> View Project
+                    </a>
                 </div>
 
                 <div class="project-card">
-                    <div class="project-header">
-                        <h3>⚙️ Arch Linux Setup</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag algorithm"><i class="fab fa-linux"></i> Linux</span>
-                            <span class="tech-tag evolution"><i class="fab fa-archlinux"></i> Arch Linux</span>
-                            <span class="tech-tag python"><i class="fas fa-cog"></i> Configuration</span>
-                        </div>
+                    <h3>Arch Linux Setup</h3>
+                    <div class="project-tags">
+                        <span class="tag">Linux</span>
+                        <span class="tag">Arch Linux</span>
+                        <span class="tag">Config</span>
                     </div>
-                    <p>My personalized Arch Linux configuration - rice, themes, and productivity tools.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/ColdWistler/ArchLinux-Dots" target="_blank">
-                            <i class="fab fa-github"></i> View Project
-                        </a>
-                    </div>
+                    <p>Personalized Arch Linux configuration — rice, themes, and productivity tools.</p>
+                    <a href="https://github.com/ColdWistler/ArchLinux-Dots" target="_blank" class="card-link">
+                        <i class="fab fa-github"></i> View Project
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
+    <!-- Skills -->
     <section id="skills" class="skills">
         <div class="container">
-            <h2 class="section-title">🛠️ Tech Stack & Skills</h2>
-
-            <div class="skills-container">
+            <h2 class="section-title">TECH STACK & SKILLS</h2>
+            <div class="skills-grid">
                 <div class="skill-group">
-                    <div class="skill-category-title">🤖 AI/ML</div>
+                    <h3 class="skill-category-title">AI/ML</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
-                        <span class="skill-tag"><i class="fas fa-brain"></i> TensorFlow</span>
-                        <span class="skill-tag"><i class="fas fa-fire"></i> PyTorch</span>
-                        <span class="skill-tag"><i class="fas fa-eye"></i> OpenCV</span>
-                        <span class="skill-tag"><i class="fas fa-chart-line"></i> Scikit-Learn</span>
-                        <span class="skill-tag"><i class="fas fa-robot"></i> HuggingFace</span>
-                        <span class="skill-tag"><i class="fas fa-project-diagram"></i> Transformers</span>
-                        <span class="skill-tag"><i class="fas fa-link"></i> LangChain</span>
-                        <span class="skill-tag"><i class="fas fa-cube"></i> ONNX</span>
-                        <span class="skill-tag"><i class="fas fa-fire-alt"></i> Burn</span>
-                        <span class="skill-tag"><i class="fas fa-fire"></i> Candle</span>
-                        <span class="skill-tag"><i class="fas fa-horse"></i> LLaMA</span>
-                        <span class="skill-tag"><i class="fas fa-bullseye"></i> YOLO</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">OpenCV</span>
+                        <span class="skill-tag">Scikit-Learn</span>
+                        <span class="skill-tag">HuggingFace</span>
+                        <span class="skill-tag">Transformers</span>
+                        <span class="skill-tag">LangChain</span>
+                        <span class="skill-tag">ONNX</span>
+                        <span class="skill-tag">Burn</span>
+                        <span class="skill-tag">Candle</span>
+                        <span class="skill-tag">LLaMA</span>
+                        <span class="skill-tag">YOLO</span>
                     </div>
                 </div>
-
                 <div class="skill-group">
-                    <div class="skill-category-title">🦀 Systems</div>
+                    <h3 class="skill-category-title">Systems</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag"><i class="fab fa-rust"></i> Rust</span>
-                        <span class="skill-tag"><i class="fas fa-code"></i> C++</span>
-                        <span class="skill-tag"><i class="fas fa-bolt"></i> Go</span>
-                        <span class="skill-tag"><i class="fas fa-zigzag"></i> Zig</span>
+                        <span class="skill-tag">Rust</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">Go</span>
+                        <span class="skill-tag">Zig</span>
                     </div>
                 </div>
-
                 <div class="skill-group">
-                    <div class="skill-category-title">💻 Languages</div>
+                    <h3 class="skill-category-title">Languages</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag"><i class="fab fa-java"></i> Java</span>
-                        <span class="skill-tag"><i class="fas fa-code"></i> Dart</span>
-                        <span class="skill-tag"><i class="fab fa-js"></i> JavaScript</span>
-                        <span class="skill-tag"><i class="fab fa-js-square"></i> TypeScript</span>
-                        <span class="skill-tag"><i class="fas fa-terminal"></i> C</span>
-                        <span class="skill-tag"><i class="fas fa-moon"></i> Lua</span>
-                        <span class="skill-tag"><i class="fab fa-swift"></i> Swift</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Dart</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">C</span>
+                        <span class="skill-tag">Lua</span>
+                        <span class="skill-tag">Swift</span>
                     </div>
                 </div>
-
                 <div class="skill-group">
-                    <div class="skill-category-title">☁️ Cloud</div>
+                    <h3 class="skill-category-title">Cloud</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag"><i class="fab fa-aws"></i> AWS</span>
-                        <span class="skill-tag"><i class="fab fa-docker"></i> Docker</span>
-                        <span class="skill-tag"><i class="fas fa-dharmachakra"></i> Kubernetes</span>
-                        <span class="skill-tag"><i class="fab fa-github"></i> GitHub Actions</span>
-                        <span class="skill-tag"><i class="fas fa-infinity"></i> CI/CD</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Kubernetes</span>
+                        <span class="skill-tag">GitHub Actions</span>
+                        <span class="skill-tag">CI/CD</span>
                     </div>
                 </div>
-
                 <div class="skill-group">
-                    <div class="skill-category-title">🔧 Tools</div>
+                    <h3 class="skill-category-title">Tools</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag"><i class="fas fa-mobile-alt"></i> Flutter</span>
-                        <span class="skill-tag"><i class="fab fa-react"></i> React</span>
-                        <span class="skill-tag"><i class="fas fa-arrow-right"></i> Next.js</span>
-                        <span class="skill-tag"><i class="fas fa-book"></i> Jupyter</span>
-                        <span class="skill-tag"><i class="fab fa-linux"></i> Linux</span>
-                        <span class="skill-tag"><i class="fab fa-archlinux"></i> Arch Linux</span>
-                        <span class="skill-tag"><i class="fas fa-edit"></i> Neovim</span>
-                        <span class="skill-tag"><i class="fab fa-git-alt"></i> Git</span>
+                        <span class="skill-tag">Flutter</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Next.js</span>
+                        <span class="skill-tag">Jupyter</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">Neovim</span>
+                        <span class="skill-tag">Git</span>
                     </div>
                 </div>
-
                 <div class="skill-group">
-                    <div class="skill-category-title">🗄️ Data</div>
+                    <h3 class="skill-category-title">Data</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag"><i class="fas fa-database"></i> PostgreSQL</span>
-                        <span class="skill-tag"><i class="fas fa-leaf"></i> MongoDB</span>
-                        <span class="skill-tag"><i class="fas fa-server"></i> Redis</span>
-                        <span class="skill-tag"><i class="fas fa-database"></i> SQLite</span>
-                        <span class="skill-tag"><i class="fas fa-chart-bar"></i> Pandas</span>
-                        <span class="skill-tag"><i class="fas fa-calculator"></i> NumPy</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">Redis</span>
+                        <span class="skill-tag">SQLite</span>
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">NumPy</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title">🤝 Let's Connect!</h2>
-            <div class="contact-content">
-                <p>I'm always interested in collaborating on exciting AI/ML projects or discussing new technologies!</p>
-                <div class="contact-buttons">
+            <h2 class="section-title">LET'S CONNECT</h2>
+            <div class="contact-split">
+                <div class="contact-left">
+                    <p>I'm always interested in collaborating on exciting AI/ML projects or discussing new technologies.</p>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> csaugat862@gmail.com</p>
+                        <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/saugat-chaudhary-19653b33b" target="_blank">LinkedIn Profile</a></p>
+                    </div>
+                </div>
+                <div class="contact-right">
                     <a href="https://github.com/ColdWistler" target="_blank" class="contact-btn">
-                        <i class="fab fa-github"></i>
-                        <span>GitHub</span>
+                        <i class="fab fa-github"></i> GitHub
                     </a>
                     <a href="https://www.linkedin.com/in/saugat-chaudhary-19653b33b" target="_blank" class="contact-btn">
-                        <i class="fab fa-linkedin"></i>
-                        <span>LinkedIn</span>
+                        <i class="fab fa-linkedin"></i> LinkedIn
                     </a>
                     <a href="mailto:csaugat862@gmail.com" class="contact-btn">
-                        <i class="fas fa-envelope"></i>
-                        <span>Email</span>
+                        <i class="fas fa-envelope"></i> Email
                     </a>
-                </div>
-                <div class="contact-info">
-                    <p>📧 csaugat862@gmail.com | 💼 <a href="https://www.linkedin.com/in/saugat-chaudhary-19653b33b" target="_blank">LinkedIn Profile</a></p>
                 </div>
             </div>
         </div>
@@ -475,31 +423,10 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-animation">
-            <div class="pulse-circle pulse-1"></div>
-            <div class="pulse-circle pulse-2"></div>
-            <div class="pulse-circle pulse-3"></div>
-        </div>
         <div class="container">
             <div class="footer-content">
-                <div class="fun-fact">
-                    <h3>⭐ Fun Fact</h3>
-                    <p>Professional Dumbass who takes pride in learning through trial and error!</p>
-                    <p><em>"Code, break, fix, repeat - that's how we learn!"</em></p>
-                </div>
-                <div class="footer-stats">
-                    <div class="stat-item">
-                        <i class="fas fa-eye"></i>
-                        <span>Profile Views</span>
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-users"></i>
-                        <span>Visitors</span>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Saugat Chaudhary Tharu. Built with ❤️ using Catppuccin theme</p>
+                <p class="footer-quote">"Code, break, fix, repeat — that's how we learn!"</p>
+                <p class="footer-copy">&copy; 2024 Saugat Chaudhary Tharu</p>
             </div>
         </div>
     </footer>
