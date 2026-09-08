@@ -17,6 +17,7 @@
             <a href="#home" class="nav-logo">[SAUGAT]</a>
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#research" class="nav-link">Research</a></li>
                 <li><a href="#algorithms" class="nav-link">Algorithms</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
@@ -40,7 +41,7 @@
     <!-- Hero -->
     <section id="home" class="hero">
         <div class="hero-split">
-            <div class="hero-left">
+            <div class="hero-left" data-parallax="0.08">
                 <p class="hero-greeting"><span class="hero-no">№ 001</span> HELLO, I'M</p>
                 <h1 class="hero-name">Saugat Chaudhary<br><span class="accent">Tharu</span></h1>
                 <div class="subtitle">
@@ -56,7 +57,7 @@
                 </div>
             </div>
             <div class="hero-right">
-                <div class="hero-card">
+                <div class="hero-card" data-parallax="0.18">
                     <div class="hero-card-row">
                         <span class="hero-stat-label">STACK</span>
                         <span class="hero-stat-val">Python, Rust, JS</span>
@@ -78,36 +79,125 @@
         </div>
     </section>
 
-    <!-- Featured Project -->
+<!-- Flagship Project -->
     <section id="featured" class="featured-project">
         <div class="container">
-            <div class="featured-inner">
-                <span class="badge">CAPSTONE PROJECT</span>
-                <h2>Flight Sim DQN</h2>
-                <p>Godot 4.7 flight simulation with Dueling Double DQN (D3QN) reinforcement learning agents. Rust GDExtension for native performance, fixed-wing aircraft physics, and prioritized experience replay.</p>
-                <div class="featured-stats">
-                    <div class="stat-box">
-                        <span class="stat-val">D3QN</span>
-                        <span class="stat-lbl">Architecture</span>
+            <div class="featured-grid">
+                <div class="featured-inner">
+                    <span class="badge">FLAGSHIP PROJECT</span>
+                    <h2>Project RAPTORM86</h2>
+                    <p>A 6-DOF fixed-wing flight dynamics engine written in Rust and exposed to Godot 4 through a native GDExtension. Quaternion rigid-body dynamics with RK4 integration, 1976 US Standard Atmosphere, nonlinear post-stall aerodynamics, wind shear and Dryden turbulence — plus an interactive wind-tunnel whose smoke streamlines react to the physics' own lift coefficient.</p>
+                    <div class="featured-stats">
+                        <div class="stat-box">
+                            <span class="stat-val">Rust</span>
+                            <span class="stat-lbl">Physics Core</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-val">6-DOF</span>
+                            <span class="stat-lbl">Rigid Body</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-val">60 Hz</span>
+                            <span class="stat-lbl">RK4 Integration</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-val">RL-ready</span>
+                            <span class="stat-lbl">step_6dof() API</span>
+                        </div>
                     </div>
-                    <div class="stat-box">
-                        <span class="stat-val">Rust</span>
-                        <span class="stat-lbl">Extension</span>
+                    <div class="featured-tags">
+                        <span class="tag">Rust</span>
+                        <span class="tag">Godot 4</span>
+                        <span class="tag">GDExtension</span>
+                        <span class="tag">Flight Physics</span>
+                        <span class="tag">Wind Tunnel</span>
+                        <span class="tag">RL</span>
                     </div>
-                    <div class="stat-box">
-                        <span class="stat-val">512</span>
-                        <span class="stat-lbl">Hidden Units</span>
+                    <div class="featured-buttons">
+                        <a href="https://github.com/ColdWistler/ProjectRAPTORM86" target="_blank" class="btn btn-primary">
+                            <i class="fab fa-github"></i> View Source
+                        </a>
+                        <a href="#research" class="btn btn-outline">
+                            <i class="fas fa-file-lines"></i> Research Paper
+                        </a>
                     </div>
                 </div>
-                <div class="featured-tags">
-                    <span class="tag">Godot</span>
-                    <span class="tag">Rust</span>
-                    <span class="tag">Python</span>
-                    <span class="tag">Reinforcement Learning</span>
+                <div class="featured-demo-col">
+                    <div class="featured-demo">
+                        <div class="term-bar"><span class="term-dot"></span><span class="term-title">wind_tunnel.rs</span></div>
+                        <div class="featured-demo-body">
+                            <canvas id="windTunnel" class="wind-tunnel"></canvas>
+                            <div class="hud-readouts">
+                                <div class="hud-row"><span class="hud-lbl">&gt; AoA</span><span class="hud-val" id="wtAoa">0.0&deg;</span></div>
+                                <div class="hud-row"><span class="hud-lbl">&gt; CL</span><span class="hud-val" id="wtCl">0.00</span></div>
+                                <div class="hud-row"><span class="hud-lbl">&gt; CD</span><span class="hud-val" id="wtCd">0.03</span></div>
+                                <div class="hud-row"><span class="hud-lbl">&gt; FLOW</span><span class="hud-val" id="wtFlow">ATTACHED</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="featured-demo">
+                        <div class="term-bar"><span class="term-dot"></span><span class="term-title">telemetry_hud.rs</span></div>
+                        <div class="featured-demo-body">
+                            <canvas id="flightHud" class="flight-hud"></canvas>
+                            <div class="hud-readouts">
+                                <div class="hud-row"><span class="hud-lbl">&gt; IAS</span><span class="hud-val" id="hudIas">60.0 m/s</span></div>
+                                <div class="hud-row"><span class="hud-lbl">&gt; ALT</span><span class="hud-val" id="hudAlt">1000 m</span></div>
+                                <div class="hud-row"><span class="hud-lbl">&gt; HDG</span><span class="hud-val" id="hudHdg">090&deg;</span></div>
+                                <div class="hud-row"><span class="hud-lbl">&gt; AoA</span><span class="hud-val" id="hudAoa">+4.2&deg;</span></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <a href="https://github.com/ColdWistler/Capstone2PCASSIE" target="_blank" class="btn btn-primary">
-                    <i class="fab fa-github"></i> View Project
-                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research -->
+    <section id="research" class="research">
+        <div class="container">
+            <h2 class="section-title">RESEARCH</h2>
+            <div class="terminal-note"><span class="terminal-prompt">$</span> // peer-reviewed paper — Journal of Advances in Mathematics and Computer Science</div>
+            <div class="research-card">
+                <div class="research-head">
+                    <span class="badge">PUBLISHED &middot; JAMCS</span>
+                    <h3>A Rust-Implemented Dueling Double DQN for Fixed-Wing Autonomous Flight</h3>
+                    <p class="research-meta">Saugat Chaudhary Tharu et al. &middot; JAMCS 41(8), 163&ndash;178, 2026 &middot; DOI: 10.9734/jamcs/2026/v41i82191</p>
+                </div>
+                <p class="research-abstract">Deep reinforcement learning for autonomous fixed-wing UAV control, implemented entirely in Rust without an external ML library and integrated with Godot 4 through GDExtension. A Dueling + Double DQN combines prioritized experience replay and three-step returns in a 512&rarr;256 hidden configuration &mdash; 142,088 parameters for the 16-dimensional input case and seven discrete actions.</p>
+                <div class="research-stats">
+                    <div class="stat-box">
+                        <span class="stat-val">4825&plusmn;40</span>
+                        <span class="stat-lbl">Mean Best Reward</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-val">0.8%</span>
+                        <span class="stat-lbl">Coefficient of Variation</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-val">0 / 30</span>
+                        <span class="stat-lbl">Crashes in Final Episodes</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-val">&lt;1 ms</span>
+                        <span class="stat-lbl">Gradient Update</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-val">35&times;</span>
+                        <span class="stat-lbl">Faster than GDScript</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-val">&lt;50 MB</span>
+                        <span class="stat-lbl">Runtime Memory</span>
+                    </div>
+                </div>
+                <div class="research-links">
+                    <a href="https://journaljamcs.com/index.php/JAMCS/article/view/2191" target="_blank" class="btn btn-primary">
+                        <i class="fas fa-file-lines"></i> Read Full Paper
+                    </a>
+                    <a href="https://doi.org/10.9734/jamcs/2026/v41i82191" target="_blank" class="btn btn-outline">
+                        <i class="fas fa-bookmark"></i> DOI
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -116,7 +206,7 @@
     <section id="algorithms" class="algorithms-section">
         <div class="container">
             <h2 class="section-title">ALGORITHMS</h2>
-            <div class="terminal-note"><span class="terminal-prompt">$</span> // interactive tool — sort live arrays &amp; inspect a neural net</div>
+            <div class="terminal-note"><span class="terminal-prompt">$</span> // interactive — RK4 integration, US atmosphere, sorting, clustering, decision trees &amp; D3QN training</div>
             <div class="algorithm-showcase">
                 <div class="algorithm-container">
                     <div class="term-bar"><span class="term-dot"></span><span class="term-title">sorter.rs</span></div>
@@ -130,13 +220,69 @@
                     <canvas id="sortingCanvas" class="sorting-canvas"></canvas>
                 </div>
                 <div class="algorithm-container">
-                    <div class="term-bar"><span class="term-dot"></span><span class="term-title">network.py</span></div>
-                    <h3>Neural Network</h3>
-                    <div class="neural-info">
-                        <span class="neural-stat">Layers: <span id="layerCount">3</span></span>
-                        <span class="neural-stat">Neurons: <span id="neuronCount">12</span></span>
+                    <div class="term-bar"><span class="term-dot"></span><span class="term-title">ml_models.py</span></div>
+                    <h3>ML Algorithms</h3>
+                    <div class="sorting-controls">
+                        <button class="btn btn-small ml-btn is-active" data-ml="kmeans">K-Means</button>
+                        <button class="btn btn-small ml-btn" data-ml="knn">kNN</button>
+                        <button class="btn btn-small ml-btn" data-ml="linear">Regression</button>
+                        <button class="btn btn-small ml-btn" data-ml="tree">Decision Tree</button>
+                        <button class="btn btn-small btn-outline ml-btn" id="resetML">Reset</button>
                     </div>
-                    <canvas id="neuralCanvas" class="neural-canvas"></canvas>
+                    <div class="ml-kcontrols" id="mlKControls">
+                        <span class="neural-stat">k =&nbsp;</span>
+                        <button class="btn btn-small ml-kbtn is-active" data-k="3">3</button>
+                        <button class="btn btn-small ml-kbtn" data-k="2">2</button>
+                        <button class="btn btn-small ml-kbtn" data-k="4">4</button>
+                    </div>
+                    <div class="rl-info">
+                        <span class="neural-stat" id="mlRead1">Iter 0</span>
+                        <span class="neural-stat" id="mlRead2">SSE &mdash;</span>
+                    </div>
+                    <canvas id="mlCanvas" class="ml-canvas"></canvas>
+                </div>
+                <div class="algorithm-container">
+                    <div class="term-bar"><span class="term-dot"></span><span class="term-title">integrator.rs</span></div>
+                    <h3>Numerical Integration — RK4</h3>
+                    <div class="integrator-legend">
+                        <span class="legend"><span class="legend-dot legend-acc"></span>EXACT</span>
+                        <span class="legend"><span class="legend-dot legend-rk"></span>RK4</span>
+                        <span class="legend"><span class="legend-dot legend-eu"></span>EULER</span>
+                        <span class="neural-stat">t: <span id="intTime">0.00s</span></span>
+                        <span class="neural-stat">Euler Err: <span id="intErr">0%</span></span>
+                    </div>
+                    <canvas id="integratorCanvas" class="neural-canvas"></canvas>
+                </div>
+                <div class="algorithm-container">
+                    <div class="term-bar"><span class="term-dot"></span><span class="term-title">atmosphere.rs</span></div>
+                    <h3>1976 US Standard Atmosphere</h3>
+                    <div class="rl-info">
+                        <span class="neural-stat">ALT: <span id="atmAlt">0.0 km</span></span>
+                        <span class="neural-stat">T: <span id="atmTemp">15&deg;C</span></span>
+                        <span class="neural-stat">P: <span id="atmPress">101.3 kPa</span></span>
+                        <span class="neural-stat">ρ: <span id="atmRho">1.225 kg/m&sup3;</span></span>
+                    </div>
+                    <canvas id="atmosphereCanvas" class="neural-canvas"></canvas>
+                </div>
+                <div class="algorithm-container rl-wide">
+                    <div class="term-bar"><span class="term-dot"></span><span class="term-title">rl_agents.rs</span></div>
+                    <h3 class="rl-heading">Reinforcement Learning Agents</h3>
+                    <div class="rl-info">
+                        <span class="neural-stat">Deployed: <span id="rlDeployed" class="accent-stat">D3QN</span></span>
+                        <span class="neural-stat">Best Reward: <span id="rlBestReward">0</span></span>
+                        <span class="neural-stat">Episode: <span id="rlEpisode">0</span></span>
+                    </div>
+                    <div class="rl-tags">
+                        <span class="tag rl-active">D3QN</span>
+                        <span class="tag">DQN</span>
+                        <span class="tag">Double DQN</span>
+                        <span class="tag">PPO</span>
+                        <span class="tag">SAC</span>
+                        <span class="tag">TD3</span>
+                        <span class="tag">DDPG</span>
+                        <span class="tag">A2C</span>
+                    </div>
+                    <canvas id="rlCanvas" class="neural-canvas"></canvas>
                 </div>
             </div>
         </div>
@@ -152,7 +298,7 @@
                     <p>I work with cutting-edge technologies including Rust-based ML frameworks like Burn, traditional Python ML stacks, and full-stack development tools. My goal is to build intelligent systems that make a real impact.</p>
                     <hr class="editorial-rule">
                 </div>
-                <div class="about-right">
+                <div class="about-right" data-parallax="0.12">
                     <div class="about-highlight">
                         <i class="fas fa-robot"></i>
                         <div>
@@ -191,6 +337,22 @@
         <div class="container">
             <h2 class="section-title">AI & ML PROJECTS</h2>
             <div class="projects-grid">
+                <div class="project-card">
+                    <h3>Capstone: Flight Sim D3QN</h3>
+                    <div class="project-tags">
+                        <span class="tag">Godot</span>
+                        <span class="tag">Rust</span>
+                        <span class="tag">RL</span>
+                    </div>
+                    <p>Dueling Double DQN agents trained in Rust for autonomous fixed-wing flight — 142K parameters, prioritized experience replay, &lt;1 ms gradient updates.</p>
+                    <a href="https://github.com/ColdWistler/Capstone2PCASSIE" target="_blank" class="card-link">
+                        <i class="fab fa-github"></i> View Project
+                    </a>
+                    <a href="https://journaljamcs.com/index.php/JAMCS/article/view/2191" target="_blank" class="card-link">
+                        <i class="fas fa-file-lines"></i> Published Paper
+                    </a>
+                </div>
+
                 <div class="project-card">
                     <h3>WildFire Alert System</h3>
                     <div class="project-tags">
@@ -338,6 +500,8 @@
                         <span class="skill-tag">Candle</span>
                         <span class="skill-tag">LLaMA</span>
                         <span class="skill-tag">YOLO</span>
+                        <span class="skill-tag">Deep RL</span>
+                        <span class="skill-tag">D3QN</span>
                     </div>
                 </div>
                 <div class="skill-group">
@@ -347,6 +511,9 @@
                         <span class="skill-tag">C++</span>
                         <span class="skill-tag">Go</span>
                         <span class="skill-tag">Zig</span>
+                        <span class="skill-tag">GDExtension</span>
+                        <span class="skill-tag">FFI</span>
+                        <span class="skill-tag">WebAssembly</span>
                     </div>
                 </div>
                 <div class="skill-group">
@@ -358,7 +525,6 @@
                         <span class="skill-tag">TypeScript</span>
                         <span class="skill-tag">C</span>
                         <span class="skill-tag">Lua</span>
-                        <span class="skill-tag">Swift</span>
                     </div>
                 </div>
                 <div class="skill-group">
@@ -377,6 +543,8 @@
                         <span class="skill-tag">Flutter</span>
                         <span class="skill-tag">React</span>
                         <span class="skill-tag">Next.js</span>
+                        <span class="skill-tag">Godot 4</span>
+                        <span class="skill-tag">Cargo</span>
                         <span class="skill-tag">Jupyter</span>
                         <span class="skill-tag">Linux</span>
                         <span class="skill-tag">Neovim</span>
@@ -410,7 +578,7 @@
                         <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/saugat-chaudhary-19653b33b" target="_blank">LinkedIn Profile</a></p>
                     </div>
                 </div>
-                <div class="contact-right">
+                <div class="contact-right" data-parallax="0.12">
                     <a href="https://github.com/ColdWistler" target="_blank" class="contact-btn">
                         <i class="fab fa-github"></i> GitHub
                     </a>
