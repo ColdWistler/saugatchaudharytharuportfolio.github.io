@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saugat Chaudhary Tharu — AI/ML & Full Stack Developer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Zilla+Slab:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -41,8 +41,8 @@
     <section id="home" class="hero">
         <div class="hero-split">
             <div class="hero-left">
-                <p class="hero-greeting">HELLO, I'M</p>
-                <h1>Saugat Chaudhary<br>Tharu</h1>
+                <p class="hero-greeting"><span class="hero-no">№ 001</span> HELLO, I'M</p>
+                <h1 class="hero-name">Saugat Chaudhary<br><span class="accent">Tharu</span></h1>
                 <div class="subtitle">
                     <span class="subtitle-prefix">&gt;&nbsp;</span>
                     <span id="typing-text"></span>
@@ -116,8 +116,10 @@
     <section id="algorithms" class="algorithms-section">
         <div class="container">
             <h2 class="section-title">ALGORITHMS</h2>
+            <div class="terminal-note"><span class="terminal-prompt">$</span> // interactive tool — sort live arrays &amp; inspect a neural net</div>
             <div class="algorithm-showcase">
                 <div class="algorithm-container">
+                    <div class="term-bar"><span class="term-dot"></span><span class="term-title">sorter.rs</span></div>
                     <h3>Sorting Algorithms</h3>
                     <div class="sorting-controls">
                         <button class="btn btn-small sort-btn" data-algorithm="bubble">Bubble Sort</button>
@@ -128,6 +130,7 @@
                     <canvas id="sortingCanvas" class="sorting-canvas"></canvas>
                 </div>
                 <div class="algorithm-container">
+                    <div class="term-bar"><span class="term-dot"></span><span class="term-title">network.py</span></div>
                     <h3>Neural Network</h3>
                     <div class="neural-info">
                         <span class="neural-stat">Layers: <span id="layerCount">3</span></span>
@@ -145,8 +148,9 @@
             <h2 class="section-title">ABOUT ME</h2>
             <div class="about-split">
                 <div class="about-left">
-                    <p>Passionate AI/ML developer with a focus on computer vision, intelligent systems, and real-world problem solving. I believe in learning by doing and embrace the journey of continuous improvement.</p>
+                    <p class="about-lede">Passionate AI/ML developer with a focus on computer vision, intelligent systems, and real-world problem solving. I believe in learning by doing and embrace the journey of continuous improvement.</p>
                     <p>I work with cutting-edge technologies including Rust-based ML frameworks like Burn, traditional Python ML stacks, and full-stack development tools. My goal is to build intelligent systems that make a real impact.</p>
+                    <hr class="editorial-rule">
                 </div>
                 <div class="about-right">
                     <div class="about-highlight">
