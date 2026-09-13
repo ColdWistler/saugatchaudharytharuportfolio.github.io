@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
     updateThemeIcon(next);
+    document.dispatchEvent(new CustomEvent('theme:change', { detail: next }));
     // Redraw canvases with new theme colors
     if (sortingState.initialized) sortingState.resize();
     mlDrawActive();

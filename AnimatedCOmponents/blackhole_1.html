@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particles Swarm Export</title>
+    <style>body { margin: 0; overflow: hidden; background: #000; }</style>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body>
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+        import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+        import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+        // CONFIG
+        const COUNT = 20000;
+        const SPEED_MULT = 1;
+        const AUTO_SPIN = true;
+
+        // SETUP
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x000000, 0.01);
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+        camera.position.set(0, 0, 100);
+        
+        const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.enableZoom = false;
+        controls.enablePan = false;
+        controls.autoRotate = AUTO_SPIN;
+        controls.autoRotateSpeed = 2.0;
+
+        // POST PROCESSING
+        const composer = new EffectComposer(renderer);
+        composer.addPass(new RenderPass(scene, camera));
+        const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
+        bloomPass.strength = 1.8; bloomPass.radius = 0.4; bloomPass.threshold = 0;
+        composer.addPass(bloomPass);
+
+        // SWARM OBJECTS
+        const dummy = new THREE.Object3D();
+        const color = new THREE.Color();
+        const target = new THREE.Vector3();
+        const pColor = new THREE.Color(); // Kept for safety, for potential references
+        
+        // INSTANCED MESH
+        const geometry = new THREE.TetrahedronGeometry(0.25);
+        const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        
+        const instancedMesh = new THREE.InstancedMesh(geometry, material, COUNT);
+        instancedMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+        scene.add(instancedMesh);
+
+        // DATA ARRAYS
+        const positions = [];
+        for(let i=0; i<COUNT; i++) {
+            positions.push(new THREE.Vector3((Math.random()-0.5)*100, (Math.random()-0.5)*100, (Math.random()-0.5)*100));
+            instancedMesh.setColorAt(i, color.setHex(0x00ff88)); // Init Color
+        }
+
+        // CONTROL STUBS
+        const PARAMS = {"scale":55,"consume":1,"jetpwr":1.4,"accdense":1.2,"lensstr":0.8,"framedrag":0.6,"hawking":0.5,"chaos":0.4};
+        const addControl = (id, label, min, max, val) => {
+            return PARAMS[id] !== undefined ? PARAMS[id] : val;
+        };
+        const setInfo = () => {};
+        const annotate = () => {};
+
+        // ANIMATION LOOP
+        const clock = new THREE.Clock();
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            const delta = clock.getDelta();
+            const time = clock.getElapsedTime() * SPEED_MULT;
+            
+            // Shader Time Update
+            if(material.uniforms && material.uniforms.uTime) {
+                material.uniforms.uTime.value = time;
+            }
+
+            controls.update();
+
+            // SWARM LOGIC
+            const count = COUNT; // Alias for user code compatibility
+            for(let i=0; i<COUNT; i++) {
+                 // USER CODE INJECTION START
+                 // === SCHWARZSCHILD BLACK HOLE — SOLAR PLASMA (COMPLEX) ===
+                 // 8 physically-distinct zones: accretion disk, ISCO plunge, photon sphere,
+                 // ergosphere frame-dragging, bipolar jets, jet cocoon, lensing arcs, Hawking corona.
+                 
+                 const scale      = addControl("scale",      "Scale",          15, 100, 55);
+                 const consumeSpd = addControl("consume",    "Infall Speed",    0,   3,  1.0);
+                 const jetPower   = addControl("jetpwr",     "Jet Power",       0,   3,  1.4);
+                 const accDensity = addControl("accdense",   "Disk Density",    0,   3,  1.2);
+                 const lensStr    = addControl("lensstr",    "Lens Warp",       0,   2,  0.8);
+                 const frameDrag  = addControl("framedrag",  "Frame Drag",      0,   2,  0.6);
+                 const hawkingT   = addControl("hawking",    "Hawking Temp",    0,   1,  0.5);
+                 const chaos      = addControl("chaos",      "Chaos Field",     0,   2,  0.4);
+                 
+                 if (i === 0) {
+                   setInfo(
+                     "Schwarzschild Black Hole",
+                     "25,000 plasma particles across 8 zones: accretion disk, ISCO plunge, photon sphere, ergosphere, bipolar jets, jet cocoon, lensing arcs, Hawking radiation corona."
+                   );
+                   annotate("singularity", new THREE.Vector3(0, 0, 0), "Event Horizon");
+                   annotate("jetN", new THREE.Vector3(0, scale * 0.018 * 80, 0), "Polar Jet +");
+                   annotate("jetS", new THREE.Vector3(0, -scale * 0.018 * 80, 0), "Polar Jet −");
+                 }
+                 
+                 const TAU = 6.28318530718;
+                 const t   = i / count;
+                 
+                 // ── Zone masks (branchless) ──
+                 const mDisk   = t < 0.35                   ? 1.0 : 0.0;
+                 const mISCO   = t >= 0.35 && t < 0.48     ? 1.0 : 0.0;
+                 const mPhot   = t >= 0.48 && t < 0.58     ? 1.0 : 0.0;
+                 const mErgo   = t >= 0.58 && t < 0.67     ? 1.0 : 0.0;
+                 const mJet    = t >= 0.67 && t < 0.76     ? 1.0 : 0.0;
+                 const mSheath = t >= 0.76 && t < 0.84     ? 1.0 : 0.0;
+                 const mLens   = t >= 0.84 && t < 0.92     ? 1.0 : 0.0;
+                 const mHawk   = t >= 0.92                  ? 1.0 : 0.0;
+                 
+                 // ── ACCRETION DISK — 5 warped spiral arms ──
+                 const dT    = t / 0.35;
+                 const arm   = Math.floor(dT * 5.0);
+                 const armT  = (dT * 5.0) % 1.0;
+                 const dAng  = armT * TAU + arm * (TAU / 5.0) + time * (0.5 + armT * consumeSpd) + dT * TAU * 22.0;
+                 const dRad  = 7.5 + dT * dT * 38.0 * accDensity;
+                 const dWarp = Math.sin(dT * TAU * 3.0 + time * 0.4) * (0.8 + arm * 0.12);
+                 const dCurl = Math.cos(dAng * 0.5 + time * 0.2) * chaos * 2.0;
+                 const dX    = Math.cos(dAng + dCurl * 0.05) * dRad;
+                 const dZ    = Math.sin(dAng + dCurl * 0.05) * dRad;
+                 const dY    = dWarp + Math.sin(dT * TAU * 7.0 + time * 0.9) * 1.1 + dCurl * 0.3;
+                 
+                 // ── ISCO / PLUNGE REGION — spiraling infall ──
+                 const iT    = (t - 0.35) / 0.13;
+                 const iAng  = iT * TAU * 18.0 + time * (1.8 + iT * consumeSpd * 2.0);
+                 const iRad  = 7.5 * (1.0 - iT * 0.55) + Math.sin(iT * TAU * 5.0 + time) * 0.4;
+                 const iX    = Math.cos(iAng) * iRad;
+                 const iZ    = Math.sin(iAng) * iRad;
+                 const iY    = (iT - 0.5) * 1.2 + Math.sin(iAng * 3.0 + time * 2.0) * 0.3;
+                 
+                 // ── PHOTON SPHERE — light trapped at r=1.5rs ──
+                 const pT     = (t - 0.48) / 0.10;
+                 const pPhi   = pT * TAU * 31.0 + time * 1.4;
+                 const pTheta = pT * TAU * 11.7 + time * 0.7;
+                 const pRad   = 9.75 + Math.sin(pT * TAU * 5.0 + time * 2.5) * 0.15;
+                 const pX     = Math.cos(pPhi) * Math.sin(pTheta) * pRad;
+                 const pY     = Math.cos(pTheta) * pRad;
+                 const pZ     = Math.sin(pPhi) * Math.sin(pTheta) * pRad;
+                 
+                 // ── ERGOSPHERE — Kerr frame-dragging vortex ──
+                 const eT    = (t - 0.58) / 0.09;
+                 const eSpin = frameDrag * 2.8;
+                 const eAng  = eT * TAU * 14.0 + time * eSpin + eT * TAU * 8.0;
+                 const eRad  = 8.5 + Math.sin(eT * TAU * 4.0 + time * 0.5) * 1.5;
+                 const eTilt = eT * Math.PI * 0.6 - Math.PI * 0.3;
+                 const eX    = Math.cos(eAng) * eRad;
+                 const eZ    = Math.sin(eAng) * eRad * Math.cos(eTilt * 0.3);
+                 const eY    = Math.sin(eAng) * eRad * Math.sin(eTilt * 0.3) + Math.sin(eT * TAU * 9.0 + time) * 0.8;
+                 
+                 // ── RELATIVISTIC JETS — bipolar plasma columns ──
+                 const jT    = (t - 0.67) / 0.09;
+                 const jSide = jT < 0.5 ? 1.0 : -1.0;
+                 const jFrac = (jT % 0.5) / 0.5;
+                 const jH    = jSide * (1.0 + jFrac * jFrac * jFrac * 80.0 * jetPower);
+                 const jAng  = jFrac * TAU * 12.0 + time * (3.0 + jFrac * 4.0);
+                 const jRad  = Math.pow(1.0 - jFrac, 1.5) * 5.0 * jetPower + Math.sin(jFrac * TAU * 6.0 + time * 4.0) * 0.3 * jetPower;
+                 const jKink = Math.sin(jH * 0.08 + time * 2.0) * chaos * 1.5;
+                 const jX    = Math.cos(jAng) * jRad + jKink;
+                 const jZ    = Math.sin(jAng) * jRad;
+                 const jY    = jH;
+                 
+                 // ── JET COCOON — warm sheath around jet columns ──
+                 const sT    = (t - 0.76) / 0.08;
+                 const sSide = sT < 0.5 ? 1.0 : -1.0;
+                 const sFrac = (sT % 0.5) / 0.5;
+                 const sH    = sSide * (2.0 + sFrac * 55.0 * jetPower * 0.7);
+                 const sAng  = sFrac * TAU * 6.0 + time * 1.5;
+                 const sRad  = (1.0 - sFrac * 0.4) * 8.0 * jetPower + Math.sin(sFrac * TAU * 3.0 + time * 2.0) * 1.0;
+                 const sX    = Math.cos(sAng) * sRad;
+                 const sZ    = Math.sin(sAng) * sRad;
+                 const sY    = sH;
+                 
+                 // ── GRAVITATIONAL LENSING ARCS — 8 inclined orbital families ──
+                 const lT    = (t - 0.84) / 0.08;
+                 const lArc  = Math.floor(lT * 8.0);
+                 const lFrac = (lT * 8.0) % 1.0;
+                 const lIncl = lArc * 0.39 + 0.2;
+                 const lAng  = lFrac * TAU * (0.65 + lArc * 0.08) + time * (0.15 + lArc * 0.06);
+                 const lRad  = 14.0 + lArc * 4.0 + Math.sin(time * 0.3 + lArc) * 1.5;
+                 const lX0   = Math.cos(lAng) * lRad;
+                 const lY0   = Math.sin(lAng) * lRad * Math.sin(lIncl);
+                 const lZ0   = Math.sin(lAng) * lRad * Math.cos(lIncl);
+                 const lDst  = Math.sqrt(lX0*lX0 + lY0*lY0 + lZ0*lZ0) + 0.001;
+                 const lW    = lensStr / (lDst * 0.6 + 1.5);
+                 const lX    = lX0 * (1.0 - lW);
+                 const lY    = lY0 * (1.0 - lW);
+                 const lZ    = lZ0 * (1.0 - lW);
+                 
+                 // ── HAWKING RADIATION CORONA — quantum sparks ──
+                 const hT    = (t - 0.92) / 0.08;
+                 const hPhi  = hT * TAU * 53.0 + time * (0.8 + hawkingT * 3.0);
+                 const hThet = hT * TAU * 17.3 + time * (0.5 + hawkingT * 1.5);
+                 const hRad  = 9.5 + hawkingT * 8.0 + Math.sin(hT * TAU * 4.0 + time * 2.0) * hawkingT * 3.0;
+                 const hJit  = chaos * (Math.sin(hT * 197.3 + time * 5.0) * 2.0);
+                 const hX    = Math.cos(hPhi) * Math.sin(hThet) * hRad + hJit;
+                 const hY    = Math.cos(hThet) * hRad + hJit * 0.5;
+                 const hZ    = Math.sin(hPhi) * Math.sin(hThet) * hRad;
+                 
+                 // ── COMBINE ALL ZONES ──
+                 const rx = dX*mDisk + iX*mISCO + pX*mPhot + eX*mErgo + jX*mJet + sX*mSheath + lX*mLens + hX*mHawk;
+                 const ry = dY*mDisk + iY*mISCO + pY*mPhot + eY*mErgo + jY*mJet + sY*mSheath + lY*mLens + hY*mHawk;
+                 const rz = dZ*mDisk + iZ*mISCO + pZ*mPhot + eZ*mErgo + jZ*mJet + sZ*mSheath + lZ*mLens + hZ*mHawk;
+                 
+                 target.set(rx * scale * 0.018, ry * scale * 0.018, rz * scale * 0.018);
+                 
+                 // ── SOLAR PLASMA COLORING ──
+                 const dist  = Math.sqrt(rx*rx + ry*ry + rz*rz) + 0.01;
+                 const heat  = 1.0 / (dist * 0.045 + 0.28);
+                 const heatC = Math.min(heat, 1.0);
+                 
+                 // Blackbody curve: deep red → orange → gold → yellow-white
+                 let hue  = 0.06 - heatC * 0.062;
+                 let sat  = 0.98 - heatC * 0.70;
+                 let lite = 0.12 + heatC * 0.75;
+                 
+                 // Photon sphere: electric blue-white
+                 hue  += mPhot * (0.58 - hue) * 0.9;
+                 sat  += mPhot * (0.60 - sat) * 0.8;
+                 lite += mPhot * 0.30;
+                 
+                 // Ergosphere: pulsing cyan-gold
+                 const ergoPhase = Math.sin(time * 3.0 + t * TAU * 4.0) * 0.5 + 0.5;
+                 hue  += mErgo * (0.14 + ergoPhase * 0.08 - hue) * 0.6;
+                 lite += mErgo * 0.15;
+                 
+                 // Jets: brilliant blue-white at base, fading cool white at tip
+                 hue  += mJet * (0.55 - hue) * 0.5;
+                 sat  += mJet * (0.40 - sat) * 0.7;
+                 lite += mJet * 0.45;
+                 
+                 // Cocoon sheath: warm amber
+                 hue  += mSheath * (0.08 - hue) * 0.6;
+                 lite += mSheath * 0.10;
+                 
+                 // Lensing arcs: ghostly pale blue
+                 hue  += mLens * (0.60 - hue) * 0.7;
+                 sat  += mLens * (0.30 - sat) * 0.6;
+                 lite += mLens * 0.08;
+                 
+                 // Hawking corona: flickering blue-white sparks
+                 const hawkFlicker = Math.abs(Math.sin(t * 1337.7 + time * 8.0));
+                 hue  += mHawk * (0.55 - hue) * 0.8;
+                 sat  += mHawk * (0.50 - sat) * 0.7;
+                 lite += mHawk * (hawkFlicker * 0.6 * hawkingT + 0.05);
+                 
+                 color.setHSL((hue + 1.0) % 1.0, Math.max(0.0, sat), Math.min(1.0, lite));
+                 // USER CODE INJECTION END
+
+                 // LERP & UPDATE
+                 positions[i].lerp(target, 0.1);
+                 dummy.position.copy(positions[i]);
+                 dummy.updateMatrix();
+                 instancedMesh.setMatrixAt(i, dummy.matrix);
+                 instancedMesh.setColorAt(i, color); // Fix: Use 'color' which user modifies
+            }
+            instancedMesh.instanceMatrix.needsUpdate = true;
+            instancedMesh.instanceColor.needsUpdate = true;
+
+            composer.render();
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
