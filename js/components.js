@@ -655,6 +655,7 @@ void main(){
     var gl = canvas.getContext('webgl', {
       antialias: false,
       premultipliedAlpha: false,
+      preserveDrawingBuffer: true,
     });
     if (!gl) {
       showFallback();
@@ -742,9 +743,11 @@ void main(){
     }
     function onEnter() { mouse.target = 1; }
     function onLeave() { mouse.target = 0; }
+    function onDown() { mouse.entered = true; mouse.target = 1; }
     container.addEventListener('pointermove', onMove);
     container.addEventListener('pointerenter', onEnter);
     container.addEventListener('pointerleave', onLeave);
+    container.addEventListener('pointerdown', onDown);
 
     function resize() {
       var dpr = Math.min(window.devicePixelRatio || 1, 3);
@@ -772,6 +775,7 @@ void main(){
       gl.uniform1f(u('uTime'), (now - start) / 1000);
       gl.uniform2f(u('uMouse'), mouse.x, mouse.y);
       gl.uniform1f(u('uMouseActive'), mouse.entered ? mouse.active : 0);
+      gl.uniform1f(u('uBaseReveal'), 0.45);
       gl.uniform1f(u('uRevealRadius'), 120);
       gl.uniform1f(u('uRevealSoftness'), 0.5);
       gl.uniform1f(u('uPixelSize'), 2.5);
@@ -798,6 +802,7 @@ void main(){
       container.removeEventListener('pointermove', onMove);
       container.removeEventListener('pointerenter', onEnter);
       container.removeEventListener('pointerleave', onLeave);
+      container.removeEventListener('pointerdown', onDown);
       if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
     }
 
@@ -818,6 +823,7 @@ void main(){
     'uniform float uTime;\n' +
     'uniform vec2 uMouse;\n' +
     'uniform float uMouseActive;\n' +
+    'uniform float uBaseReveal;\n' +
     'uniform float uRevealRadius;\n' +
     'uniform float uRevealSoftness;\n' +
     'uniform float uPixelSize;\n' +
@@ -889,7 +895,8 @@ void main(){
     '    float innerRadius = max(0.0, uRevealRadius * (1.0 - uRevealSoftness));\n' +
     '    float outerRadius = uRevealRadius * (1.0 + uRevealSoftness) + 0.001;\n' +
     '    float revealAmount = (1.0 - smoothstep(innerRadius, outerRadius, revealDist)) * uMouseActive;\n' +
-    '    gl_FragColor = vec4(mix(ditherColor, color.rgb, revealAmount), color.a);\n' +
+    '    float combined = clamp(uBaseReveal + revealAmount, 0.0, 1.0);\n' +
+    '    gl_FragColor = vec4(mix(ditherColor, color.rgb, combined), color.a);\n' +
     '}\n';
 
   // --- Init + theme re-coloring ---

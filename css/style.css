@@ -948,6 +948,36 @@ h1 {
   width: 40%;
 }
 
+.about-stack-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--ink-muted);
+  margin: 4px 0 12px;
+}
+
+.about-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.78rem;
+  padding: 5px 10px;
+  border: 1px solid var(--rule);
+  background: var(--insert);
+  color: var(--ink);
+  border-radius: 2px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.chip:hover {
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
 .about-right {
   display: flex;
   flex-direction: column;
