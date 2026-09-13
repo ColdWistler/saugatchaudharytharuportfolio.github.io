@@ -620,10 +620,283 @@ void main(){
     raf = requestAnimationFrame(render);
   }
 
+  function destroyDitherInstances() {
+    for (var i = 0; i < ditherInstances.length; i++) ditherInstances[i].destroy();
+    ditherInstances = [];
+  }
+
+  function initDitherReveal() {
+    destroyDitherInstances();
+    var containers = document.querySelectorAll('[data-dither-reveal]');
+    for (var c = 0; c < containers.length; c++) {
+      var handle = createDitherReveal(containers[c]);
+      if (handle) ditherInstances.push(handle);
+    }
+  }
+
+  function createDitherReveal(container) {
+    var canvas = document.createElement('canvas');
+    canvas.style.cssText = 'width:100%;height:100%;display:block;';
+    container.appendChild(canvas);
+
+    var imgUrl = container.getAttribute('data-image') || '';
+    var imgAlt = container.getAttribute('aria-label') || '';
+
+    function showFallback() {
+      if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
+      var im = document.createElement('img');
+      im.className = 'dither-fallback';
+      im.src = imgUrl;
+      im.alt = imgAlt;
+      im.loading = 'lazy';
+      container.appendChild(im);
+    }
+
+    var gl = canvas.getContext('webgl', {
+      antialias: false,
+      premultipliedAlpha: false,
+    });
+    if (!gl) {
+      showFallback();
+      return;
+    }
+
+    function compile(type, source) {
+      var sh = gl.createShader(type);
+      gl.shaderSource(sh, source);
+      gl.compileShader(sh);
+      if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) {
+        console.warn('DitherReveal shader:', gl.getShaderInfoLog(sh));
+      }
+      return sh;
+    }
+
+    var vs = compile(gl.VERTEX_SHADER, DITHER_VERT);
+    var fs = compile(gl.FRAGMENT_SHADER, DITHER_FRAG);
+    var program = gl.createProgram();
+    gl.attachShader(program, vs);
+    gl.attachShader(program, fs);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      console.warn('DitherReveal link:', gl.getProgramInfoLog(program));
+      showFallback();
+      return;
+    }
+    gl.useProgram(program);
+    gl.deleteShader(vs);
+    gl.deleteShader(fs);
+
+    var buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(
+      gl.ARRAY_BUFFER,
+      new Float32Array([-1, -1, 3, -1, -1, 3]),
+      gl.STATIC_DRAW
+    );
+    var aPos = gl.getAttribLocation(program, 'aPos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+    function u(name) { return gl.getUniformLocation(program, name); }
+    var texture = gl.createTexture();
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.texImage2D(
+      gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA,
+      gl.UNSIGNED_BYTE, new Uint8Array([20, 20, 20, 255])
+    );
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.uniform1i(u('uTexture'), 0);
+
+    var imgAspect = 1.5;
+    var img = new Image();
+    if (/^https?\:\/\//i.test(imgUrl)) img.crossOrigin = 'anonymous';
+    img.onload = function () {
+      if (img.naturalHeight > 0) imgAspect = img.naturalWidth / img.naturalHeight;
+      gl.bindTexture(gl.TEXTURE_2D, texture);
+      try {
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+      } catch (err) {
+        showFallback();
+      }
+    };
+    img.onerror = function () {
+      console.warn('DitherReveal: image failed to load:', imgUrl);
+      showFallback();
+    };
+    img.src = imgUrl;
+
+    var mouse = { x: 0.5, y: 0.5, active: 0, target: 0, entered: false };
+    var inView = true;
+
+    function onMove(e) {
+      var r = container.getBoundingClientRect();
+      mouse.x = (e.clientX - r.left) / r.width;
+      mouse.y = 1 - (e.clientY - r.top) / r.height;
+      mouse.entered = true;
+      mouse.target = 1;
+    }
+    function onEnter() { mouse.target = 1; }
+    function onLeave() { mouse.target = 0; }
+    container.addEventListener('pointermove', onMove);
+    container.addEventListener('pointerenter', onEnter);
+    container.addEventListener('pointerleave', onLeave);
+
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 3);
+      canvas.width = Math.max(1, Math.floor(container.clientWidth * dpr));
+      canvas.height = Math.max(1, Math.floor(container.clientHeight * dpr));
+      gl.viewport(0, 0, canvas.width, canvas.height);
+    }
+    resize();
+    var ro = new ResizeObserver(resize);
+    ro.observe(container);
+
+    var io = new IntersectionObserver(function (entries) {
+      inView = entries[0].isIntersecting;
+    }, { threshold: 0.01 });
+    io.observe(container);
+
+    var start = performance.now();
+    var raf = 0;
+    function render() {
+      raf = requestAnimationFrame(render);
+      if (!inView) return;
+      var now = performance.now();
+      mouse.active += (mouse.target - mouse.active) * 0.08;
+
+      gl.uniform1f(u('uTime'), (now - start) / 1000);
+      gl.uniform2f(u('uMouse'), mouse.x, mouse.y);
+      gl.uniform1f(u('uMouseActive'), mouse.entered ? mouse.active : 0);
+      gl.uniform1f(u('uRevealRadius'), 120);
+      gl.uniform1f(u('uRevealSoftness'), 0.5);
+      gl.uniform1f(u('uPixelSize'), 2.5);
+      gl.uniform1f(u('uDitherStyle'), 0);
+      gl.uniform1f(u('uWaveSpeed'), 0.82);
+      gl.uniform1f(u('uWaveFrequency'), 2.5);
+      gl.uniform1f(u('uWaveAmplitude'), 0.328);
+      gl.uniform1f(u('uWaveMargin'), 0.0492);
+      gl.uniform1f(u('uCanvasAspect'), canvas.width / canvas.height);
+      gl.uniform1f(u('uImageAspect'), imgAspect);
+      gl.uniform2f(u('uResolution'), container.clientWidth || 1, container.clientHeight || 1);
+      gl.uniform1f(u('uFit'), 0);
+      gl.uniform1f(u('uFocusY'), 0.5);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    render();
+
+    function destroy() {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      io.disconnect();
+      img.onload = null;
+      img.onerror = null;
+      container.removeEventListener('pointermove', onMove);
+      container.removeEventListener('pointerenter', onEnter);
+      container.removeEventListener('pointerleave', onLeave);
+      if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
+    }
+
+    return { destroy: destroy };
+  }
+
+  var DITHER_VERT = '\n' +
+    'attribute vec2 aPos;\n' +
+    'varying vec2 vUv;\n' +
+    'void main() {\n' +
+    '    vUv = aPos * 0.5 + 0.5;\n' +
+    '    gl_Position = vec4(aPos, 0.0, 1.0);\n' +
+    '}\n';
+
+  var DITHER_FRAG = '\n' +
+    'precision highp float;\n' +
+    'uniform sampler2D uTexture;\n' +
+    'uniform float uTime;\n' +
+    'uniform vec2 uMouse;\n' +
+    'uniform float uMouseActive;\n' +
+    'uniform float uRevealRadius;\n' +
+    'uniform float uRevealSoftness;\n' +
+    'uniform float uPixelSize;\n' +
+    'uniform float uDitherStyle;\n' +
+    'uniform float uWaveSpeed;\n' +
+    'uniform float uWaveFrequency;\n' +
+    'uniform float uWaveAmplitude;\n' +
+    'uniform float uWaveMargin;\n' +
+    'uniform float uCanvasAspect;\n' +
+    'uniform float uImageAspect;\n' +
+    'uniform vec2 uResolution;\n' +
+    'uniform float uFit;\n' +
+    'uniform float uFocusY;\n' +
+    'varying vec2 vUv;\n' +
+    'float Bayer2(vec2 a) { a = floor(a); return fract(a.x * 0.5 + a.y * a.y * 0.75); }\n' +
+    'float Bayer4(vec2 a) { return Bayer2(a * 0.5) * 0.25 + Bayer2(a); }\n' +
+    'float Bayer8(vec2 a) { return Bayer4(a * 0.5) * 0.25 + Bayer2(a); }\n' +
+    'float ign(vec2 p) { return fract(52.9829189 * fract(0.06711056 * p.x + 0.00583715 * p.y)); }\n' +
+    'float ordered3(float gray, float thr) {\n' +
+    '    float adj = gray + (thr - 0.5) * 0.5;\n' +
+    '    return adj < 0.33 ? 0.0 : (adj < 0.66 ? 0.5 : 1.0);\n' +
+    '}\n' +
+    'float ditherTone(float gray, float ps) {\n' +
+    '    vec2 fc = gl_FragCoord.xy / ps;\n' +
+    '    if (uDitherStyle < 0.5) { return ordered3(gray, Bayer8(fc)); }\n' +
+    '    else if (uDitherStyle < 1.5) {\n' +
+    '        float period = ps * 4.0;\n' +
+    '        float v = fract((gl_FragCoord.x + gl_FragCoord.y) / period);\n' +
+    '        return 1.0 - step(v, 1.0 - gray);\n' +
+    '    }\n' +
+    '    return step(ign(fc), gray);\n' +
+    '}\n' +
+    'vec2 fitUv(vec2 uv) {\n' +
+    '    vec2 cover = uCanvasAspect < uImageAspect\n' +
+    '        ? vec2(uCanvasAspect / uImageAspect, 1.0)\n' +
+    '        : vec2(1.0, uImageAspect / uCanvasAspect);\n' +
+    '    vec2 s = uFit > 0.5 ? vec2(1.0) : cover / (1.0 + 2.0 * uWaveMargin);\n' +
+    '    vec2 out_ = (uv - 0.5) * s + 0.5;\n' +
+    '    out_.y += (1.0 - s.y) * (0.5 - uFocusY) * step(s.y, 1.0);\n' +
+    '    return out_;\n' +
+    '}\n' +
+    'void main() {\n' +
+    '    vec2 uv = vUv;\n' +
+    '    float time = uTime;\n' +
+    '    float waveStrength = uWaveAmplitude * 0.1;\n' +
+    '    float revealNorm = uRevealRadius / max(min(uResolution.x, uResolution.y), 1.0);\n' +
+    '    float wave1 = sin(uv.y * uWaveFrequency + time * uWaveSpeed) * waveStrength;\n' +
+    '    float wave2 = sin(uv.x * uWaveFrequency * 0.7 + time * uWaveSpeed * 0.8) * waveStrength * 0.5;\n' +
+    '    vec2 distortedUv = uv;\n' +
+    '    distortedUv.x += wave1;\n' +
+    '    distortedUv.y += wave2;\n' +
+    '    if (uMouseActive > 0.01) {\n' +
+    '        float dist = distance(uv, uMouse);\n' +
+    '        float mouseInfluence = smoothstep(revealNorm, 0.0, dist);\n' +
+    '        float ripple = sin(dist * uWaveFrequency * 5.0 - time * uWaveSpeed)\n' +
+    '            * uWaveAmplitude * 0.05 * mouseInfluence * uMouseActive;\n' +
+    '        distortedUv.x += ripple;\n' +
+    '        distortedUv.y += ripple;\n' +
+    '    }\n' +
+    '    vec2 sampleUv = fitUv(distortedUv);\n' +
+    '    vec4 color = texture2D(uTexture, sampleUv);\n' +
+    '    vec2 inside = step(vec2(0.0), sampleUv) * step(sampleUv, vec2(1.0));\n' +
+    '    color *= inside.x * inside.y;\n' +
+    '    float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));\n' +
+    '    float ps = max(uPixelSize, 0.25);\n' +
+    '    float tone = ditherTone(gray, ps);\n' +
+    '    vec3 ditherColor = vec3(tone);\n' +
+    '    float revealDist = distance(uv * uResolution, uMouse * uResolution);\n' +
+    '    float innerRadius = max(0.0, uRevealRadius * (1.0 - uRevealSoftness));\n' +
+    '    float outerRadius = uRevealRadius * (1.0 + uRevealSoftness) + 0.001;\n' +
+    '    float revealAmount = (1.0 - smoothstep(innerRadius, outerRadius, revealDist)) * uMouseActive;\n' +
+    '    gl_FragColor = vec4(mix(ditherColor, color.rgb, revealAmount), color.a);\n' +
+    '}\n';
+
   // --- Init + theme re-coloring ---
   initRadialButtons();
   initPixelDrift();
   initFibreArc();
+  initDitherReveal();
 
   document.addEventListener('theme:change', function () {
     initPixelDrift();
