@@ -59,7 +59,8 @@
         <div class="hero-split">
             <div class="hero-left" data-parallax="0.08">
                 <p class="hero-greeting"><span class="hero-no">№ 001</span> HELLO, I'M</p>
-                <h1 class="hero-name">Saugat Chaudhary<br><span class="accent">Tharu</span></h1>
+                <h1 class="hero-name visually-hidden">Saugat Chaudhary Tharu</h1>
+                <div class="pixel-name" data-pixel-drift data-text="SAUGAT CHAUDHARY&#10;THARU"></div>
                 <div class="subtitle">
                     <span class="subtitle-prefix">&gt;&nbsp;</span>
                     <span id="typing-text"></span>
@@ -68,11 +69,14 @@
                 <p class="hero-tagline">AI/ML Enthusiast &middot; Full Stack Developer &middot; Professional Dumbass</p>
                 <p class="hero-desc">Passionate about computer vision, intelligent systems, and building things that matter.</p>
                 <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="#projects" class="btn btn-primary btn-radial">View Projects</a>
                     <a href="#contact" class="btn btn-outline">Get In Touch</a>
                 </div>
             </div>
             <div class="hero-right">
+                <div class="hero-orb" aria-hidden="true">
+                    <iframe src="AnimatedCOmponents/blackhole_1.html" title="Black hole particle swarm visualisation" loading="eager"></iframe>
+                </div>
                 <div class="hero-card" data-parallax="0.18">
                     <div class="hero-card-row">
                         <span class="hero-stat-label">STACK</span>
@@ -130,7 +134,7 @@
                         <span class="tag">RL</span>
                     </div>
                     <div class="featured-buttons">
-                        <a href="https://github.com/ColdWistler/ProjectRAPTORM86" target="_blank" class="btn btn-primary">
+                        <a href="https://github.com/ColdWistler/ProjectRAPTORM86" target="_blank" class="btn btn-primary btn-radial">
                             <i class="fab fa-github"></i> View Source
                         </a>
                         <a href="#research" class="btn btn-outline">
@@ -207,7 +211,7 @@
                     </div>
                 </div>
                 <div class="research-links">
-                    <a href="https://journaljamcs.com/index.php/JAMCS/article/view/2191" target="_blank" class="btn btn-primary">
+                    <a href="https://journaljamcs.com/index.php/JAMCS/article/view/2191" target="_blank" class="btn btn-primary btn-radial">
                         <i class="fas fa-file-lines"></i> Read Full Paper
                     </a>
                     <a href="https://doi.org/10.9734/jamcs/2026/v41i82191" target="_blank" class="btn btn-outline">
@@ -300,6 +304,18 @@
                     </div>
                     <canvas id="rlCanvas" class="neural-canvas"></canvas>
                 </div>
+                <div class="algorithm-container rl-wide">
+                    <div class="term-bar"><span class="term-dot"></span><span class="term-title">fibre_arc.glsl</span></div>
+                    <h3>Fibre Arc — Interactive GPU Strand Shader</h3>
+                    <div class="rl-info">
+                        <span class="neural-stat">GPU: <span class="accent-stat">WebGL</span></span>
+                        <span class="neural-stat">Passes: <span>1 full-screen</span></span>
+                        <span class="neural-stat">Hover: <span>comb strands</span></span>
+                    </div>
+                    <div class="fibre-arc-wrap">
+                        <canvas id="fibreArcCanvas" class="fibre-arc-canvas" aria-label="Animated fibre arc shader visualisation"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -312,9 +328,30 @@
                 <div class="about-left">
                     <p class="about-lede">Passionate AI/ML developer with a focus on computer vision, intelligent systems, and real-world problem solving. I believe in learning by doing and embrace the journey of continuous improvement.</p>
                     <p>I work with cutting-edge technologies including Rust-based ML frameworks like Burn, traditional Python ML stacks, and full-stack development tools. My goal is to build intelligent systems that make a real impact.</p>
+                    <p>My published research &mdash; a Rust-implemented Dueling Double DQN for autonomous fixed-wing flight in <em>JAMCS</em> (2026) &mdash; is exactly the kind of problem I love: physics, reinforcement learning, and a game engine (Godot 4 through GDExtension) all wired together and documented end to end.</p>
+                    <p>Outside the terminal I'm into flight sims, tinkering with autonomous drones, and pushing browser visualisation far past "good enough". I break things on purpose to learn faster, and I always leave a trail of notes behind.</p>
+                    <div class="about-stack-label">STACK IN ROTATION //</div>
+                    <div class="about-chips">
+                        <span class="chip">Rust</span>
+                        <span class="chip">Burn</span>
+                        <span class="chip">PyTorch</span>
+                        <span class="chip">OpenCV</span>
+                        <span class="chip">Deep RL</span>
+                        <span class="chip">Godot 4</span>
+                        <span class="chip">TypeScript</span>
+                        <span class="chip">React</span>
+                        <span class="chip">Node.js</span>
+                        <span class="chip">PostgreSQL</span>
+                    </div>
                     <hr class="editorial-rule">
                 </div>
                 <div class="about-right" data-parallax="0.12">
+                    <div class="about-portrait">
+                        <div class="term-bar"><span class="term-dot"></span><span class="term-title">pfp.jpg &mdash; hover to reveal</span></div>
+                        <div class="dither-reveal" data-dither-reveal data-image="1767783887436.jpg" role="img" aria-label="Portrait of Saugat Chaudhary Tharu">
+                            <noscript><img src="1767783887436.jpg" alt="Portrait of Saugat Chaudhary Tharu"></noscript>
+                        </div>
+                    </div>
                     <div class="about-highlight">
                         <i class="fas fa-robot"></i>
                         <div>
@@ -585,7 +622,8 @@
     <!-- Contact -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title">LET'S CONNECT</h2>
+            <h2 class="section-title visually-hidden">LET'S CONNECT</h2>
+            <div class="pixel-title" data-pixel-drift data-text="LET'S CONNECT"></div>
             <div class="contact-split">
                 <div class="contact-left">
                     <p>I'm always interested in collaborating on exciting AI/ML projects or discussing new technologies.</p>
@@ -620,5 +658,6 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script src="js/components.js"></script>
 </body>
 </html>

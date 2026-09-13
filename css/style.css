@@ -269,6 +269,39 @@ img {
   letter-spacing: 1px;
 }
 
+/* Radial Reveal button (Animated COmponents) */
+.btn-radial {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.btn-radial:hover,
+.btn-radial:focus-visible {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.btn-radial-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  background: var(--accent);
+  color: var(--paper);
+  pointer-events: none;
+  clip-path: circle(0px at 100% 100%);
+  -webkit-clip-path: circle(0px at 100% 100%);
+}
+
 /* ============================================================
    HERO — Brutalist Editorial
    ============================================================ */
@@ -390,11 +423,31 @@ h1 {
 
 /* Hero Right — Info Card (Developed terminal well) */
 .hero-right {
+  position: relative;
   display: flex;
   justify-content: center;
+  align-items: flex-end;
+  min-height: 500px;
+}
+
+.hero-orb {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-orb iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--rule);
+  background: #000;
+  box-shadow: var(--shadow-sm);
 }
 
 .hero-card {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 8px;
   border: 1px solid var(--rule);
   background: var(--insert);
   box-shadow: var(--shadow);
@@ -792,6 +845,23 @@ h1 {
   background: transparent;
 }
 
+/* Fibre Arc shader panel (Animated COmponents) */
+.fibre-arc-wrap {
+  position: relative;
+  height: 380px;
+  border-top: 1px solid var(--rule);
+  background: #000;
+  overflow: hidden;
+}
+
+.fibre-arc-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 .integrator-legend {
   display: flex;
   flex-wrap: wrap;
@@ -878,10 +948,67 @@ h1 {
   width: 40%;
 }
 
+.about-stack-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--ink-muted);
+  margin: 4px 0 12px;
+}
+
+.about-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.78rem;
+  padding: 5px 10px;
+  border: 1px solid var(--rule);
+  background: var(--insert);
+  color: var(--ink);
+  border-radius: 2px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.chip:hover {
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
 .about-right {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.about-portrait {
+  border: 1px solid var(--rule);
+  background: var(--insert);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.about-portrait .term-bar {
+  background: var(--surface);
+}
+
+.about-portrait .dither-reveal {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  cursor: crosshair;
+  background: var(--paper);
+}
+
+.about-portrait .dither-fallback {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .about-highlight {
@@ -1280,6 +1407,36 @@ h1 {
   width: 22px;
   text-align: center;
   color: var(--accent);
+}
+
+/* Pixel Drift title (Animated COmponents) */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.pixel-title {
+  position: relative;
+  width: 100%;
+  height: 170px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  cursor: crosshair;
+  user-select: none;
+}
+
+.pixel-name {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+  cursor: crosshair;
+  user-select: none;
 }
 
 /* ============================================================
