@@ -1123,6 +1123,59 @@ main { position: relative; z-index: 4; }
     touch-action: pan-y;
 }
 
+/* opened from file:// — no module, no figures, but the page still reads */
+body.is-offline .iso-stage {
+    display: grid;
+    place-items: center;
+    min-height: 180px;
+    cursor: default;
+}
+
+body.is-offline .iso-stage::after {
+    content: "FIGURE NEEDS THE LOCAL SERVER";
+    font-family: var(--font-mono);
+    font-size: .6rem;
+    letter-spacing: .18em;
+    color: var(--ink-faint);
+}
+
+body.is-offline .throttle { opacity: .4; pointer-events: none; }
+
+.offline-note {
+    max-width: 64ch;
+    margin: 104px auto 0;
+    padding: 20px 24px;
+    border: 1px solid var(--rule);
+    border-left: 2px solid var(--accent);
+    background: var(--plate);
+    color: var(--ink-muted);
+    font-size: .9rem;
+    line-height: 1.7;
+}
+
+.offline-note p { margin: 0; }
+.offline-note p + p { margin-top: 10px; }
+
+.offline-note__head {
+    font-family: var(--font-mono);
+    font-size: .66rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+}
+
+.offline-note__cmd code { color: var(--ink); }
+.offline-note code {
+    font-family: var(--font-mono);
+    font-size: .84em;
+    padding: 2px 5px;
+    border: 1px solid var(--rule);
+}
+
+@media (max-width: 640px) {
+    .offline-note { margin: 84px 16px 0; padding: 16px 18px; }
+}
+
 .iso-stage:focus-visible { outline: 1px solid var(--accent); outline-offset: 6px; }
 
 .iso-stage.is-grabbing { cursor: grabbing; }

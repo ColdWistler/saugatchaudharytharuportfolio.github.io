@@ -113,6 +113,17 @@
 
     <main id="main">
 
+        <!-- Shown only when the page is opened straight off disk, where
+             browsers block ES modules and no figure can start. -->
+        <div id="offlineNote" class="offline-note" hidden>
+            <p class="offline-note__head">Opened from disk</p>
+            <p>
+                Your browser blocks ES modules on <code>file://</code>, so the hangar and every
+                isometric plate stay dark. Serve the folder instead:
+            </p>
+            <p class="offline-note__cmd"><code>python3 -m http.server 8000</code> &nbsp;then&nbsp; <code>http://localhost:8000</code></p>
+        </div>
+
         <!-- ==========================================================
              01 — HOME
              ========================================================== -->
@@ -903,7 +914,29 @@
 
     <script src="js/script.js"></script>
     <script src="js/components.js"></script>
-    <script type="module" src="js/main.js"></script>
+    <script type="module" id="bootModule" src="js/main.js"></script>
+    <script>
+        /* Progressive fallback for file:// — classic script, so it runs even
+           when the module is blocked. main.js sets __hangarBoot on entry. */
+        (function () {
+            var fired = false;
+            function offline() {
+                if (fired || window.__hangarBoot)
+                    return;
+                fired = true;
+                document.documentElement.classList.add("no-scene");
+                document.body.classList.remove("is-loading");
+                document.body.classList.add("is-ready", "is-offline");
+                var note = document.getElementById("offlineNote");
+                if (note)
+                    note.hidden = false;
+            }
+            var boot = document.getElementById("bootModule");
+            if (boot)
+                boot.addEventListener("error", offline);
+            window.addEventListener("load", function () { setTimeout(offline, 4200); });
+        })();
+    </script>
     <script>
         /* backstop: never trap the reader behind the preloader */
         window.setTimeout(function () {

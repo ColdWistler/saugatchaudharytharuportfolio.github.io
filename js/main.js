@@ -15,6 +15,9 @@
 import { initFigures } from "./figures.js";
 import { initEngines } from "./engine.js";
 
+/* the classic-script fallback in index.html watches for this */
+window.__hangarBoot = true;
+
 const body = document.body;
 const preloader = document.getElementById("preloader");
 const preloaderFill = document.getElementById("preloaderFill");
