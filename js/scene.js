@@ -313,6 +313,7 @@ const STATIONS = [
     { id: "projects", az: -12, el: 14, dist: 11.8, fov: 38, target: [0, 2.2, 0] },
     { id: "other-projects", az: -46, el: 3, dist: 11.8, fov: 38, target: [0, 2.2, 0] },
     { id: "skills", az: -80, el: -6, dist: 12.4, fov: 36, target: [0, 2.2, 0] },
+    { id: "schematics", az: -96, el: 9, dist: 12.6, fov: 36, target: [0, 2.2, 0] },
     { id: "contact", az: -112, el: 5, dist: 13.6, fov: 33, target: [0, 2.25, 0] },
 ].map((station) => {
     const az = station.az * D2R;

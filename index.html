@@ -95,6 +95,7 @@
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#other-projects" class="nav-link">Other</a></li>
                 <li><a href="#skills" class="nav-link">Stack</a></li>
+                <li><a href="#schematics" class="nav-link">Studies</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="nav-actions">
@@ -784,14 +785,79 @@
             </div>
         </section>
 
+
         <!-- ==========================================================
-             09 — CONTACT
+             09 — SCHEMATICS
+             ========================================================== -->
+        <section id="schematics" class="section section--schematic" data-station="schematics">
+            <div class="section__scrim" aria-hidden="true"></div>
+            <div class="wrap">
+                <header class="section__head">
+                    <p class="kicker"><span class="kicker__no">№ 009</span> MACHINE STUDIES</p>
+                    <h2 class="display">Moving <em>parts</em></h2>
+                </header>
+
+                <p class="study-note">
+                    Three drawings in the same isometric grammar as the figures above — a spool, a
+                    linkage, a flow. They are studies in mechanism, not claims about shipped hardware:
+                    drag the throttle, hover the stack, watch the joints resolve.
+                </p>
+
+                <figure class="iso-plate plate plate--engine" data-figure="engine">
+                    <div class="iso-plate-corners" aria-hidden="true">
+                        <span class="iso-plate-corner" data-corner="fig">FIG 03</span>
+                        <span class="iso-plate-corner" data-corner="title">HIGH-BYPASS TURBOFAN · CUTAWAY</span>
+                        <span class="iso-plate-corner" data-corner="hint">MOVE THE THROTTLE</span>
+                        <span class="iso-plate-corner" data-corner="readout" data-engine-readout>—</span>
+                    </div>
+                    <div class="iso-stage" data-engine-stage></div>
+                    <ul class="eng-legend">
+                        <li data-module="fan"><span class="eng-legend__no">01</span><span class="eng-legend__name">Fan</span><span class="eng-legend__val" data-cell="fan">—</span></li>
+                        <li data-module="comp"><span class="eng-legend__no">02</span><span class="eng-legend__name">Compressor</span><span class="eng-legend__val" data-cell="comp">—</span></li>
+                        <li data-module="comb"><span class="eng-legend__no">03</span><span class="eng-legend__name">Combustor</span><span class="eng-legend__val" data-cell="comb">—</span></li>
+                        <li data-module="turb"><span class="eng-legend__no">04</span><span class="eng-legend__name">Turbine</span><span class="eng-legend__val" data-cell="turb">—</span></li>
+                        <li data-module="nozzle"><span class="eng-legend__no">05</span><span class="eng-legend__name">Nozzle</span><span class="eng-legend__val" data-cell="nozzle">—</span></li>
+                    </ul>
+                    <div class="throttle">
+                        <label class="throttle__lbl" for="throttle">THROTTLE</label>
+                        <input class="throttle__range" id="throttle" type="range" min="0" max="100" step="1" value="64" data-throttle>
+                        <output class="throttle__val" for="throttle" data-throttle-val>64%</output>
+                    </div>
+                </figure>
+
+                <div class="plate-pair">
+                    <figure class="iso-plate plate plate--actuator" data-figure="actuator">
+                        <div class="iso-plate-corners" aria-hidden="true">
+                            <span class="iso-plate-corner" data-corner="fig">FIG 04</span>
+                            <span class="iso-plate-corner" data-corner="title">RUDDER · ACTUATOR</span>
+                            <span class="iso-plate-corner" data-corner="readout" data-actuator-readout>—</span>
+                        </div>
+                        <div class="iso-stage" data-actuator-stage></div>
+                        <p class="plate-caption">Barrel → bellcrank → pushrod → rudder. Every joint is solved in 3-D each frame, so the rod never misses the pin.</p>
+                    </figure>
+
+                    <figure class="iso-plate plate plate--fuel" data-figure="fuel">
+                        <div class="iso-plate-corners" aria-hidden="true">
+                            <span class="iso-plate-corner" data-corner="fig">FIG 05</span>
+                            <span class="iso-plate-corner" data-corner="title">FUEL · SCHEMATIC</span>
+                        </div>
+                        <div class="iso-stage" data-fuel-stage></div>
+                        <ol class="fuel-legend">
+                            <li>Tank</li><li>Boost pump</li><li>Filter</li><li>FCU</li><li>Manifold</li><li>Nozzles</li>
+                        </ol>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+             10 — CONTACT
              ========================================================== -->
         <section id="contact" class="section section--contact" data-station="contact">
             <div class="section__scrim" aria-hidden="true"></div>
             <div class="wrap">
                 <header class="section__head">
-                    <p class="kicker"><span class="kicker__no">№ 009</span> LET'S CONNECT</p>
+                    <p class="kicker"><span class="kicker__no">№ 010</span> LET'S CONNECT</p>
                     <h2 class="display">Open the <em>channel</em></h2>
                 </header>
 

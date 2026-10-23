@@ -13,6 +13,7 @@
    ============================================================ */
 
 import { initFigures } from "./figures.js";
+import { initEngines } from "./engine.js";
 
 const body = document.body;
 const preloader = document.getElementById("preloader");
@@ -24,6 +25,7 @@ const preloaderNote = document.getElementById("preloaderNote");
    ------------------------------------------------------------ */
 
 initFigures();
+initEngines();
 
 /* ------------------------------------------------------------
    2. PRELOADER

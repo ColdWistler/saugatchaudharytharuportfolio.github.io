@@ -1132,6 +1132,189 @@ main { position: relative; z-index: 4; }
 }
 
 /* ------------------------------------------------------------
+   13b. SCHEMATIC SHEET (engine plates)
+   ------------------------------------------------------------ */
+
+.plate--engine .iso-svg { max-height: min(66vh, 580px); }
+
+.eng-hatch { fill: url(#engHatch); stroke: none; }
+
+.eng-cut { stroke-width: .9; }
+
+.eng-burner { mix-blend-mode: screen; }
+.eng-flame { fill: var(--accent); opacity: .5; filter: blur(9px); }
+
+.eng-flow { stroke-width: 1.1; opacity: .45; }
+
+.eng-anchor { fill: var(--anatomy-mid); stroke: none; }
+
+.eng-note .iso-line { stroke-dasharray: 2.5 2.5; stroke-width: .55; }
+.eng-note__label { letter-spacing: .12em; }
+.eng-note__sub { letter-spacing: .1em; }
+
+.eng-note.is-focus .iso-line { stroke: var(--accent); stroke-dasharray: none; stroke-width: .8; }
+.eng-note.is-focus .eng-anchor { fill: var(--accent); }
+.eng-note.is-focus .eng-note__label { fill: var(--accent); }
+.eng-note.is-focus .eng-note__sub { fill: var(--ink-muted); }
+
+.plate--actuator .iso-svg { max-height: min(50vh, 430px); }
+.plate--fuel .iso-svg { max-height: min(42vh, 360px); }
+
+.act-rod { stroke-width: 3.4; stroke-linecap: round; }
+.act-push { stroke-width: 1.7; stroke-linecap: round; }
+.act-joint { fill: var(--accent); stroke: none; }
+
+.fuel-line { stroke-width: 2; }
+.fuel-flow { stroke-dasharray: 6 7; animation: fuelFlow 1.7s linear infinite; }
+
+@keyframes fuelFlow { to { stroke-dashoffset: -13; } }
+
+/* schematic section */
+.study-note {
+    max-width: 62ch;
+    margin: 0 0 28px;
+    color: var(--ink-muted);
+    font-size: .95rem;
+    line-height: 1.75;
+}
+
+.section--schematic .iso-plate { margin-top: 18px; }
+
+.plate-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+}
+
+@media (max-width: 900px) {
+    .plate-pair { grid-template-columns: minmax(0, 1fr); }
+}
+
+.plate-caption {
+    margin: 14px 2px 0;
+    padding-top: 13px;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-muted);
+    font-size: .82rem;
+    line-height: 1.6;
+}
+
+.fuel-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 0;
+    margin: 14px 2px 0;
+    padding: 13px 0 0;
+    border-top: 1px solid var(--rule);
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: .6rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.fuel-legend li { display: flex; align-items: center; }
+.fuel-legend li + li::before { content: "→"; margin: 0 7px; color: var(--accent); }
+
+/* module legend under the drawing */
+.eng-legend {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
+}
+
+.eng-legend li {
+    padding: 12px 12px 0;
+    border-left: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: .62rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.eng-legend li:first-child { padding-left: 0; border-left: 0; }
+
+.eng-legend__no { color: var(--ink-faint); }
+
+.eng-legend__name { display: block; margin-top: 5px; color: var(--ink-muted); }
+
+.eng-legend__val { display: block; margin-top: 3px; color: var(--accent-ink); font-variant-numeric: tabular-nums; }
+
+.eng-legend li.is-focus { border-left-color: var(--accent); }
+.eng-legend li.is-focus .eng-legend__name { color: var(--ink); }
+
+@media (max-width: 640px) {
+    .eng-legend { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .eng-legend li { padding: 10px 10px 0; border-top: 1px solid var(--rule); }
+    .eng-legend li:nth-child(odd) { padding-left: 0; border-left: 0; }
+    .eng-legend li:nth-child(-n + 2) { border-top: 0; }
+    .eng-legend__name { margin-top: 3px; }
+    .eng-legend__val { margin-top: 2px; }
+}
+
+
+/* throttle strip under the plate */
+.throttle {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    margin: 14px 8px 2px;
+    padding-top: 15px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: .64rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.throttle__val { color: var(--accent-ink); font-variant-numeric: tabular-nums; letter-spacing: .08em; }
+
+.throttle__range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 20px;
+    margin: 0;
+    background: transparent;
+    cursor: ew-resize;
+}
+
+.throttle__range::-webkit-slider-runnable-track {
+    height: 1px;
+    background: var(--hairline);
+    box-shadow: 0 -7px 0 -6px var(--rule), 0 7px 0 -6px var(--rule);
+}
+
+.throttle__range::-moz-range-track { height: 1px; background: var(--hairline); }
+
+.throttle__range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 3px;
+    height: 19px;
+    margin-top: -9px;
+    border-radius: 0;
+    background: var(--accent);
+}
+
+.throttle__range::-moz-range-thumb {
+    width: 3px;
+    height: 19px;
+    border: 0;
+    border-radius: 0;
+    background: var(--accent);
+}
+
+.throttle__range:focus-visible { outline: 1px solid var(--accent); outline-offset: 8px; }
+
+/* ------------------------------------------------------------
    14. PAPER (research)
    ------------------------------------------------------------ */
 
