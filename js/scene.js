@@ -1,9 +1,14 @@
 /* ============================================================
    SCENE — the cinematic layer behind the page
    ------------------------------------------------------------
-   A dark hangar: the RAPTORM86 flight model hangs on a slim
-   sting above a lit floor plate, one warm key light, a cold rim,
-   drifting dust and a slow bloom-and-grain grade.
+   The RAPTORM86 flight model hangs on a slim sting above a lit
+   floor plate, one warm key light, a cold rim, drifting dust and
+   a slow bloom-and-grain grade.
+
+   Two grades of the same shot: an indigo night with a sunset
+   horizon and a magenta counter-light, and a bleached daylight
+   poster with a cyan sky and a teal shadow side. The theme
+   repaints the sky, floor, materials and lights in place.
 
    The camera is choreographed by the scroll: every section with
    a data-station attribute owns a camera station, and the
@@ -52,14 +57,14 @@ function airfoilGeometry(chord, span, thickness = 0.12) {
     return geometry;
 }
 
-function buildModel() {
+function buildModel(P) {
     const group = new THREE.Group();
 
-    const skin = new THREE.MeshStandardMaterial({ color: 0xb4bcc6, roughness: 0.38, metalness: 0.22 });
-    const dark = new THREE.MeshStandardMaterial({ color: 0x23282f, roughness: 0.52, metalness: 0.45 });
-    const accent = new THREE.MeshStandardMaterial({ color: 0xff9a3c, roughness: 0.35, metalness: 0.2, emissive: 0xff6a10, emissiveIntensity: 0.55 });
-    const glass = new THREE.MeshStandardMaterial({ color: 0x0d1218, roughness: 0.08, metalness: 0.9 });
-    const glow = new THREE.MeshBasicMaterial({ color: 0xffb066 });
+    const skin = new THREE.MeshStandardMaterial({ color: P.skin, roughness: 0.38, metalness: 0.22 });
+    const dark = new THREE.MeshStandardMaterial({ color: P.dark, roughness: 0.52, metalness: 0.45 });
+    const accent = new THREE.MeshStandardMaterial({ color: P.accent, roughness: 0.35, metalness: 0.2, emissive: P.accentGlow, emissiveIntensity: 0.55 });
+    const glass = new THREE.MeshStandardMaterial({ color: P.glass, roughness: 0.08, metalness: 0.9 });
+    const glow = new THREE.MeshBasicMaterial({ color: P.glow });
 
     /* fuselage */
     const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.3, 3.6, 8, 28), skin);
@@ -161,19 +166,21 @@ function buildModel() {
     group.position.y = 2.35;
     group.name = "raptor";
 
-    return { group, glow };
+    return { group, glow, materials: { skin, dark, accent, glass } };
 }
 
 /* ------------------------------------------------------------
    Floor: a lit plate with a fading technical grid
    ------------------------------------------------------------ */
 
-function buildFloor() {
+function buildFloor(P) {
     const material = new THREE.ShaderMaterial({
         uniforms: {
-            uBase: { value: new THREE.Color(0x070a0e) },
-            uLine: { value: new THREE.Color(0x2b3d4d) },
-            uPool: { value: new THREE.Color(0x2a1c10) },
+            uBase: { value: new THREE.Color(P.floorBase) },
+            uLine: { value: new THREE.Color(P.floorLine) },
+            uPool: { value: new THREE.Color(P.floorPool) },
+            uFog: { value: new THREE.Color(P.fog) },
+            uFogDensity: { value: P.fogDensity },
         },
         vertexShader: `
             varying vec3 vWorld;
@@ -185,6 +192,8 @@ function buildFloor() {
             uniform vec3 uBase;
             uniform vec3 uLine;
             uniform vec3 uPool;
+            uniform vec3 uFog;
+            uniform float uFogDensity;
             varying vec3 vWorld;
             float grid(vec2 p, float step, float width) {
                 vec2 c = p / step;
@@ -197,8 +206,17 @@ function buildFloor() {
                 float lines = grid(vWorld.xz, 1.0, 1.1) * 0.22 + grid(vWorld.xz, 5.0, 1.3) * 0.42;
                 vec3 col = uBase + uLine * lines * fade;
                 col += uPool * exp(-d * d * 0.014) * 1.4;
-                col *= 1.0 - smoothstep(12.0, 30.0, d);
+
+                /* Fade to the fog rather than to black: a custom shader
+                   gets no automatic fog, and a hard black rim reads as
+                   a tear along the horizon in daylight. */
+                float dist = distance(vWorld, cameraPosition);
+                float fogF = clamp(1.0 - exp(-pow(dist * uFogDensity, 2.0)), 0.0, 1.0);
+                col = mix(col, uFog, fogF);
+                col = mix(uFog, col, 1.0 - smoothstep(24.0, 36.0, d));
                 gl_FragColor = vec4(col, 1.0);
+                #include <tonemapping_fragment>
+                #include <colorspace_fragment>
             }`,
     });
     const floor = new THREE.Mesh(new THREE.PlaneGeometry(70, 70, 1, 1), material);
@@ -207,7 +225,7 @@ function buildFloor() {
     return floor;
 }
 
-function buildDust(count = 900) {
+function buildDust(count = 620, color = 0xffd9b0) {
     const positions = new Float32Array(count * 3);
     const seeds = new Float32Array(count);
     for (let i = 0; i < count; i++) {
@@ -236,7 +254,7 @@ function buildDust(count = 900) {
         opacity: 0.55,
         depthWrite: false,
         blending: THREE.AdditiveBlending,
-        color: 0xffd9b0,
+        color,
         sizeAttenuation: true,
     });
     const points = new THREE.Points(geometry, material);
@@ -251,9 +269,7 @@ function buildDust(count = 900) {
 const GradeShader = {
     uniforms: {
         tDiffuse: { value: null },
-        uTime: { value: 0 },
         uVignette: { value: 1.05 },
-        uGrain: { value: 0.055 },
     },
     vertexShader: `
         varying vec2 vUv;
@@ -263,30 +279,104 @@ const GradeShader = {
         }`,
     fragmentShader: `
         uniform sampler2D tDiffuse;
-        uniform float uTime;
         uniform float uVignette;
-        uniform float uGrain;
         varying vec2 vUv;
-        float hash(vec2 p) {
-            return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
-        }
         void main() {
+            vec3 col = texture2D(tDiffuse, vUv).rgb;
             vec2 c = vUv - 0.5;
             float r2 = dot(c, c);
-            vec2 shift = c * r2 * 0.0035;
-            vec3 col;
-            col.r = texture2D(tDiffuse, vUv + shift).r;
-            col.g = texture2D(tDiffuse, vUv).g;
-            col.b = texture2D(tDiffuse, vUv - shift).b;
-            float vig = smoothstep(0.95, 0.18, r2 * uVignette);
-            col *= mix(0.62, 1.0, vig);
-            float g = hash(vUv * vec2(1920.0, 1080.0) + fract(uTime) * 91.7) - 0.5;
-            col += g * uGrain;
+            col *= mix(0.66, 1.0, smoothstep(0.95, 0.18, r2 * uVignette));
             gl_FragColor = vec4(col, 1.0);
         }`,
 };
 
 /* ------------------------------------------------------------
+   Palettes — night neon and daylight cel
+   ------------------------------------------------------------
+   Same composition both ways, which is what sells it: an indigo
+   sunset with a magenta counter-light at night, and a bleached
+   cyan-and-cream poster by day. */
+const PALETTES = {
+    dark: {
+        skyTop: 0x07051c, skyMid: 0x2b0d44, skyHorizon: 0xb8331f, skyGround: 0x05030f,
+        sun: 0xff7a3c, sunSize: 0.17,
+        fog: 0x120a2a, fogDensity: 0.028,
+        floorBase: 0x0a0722, floorLine: 0x2f6f9e, floorPool: 0x4a1230,
+        skin: 0xd8d0ea, dark: 0x241d4a, accent: 0xff6a35, accentGlow: 0xff3d10,
+        glass: 0x0a0a24, glow: 0xff9a5a, dust: 0xffc9a0,
+        key: 0xffb27a, keyIntensity: 260,
+        rim: 0x35e0d0, rimIntensity: 1.8,
+        kick: 0xff2f7e, kickIntensity: 14,
+        hemiSky: 0x2c2a72, hemiGround: 0x08040f, hemiIntensity: 0.5,
+        ring: 0x35e0d0, shaft: 0xffb27a, shaftOpacity: 0.055,
+        plate: 0x11162c,
+        exposure: 1.05, env: 0.32,
+        bloomStrength: 0.58, bloomRadius: 0.62, bloomThreshold: 0.72,
+        vignette: 1.05,
+    },
+    light: {
+        skyTop: 0x4bb8d8, skyMid: 0x8fd6e8, skyHorizon: 0xffd9a0, skyGround: 0xe8d8ba,
+        sun: 0xfff2c8, sunSize: 0.22,
+        fog: 0xe8d9bd, fogDensity: 0.016,
+        floorBase: 0xc4b599, floorLine: 0x6f9aa6, floorPool: 0xffcf96,
+        skin: 0xf2eee2, dark: 0x1e4a58, accent: 0xd93b18, accentGlow: 0xff5a2a,
+        glass: 0x0d3540, glow: 0xffb27a, dust: 0xffffff,
+        key: 0xfff2da, keyIntensity: 430,
+        rim: 0x1f8fa8, rimIntensity: 2.8,
+        kick: 0xff5a3c, kickIntensity: 12,
+        hemiSky: 0xa8dcea, hemiGround: 0xe0cbaa, hemiIntensity: 0.24,
+        ring: 0x0b7d8e, shaft: 0xffe7bd, shaftOpacity: 0.02,
+        plate: 0xd9c9a8,
+        exposure: 0.95, env: 0.18,
+        bloomStrength: 0.2, bloomRadius: 0.5, bloomThreshold: 0.9,
+        vignette: 0.5,
+    },
+};
+
+/* The sky is baked once per theme into a 2:1 equirect texture
+   instead of being shaded per pixel every frame. Same gradient,
+   same low sun, one cheap textured quad instead of a full-screen
+   fragment shader. */
+function hexCss(value) {
+    return "#" + value.toString(16).padStart(6, "0");
+}
+
+function skyTexture(P) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 512;
+    canvas.height = 256;
+    const ctx = canvas.getContext("2d");
+
+    /* The camera is pitched down about twenty degrees, so the whole
+       frame sits in a narrow band just under the horizon. The useful
+       part of the gradient is therefore squeezed into v 0.38–0.56:
+       cyan overhead, warm haze at the horizon line, ground below. */
+    const gradient = ctx.createLinearGradient(0, 0, 0, 256);
+    gradient.addColorStop(0.0, hexCss(P.skyTop));
+    gradient.addColorStop(0.38, hexCss(P.skyMid));
+    gradient.addColorStop(0.485, hexCss(P.skyMid));
+    gradient.addColorStop(0.515, hexCss(P.skyHorizon));
+    gradient.addColorStop(0.56, hexCss(P.fog));
+    gradient.addColorStop(1.0, hexCss(P.skyGround));
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 512, 256);
+
+    const sx = 316;
+    const sy = 118;
+    const sun = ctx.createRadialGradient(sx, sy, 0, sx, sy, 78);
+    sun.addColorStop(0, hexCss(P.sun) + "f2");
+    sun.addColorStop(0.34, hexCss(P.sun) + "5c");
+    sun.addColorStop(1, hexCss(P.sun) + "00");
+    ctx.fillStyle = sun;
+    ctx.fillRect(sx - 78, sy - 78, 156, 156);
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+    return texture;
+}
+
+/* ------------------------------------------------------------/* ------------------------------------------------------------
    Camera stations — one per section
    ------------------------------------------------------------ */
 
@@ -350,36 +440,59 @@ export function initScene(options = {}) {
         return null;
     }
 
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+    /* ---- budget ------------------------------------------------
+       The full rig is a post chain, soft shadows and drifting dust.
+       Phones and low-core laptops get the same picture for less:
+       no post pass, a smaller shadow atlas, fewer motes, a capped
+       frame rate. */
+    const cores = navigator.hardwareConcurrency || 8;
+    const small = window.matchMedia("(max-width: 900px)").matches;
+    const lowPower = small || cores <= 4;
+    const usePost = !small && cores > 2;
+    const maxPixels = lowPower ? 900000 : 2000000;
+    const renderScale = lowPower ? 1 : 0.9;
+
+    /* A pixel budget rather than a flat ratio: a 4K window renders a
+       fraction of its area, a laptop renders near-native, and the
+       softness reads as film rather than as a bug. */
+    function ratioFor(w, h) {
+        const dpr = window.devicePixelRatio || 1;
+        const budget = Math.sqrt(maxPixels / Math.max(1, w * h));
+        return Math.min(dpr, budget) * renderScale;
+    }
+
+    renderer.setPixelRatio(ratioFor(window.innerWidth, window.innerHeight));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.type = lowPower ? THREE.PCFShadowMap : THREE.PCFSoftShadowMap;
+    renderer.shadowMap.autoUpdate = false;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.05;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x05070a);
-    scene.fog = new THREE.FogExp2(0x05070a, 0.03);
-
-    const camera = new THREE.PerspectiveCamera(34, window.innerWidth / window.innerHeight, 0.1, 120);
+    const camera = new THREE.PerspectiveCamera(34, window.innerWidth / window.innerHeight, 0.1, 160);
 
     const pmrem = new THREE.PMREMGenerator(renderer);
     scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-    scene.environmentIntensity = 0.32;
 
-    const { group, glow } = buildModel();
+    scene.background = skyTexture(PALETTES.dark);
+
+    scene.fog = new THREE.FogExp2(PALETTES.dark.fog, PALETTES.dark.fogDensity);
+
+    const model = buildModel(PALETTES.dark);
+    const group = model.group;
+    const glow = model.glow;
     scene.add(group);
 
-    const floor = buildFloor();
+    const floor = buildFloor(PALETTES.dark);
     scene.add(floor);
 
-    const dust = buildDust();
+    const dust = buildDust(lowPower ? 320 : 620, PALETTES.dark.dust);
     scene.add(dust);
 
     /* the plate the sting stands on */
     const plate = new THREE.Mesh(
         new THREE.CylinderGeometry(2.1, 2.3, 0.12, 64),
-        new THREE.MeshStandardMaterial({ color: 0x11161c, roughness: 0.6, metalness: 0.35 })
+        new THREE.MeshStandardMaterial({ color: PALETTES.dark.plate, roughness: 0.6, metalness: 0.35 })
     );
     plate.position.y = -0.66;
     plate.receiveShadow = true;
@@ -387,17 +500,17 @@ export function initScene(options = {}) {
 
     const ring = new THREE.Mesh(
         new THREE.TorusGeometry(2.13, 0.016, 8, 96),
-        new THREE.MeshBasicMaterial({ color: 0xff8a2b })
+        new THREE.MeshBasicMaterial({ color: PALETTES.dark.ring })
     );
     ring.rotation.x = -Math.PI / 2;
     ring.position.y = -0.6;
     scene.add(ring);
 
     /* lighting */
-    const key = new THREE.SpotLight(0xffd6a8, 260, 26, 0.62, 0.7, 2);
+    const key = new THREE.SpotLight(PALETTES.dark.key, PALETTES.dark.keyIntensity, 26, 0.62, 0.7, 2);
     key.position.set(4.2, 7.4, 3.6);
     key.castShadow = true;
-    key.shadow.mapSize.set(1024, 1024);
+    key.shadow.mapSize.set(lowPower ? 512 : 1024, lowPower ? 512 : 1024);
     key.shadow.bias = -0.0012;
     key.shadow.camera.near = 1;
     key.shadow.camera.far = 30;
@@ -405,15 +518,16 @@ export function initScene(options = {}) {
     scene.add(key.target);
     key.target.position.set(0, 2.2, 0);
 
-    const rim = new THREE.DirectionalLight(0x6d9bff, 1.6);
+    const rim = new THREE.DirectionalLight(PALETTES.dark.rim, PALETTES.dark.rimIntensity);
     rim.position.set(-5.5, 3.2, -5.5);
     scene.add(rim);
 
-    const kick = new THREE.PointLight(0xff8a2b, 12, 9, 2);
+    const kick = new THREE.PointLight(PALETTES.dark.kick, PALETTES.dark.kickIntensity, 9, 2);
     kick.position.set(1.6, 0.4, 1.6);
     scene.add(kick);
 
-    scene.add(new THREE.HemisphereLight(0x24374d, 0x04060a, 0.5));
+    const hemi = new THREE.HemisphereLight(PALETTES.dark.hemiSky, PALETTES.dark.hemiGround, PALETTES.dark.hemiIntensity);
+    scene.add(hemi);
 
     /* light shafts */
     const shaftMaterial = new THREE.ShaderMaterial({
@@ -421,7 +535,10 @@ export function initScene(options = {}) {
         depthWrite: false,
         blending: THREE.AdditiveBlending,
         side: THREE.DoubleSide,
-        uniforms: { uColor: { value: new THREE.Color(0xffc98c) }, uOpacity: { value: 0.06 } },
+        uniforms: {
+            uColor: { value: new THREE.Color(PALETTES.dark.shaft) },
+            uOpacity: { value: PALETTES.dark.shaftOpacity },
+        },
         vertexShader: `
             varying vec3 vNormal;
             varying vec3 vView;
@@ -455,31 +572,125 @@ export function initScene(options = {}) {
         scene.add(cone);
     }
 
-    /* post stack */
-    const composer = new EffectComposer(renderer);
-    composer.addPass(new RenderPass(scene, camera));
+    /* ---- post stack, wide screens only ---- */
+    let composer = null;
+    let bloom = null;
+    let grade = null;
+    if (usePost) {
+        composer = new EffectComposer(renderer);
+        composer.addPass(new RenderPass(scene, camera));
+        bloom = new UnrealBloomPass(
+            new THREE.Vector2(window.innerWidth * 0.5, window.innerHeight * 0.5),
+            PALETTES.dark.bloomStrength,
+            PALETTES.dark.bloomRadius,
+            PALETTES.dark.bloomThreshold
+        );
+        composer.addPass(bloom);
+        composer.addPass(new OutputPass());
+        grade = new ShaderPass(GradeShader);
+        composer.addPass(grade);
+    }
 
-    const bloom = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.62, 0.62, 0.72);
-    composer.addPass(bloom);
+    function renderFrame() {
+        if (composer)
+            composer.render();
+        else
+            renderer.render(scene, camera);
+    }
 
-    composer.addPass(new OutputPass());
+    /* ---- palette ---- */
+    let theme = null;
+    let baseKey = PALETTES.dark.keyIntensity;
 
-    const grade = new ShaderPass(GradeShader);
-    composer.addPass(grade);
+    function applyPalette(mode) {
+        const P = PALETTES[mode];
+
+        const previousSky = scene.background;
+        scene.background = skyTexture(P);
+        if (previousSky && previousSky.dispose)
+            previousSky.dispose();
+
+        scene.fog.color.setHex(P.fog);
+        scene.fog.density = P.fogDensity;
+
+        floor.material.uniforms.uBase.value.setHex(P.floorBase);
+        floor.material.uniforms.uLine.value.setHex(P.floorLine);
+        floor.material.uniforms.uPool.value.setHex(P.floorPool);
+        floor.material.uniforms.uFog.value.setHex(P.fog);
+        floor.material.uniforms.uFogDensity.value = P.fogDensity;
+
+        const m = model.materials;
+        m.skin.color.setHex(P.skin);
+        m.dark.color.setHex(P.dark);
+        m.accent.color.setHex(P.accent);
+        m.accent.emissive.setHex(P.accentGlow);
+        m.glass.color.setHex(P.glass);
+        glow.color.setHex(P.glow);
+        plate.material.color.setHex(P.plate);
+
+        key.color.setHex(P.key);
+        key.intensity = P.keyIntensity;
+        baseKey = P.keyIntensity;
+        rim.color.setHex(P.rim);
+        rim.intensity = P.rimIntensity;
+        kick.color.setHex(P.kick);
+        kick.intensity = P.kickIntensity;
+        hemi.color.setHex(P.hemiSky);
+        hemi.groundColor.setHex(P.hemiGround);
+        hemi.intensity = P.hemiIntensity;
+
+        ring.material.color.setHex(P.ring);
+        shaftMaterial.uniforms.uColor.value.setHex(P.shaft);
+        shaftMaterial.uniforms.uOpacity.value = P.shaftOpacity;
+        dust.material.color.setHex(P.dust);
+
+        renderer.toneMappingExposure = P.exposure;
+        scene.environmentIntensity = P.env;
+
+        if (bloom) {
+            bloom.strength = P.bloomStrength;
+            bloom.radius = P.bloomRadius;
+            bloom.threshold = P.bloomThreshold;
+        }
+        if (grade)
+            grade.uniforms.uVignette.value = P.vignette;
+
+        renderer.shadowMap.needsUpdate = true;
+    }
+
+    function themeIsLight() {
+        return document.documentElement.getAttribute("data-theme") === "light";
+    }
+
+    function syncTheme() {
+        const mode = themeIsLight() ? "light" : "dark";
+        if (mode === theme)
+            return;
+        theme = mode;
+        applyPalette(mode);
+        dirty = true;
+    }
 
     /* ---------------- choreography ---------------- */
 
     const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
+    let dirty = true;
+    let lastInput = -1e9;
+
+    const markInput = () => { lastInput = performance.now(); };
+    for (const type of ["scroll", "wheel", "pointerdown", "touchstart"])
+        window.addEventListener(type, markInput, { passive: true });
+
     window.addEventListener("pointermove", (event) => {
         pointer.tx = (event.clientX / window.innerWidth) * 2 - 1;
         pointer.ty = (event.clientY / window.innerHeight) * 2 - 1;
+        markInput();
         if (reduced)
             dirty = true;
     }, { passive: true });
 
     const sections = STATIONS.map((station) => document.getElementById(station.id)).filter(Boolean);
     const state = { index: 0, blend: 0 };
-    let dirty = true;
     const cameraPos = new THREE.Vector3(...STATIONS[0].pos);
     const cameraTarget = new THREE.Vector3(...STATIONS[0].target);
     const wantedPos = cameraPos.clone();
@@ -543,17 +754,24 @@ export function initScene(options = {}) {
         });
     }
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", () => {
+
+    function resize() {
         const w = window.innerWidth;
         const h = window.innerHeight;
+        renderer.setPixelRatio(ratioFor(w, h));
         renderer.setSize(w, h);
-        composer.setSize(w, h);
-        bloom.setSize(w, h);
+        if (composer) {
+            composer.setSize(w, h);
+            bloom.setSize(w * 0.5, h * 0.5);
+        }
         camera.aspect = w / h;
         camera.updateProjectionMatrix();
         anchor();
         measure();
-    });
+        dirty = true;
+    }
+    window.addEventListener("resize", resize);
+
     window.addEventListener("load", () => {
         anchor();
         measure();
@@ -563,31 +781,6 @@ export function initScene(options = {}) {
 
     anchor();
     measure();
-
-    /* Paint one frame straight away so the hangar is already
-       there when the preloader lifts. */
-    camera.position.set(...STATIONS[0].pos);
-    camera.lookAt(new THREE.Vector3(...STATIONS[0].target));
-    camera.fov = STATIONS[0].fov;
-    camera.updateProjectionMatrix();
-    const opening = frameShift();
-    if (opening) {
-        const halfWidth = Math.tan(THREE.MathUtils.degToRad(camera.fov * 0.5)) * camera.aspect;
-        camera.translateX(-opening * halfWidth * camera.position.distanceTo(cameraTarget));
-    }
-    composer.render();
-    if (typeof options.onReady === "function")
-        options.onReady();
-
-    /* ---------------- loop ---------------- */
-
-    const clock = new THREE.Clock();
-    let light = true;
-    let firstFrame = true;
-
-    function themeIsLight() {
-        return document.documentElement.getAttribute("data-theme") === "light";
-    }
 
     /* The page column owns the left of the screen; the model is
        pushed into the open right-hand third. The push is expressed
@@ -605,22 +798,54 @@ export function initScene(options = {}) {
         return 0.44;
     }
 
-    function frame() {
+    /* Paint one frame straight away so the hangar is already
+       there when the preloader lifts. */
+    camera.position.set(...STATIONS[0].pos);
+    camera.lookAt(new THREE.Vector3(...STATIONS[0].target));
+    camera.fov = STATIONS[0].fov;
+    camera.updateProjectionMatrix();
+    const opening = frameShift();
+    if (opening) {
+        const halfWidth = Math.tan(THREE.MathUtils.degToRad(camera.fov * 0.5)) * camera.aspect;
+        camera.translateX(-opening * halfWidth * camera.position.distanceTo(cameraTarget));
+    }
+    syncTheme();
+    renderer.shadowMap.needsUpdate = true;
+    renderFrame();
+    if (typeof options.onReady === "function")
+        options.onReady();
+
+    /* ---------------- loop ---------------- */
+
+    const clock = new THREE.Clock();
+    let firstFrame = true;
+    let lastDraw = 0;
+    let frameNo = 0;
+
+    function frame(now) {
         requestAnimationFrame(frame);
         if (document.hidden)
             return;
 
+        /* A 30 fps ceiling on the budget rig while the page is
+           moving. When nothing has happened for a moment the scene
+           is just swaying to itself, so it drops to 20 fps: the
+           motion is slow enough that nobody can tell, and reading
+           a section stops costing a full frame budget. */
+        const idle = now - lastInput > 700;
+        if (idle ? now - lastDraw < 50 : lowPower && now - lastDraw < 32)
+            return;
+        lastDraw = now;
+        frameNo++;
+
+        syncTheme();
+
         const dt = Math.min(clock.getDelta(), 0.05);
         const t = clock.elapsedTime;
 
-        const wantLight = !themeIsLight();
-        if (wantLight !== light) {
-            light = wantLight;
-            canvas.classList.toggle("is-hidden", !light);
-            dirty = true;
-        }
-        if (!light)
-            return;
+        /* shadows do not need redrawing for every sway */
+        if ((frameNo & 3) === 0)
+            renderer.shadowMap.needsUpdate = true;
 
         /* Under reduced motion the camera does not ease and the
            scene does not drift, so there is nothing to animate:
@@ -669,22 +894,22 @@ export function initScene(options = {}) {
         group.position.y = 2.35 + bob * 0.6;
 
         glow.opacity = 0.75 + Math.sin(t * 2.1) * 0.12 * drift;
-        key.intensity = 250 + Math.sin(t * 0.7) * 12 * drift;
+        key.intensity = baseKey * (1 + Math.sin(t * 0.7) * 0.05 * drift);
 
-        if (!reduced) {
+        if (!reduced && (!lowPower || (frameNo & 1) === 0)) {
             const positions = dust.geometry.attributes.position.array;
             const seeds = dust.userData.seeds;
+            const step = lowPower ? dt * 2 : dt;
             for (let i = 0; i < seeds.length; i++) {
-                positions[i * 3 + 1] += dt * (0.035 + (seeds[i] % 1) * 0.05);
-                positions[i * 3] += Math.sin(t * 0.25 + seeds[i]) * dt * 0.03;
+                positions[i * 3 + 1] += step * (0.035 + (seeds[i] % 1) * 0.05);
+                positions[i * 3] += Math.sin(t * 0.25 + seeds[i]) * step * 0.03;
                 if (positions[i * 3 + 1] > 6.5)
                     positions[i * 3 + 1] = -0.5;
             }
             dust.geometry.attributes.position.needsUpdate = true;
         }
 
-        grade.uniforms.uTime.value = t;
-        composer.render();
+        renderFrame();
 
         if (firstFrame) {
             firstFrame = false;
@@ -693,7 +918,6 @@ export function initScene(options = {}) {
         }
     }
 
-    /* hold the first frame until the page has faded in */
     requestAnimationFrame(frame);
 
     /* A small console handle: inspect the rig, or jump the camera
@@ -704,11 +928,18 @@ export function initScene(options = {}) {
         camera,
         stations: STATIONS,
         model: group,
+        palette: PALETTES,
         snap() {
             cameraPos.copy(wantedPos);
             cameraTarget.copy(wantedTarget);
             camera.fov = wantedFov;
             camera.updateProjectionMatrix();
+            dirty = true;
+        },
+        theme(mode) {
+            theme = null;
+            applyPalette(mode || (themeIsLight() ? "light" : "dark"));
+            theme = mode || (themeIsLight() ? "light" : "dark");
             dirty = true;
         },
     };
