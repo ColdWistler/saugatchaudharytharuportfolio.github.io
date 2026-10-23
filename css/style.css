@@ -462,6 +462,18 @@ main { position: relative; z-index: 4; }
     opacity: .8;
 }
 
+/* Daylight keeps the scene readable: the reading column is already
+   veiled by the fixed scrim, so the section wash only needs to soften
+   the transitions, not hide the model. */
+[data-theme="light"] .section__scrim {
+    background: linear-gradient(180deg,
+        transparent 0%,
+        color-mix(in srgb, var(--scrim) 26%, transparent) 12%,
+        color-mix(in srgb, var(--scrim) 16%, transparent) 88%,
+        transparent 100%);
+    opacity: .9;
+}
+
 .wrap {
     position: relative;
     width: min(var(--wrap), 100% - var(--gutter) * 2);
