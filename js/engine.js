@@ -188,7 +188,14 @@ function buildEngine() {
     };
     const rotor = (paths, name, station) => `<g class="eng-rotor" data-spin="${name}" data-station="${station}">${paths.map((d) => shade(d, 2) + stroke(d, "faint", "eng-hair")).join("")}</g>`;
 
-    const body = [];
+    const body = [`
+        <defs>
+            <radialGradient id="flameGrad" cx="46%" cy="50%" r="58%">
+                <stop offset="0%" style="stop-color:var(--accent-2);stop-opacity:.95"/>
+                <stop offset="48%" style="stop-color:var(--accent);stop-opacity:.62"/>
+                <stop offset="100%" style="stop-color:var(--accent);stop-opacity:0"/>
+            </radialGradient>
+        </defs>`];
 
     /* --- far wall of the nacelle, seen through the cut --- */
     body.push(shade(strip(PROFILES.nacelleOuter, NEAR + SIL, NEAR + 3 * SIL), 1));
@@ -435,15 +442,25 @@ function buildFuel() {
 const systems = [];
 let loop = 0;
 let last = 0;
+let budget = 0;
 
 function frame(now) {
+    loop = requestAnimationFrame(frame);
+    if (document.hidden) {
+        last = now;
+        return;
+    }
+    /* 30 fps is plenty for a needle sweep and halves the path work */
+    if (now - budget < 32)
+        return;
+    budget = now;
+
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
     const t = now / 1000;
     for (const system of systems)
         if (system.visible)
             system.update(dt, t);
-    loop = requestAnimationFrame(frame);
 }
 
 function start() {
