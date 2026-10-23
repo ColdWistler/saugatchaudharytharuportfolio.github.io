@@ -3,49 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saugat Chaudhary Tharu — AI/ML & Full Stack Developer</title>
-    <meta name="description" content="Portfolio of Saugat Chaudhary Tharu — AI/ML & Full-Stack developer in Rust, deep reinforcement learning, and Godot 4. Creator of Project RAPTORM86 and author of 'A Rust-Implemented Dueling Double DQN for Fixed-Wing Autonomous Flight' (JAMCS, 2026).">
+    <script>
+        /* honour the saved theme before the first paint */
+        try {
+            var savedTheme = localStorage.getItem("theme");
+            if (savedTheme === "light" || savedTheme === "dark")
+                document.documentElement.setAttribute("data-theme", savedTheme);
+        } catch (error) { /* private mode: keep the default */ }
+    </script>
+    <title>Saugat Chaudhary Tharu — AI/ML &amp; Full Stack Developer</title>
+    <meta name="description" content="Portfolio of Saugat Chaudhary Tharu — AI/ML &amp; Full-Stack developer in Rust, deep reinforcement learning, and Godot 4. Creator of Project RAPTORM86 and author of 'A Rust-Implemented Dueling Double DQN for Fixed-Wing Autonomous Flight' (JAMCS, 2026).">
     <link rel="canonical" href="https://saugatchaudharytharu.com.np/">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Saugat Chaudhary Tharu — AI/ML & Full Stack Developer">
+    <meta property="og:title" content="Saugat Chaudhary Tharu — AI/ML &amp; Full Stack Developer">
     <meta property="og:site_name" content="Saugat Chaudhary Tharu">
     <meta property="og:url" content="https://saugatchaudharytharu.com.np/">
     <meta property="og:image" content="https://saugatchaudharytharu.com.np/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Portfolio of Saugat Chaudhary Tharu — AI/ML & Full-Stack Developer">
+    <meta property="og:image:alt" content="Portfolio of Saugat Chaudhary Tharu — AI/ML &amp; Full-Stack Developer">
     <meta property="og:description" content="Rust · Deep RL · Godot 4. Project RAPTORM86 flight dynamics engine and the published Dueling Double DQN autonomous-flight paper.">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Saugat Chaudhary Tharu — AI/ML & Full Stack Developer">
     <meta name="twitter:description" content="Rust · Deep RL · Godot 4. Project RAPTORM86 flight dynamics engine and the published Dueling Double DQN autonomous-flight paper.">
     <meta name="twitter:image" content="https://saugatchaudharytharu.com.np/og-image.png">
-    <meta name="twitter:image:alt" content="Portfolio of Saugat Chaudhary Tharu — AI/ML & Full-Stack Developer">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Zilla+Slab:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+    <meta name="twitter:image:alt" content="Portfolio of Saugat Chaudhary Tharu — AI/ML &amp; Full-Stack Developer">
 
-    <!-- Navigation -->
-    <nav class="navbar">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0f14'/%3E%3Ccircle cx='32' cy='32' r='17' fill='none' stroke='%23ff8a2b' stroke-width='3'/%3E%3Cpath d='M32 17v30M17 32h30' stroke='%23ff8a2b' stroke-width='1.5' opacity='.5'/%3E%3C/svg%3E">
+
+    <!-- Third-party CSS is fetched off the critical path: a slow CDN
+         must never hold the page blank. -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap"
+          onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    </noscript>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body class="is-loading">
+
+    <!-- ============================================================
+         PRELOADER — the hangar door opening
+         ============================================================ -->
+    <div class="preloader" id="preloader" role="status" aria-live="polite">
+        <div class="preloader__inner">
+            <p class="preloader__mark">HANGAR 86</p>
+            <div class="preloader__bar"><span class="preloader__fill" id="preloaderFill"></span></div>
+            <p class="preloader__note" id="preloaderNote">warming the floodlights…</p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         THE SCENE — a hangar, a flight model, one warm key light
+         ============================================================ -->
+    <canvas id="scene" aria-hidden="true"></canvas>
+    <div class="scene-scrim" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+
+    <div class="cursor" id="cursor" aria-hidden="true">
+        <span class="cursor__ring"></span>
+        <span class="cursor__dot"></span>
+    </div>
+
+    <!-- ============================================================
+         NAVIGATION
+         ============================================================ -->
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="#home" class="nav-logo">[SAUGAT]</a>
+            <a href="#home" class="nav-logo">SCT<span class="nav-logo__dot">·</span>86</a>
             <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#featured" class="nav-link">Flagship</a></li>
                 <li><a href="#research" class="nav-link">Research</a></li>
-                <li><a href="#algorithms" class="nav-link">Algorithms</a></li>
+                <li><a href="#algorithms" class="nav-link">Lab</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#other-projects" class="nav-link">Other</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#skills" class="nav-link">Stack</a></li>
+                <li><a href="#schematics" class="nav-link">Studies</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="nav-actions">
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
                     <i class="fas fa-sun" id="themeIcon"></i>
                 </button>
-                <div class="hamburger">
+                <div class="hamburger" role="button" tabindex="0" aria-label="Open menu">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -54,610 +111,837 @@
         </div>
     </nav>
 
-    <!-- Hero -->
-    <section id="home" class="hero">
-        <div class="hero-split">
-            <div class="hero-left" data-parallax="0.08">
-                <p class="hero-greeting"><span class="hero-no">№ 001</span> HELLO, I'M</p>
-                <h1 class="hero-name visually-hidden">Saugat Chaudhary Tharu</h1>
-                <div class="pixel-name" data-pixel-drift data-text="SAUGAT CHAUDHARY&#10;THARU"></div>
-                <div class="subtitle">
-                    <span class="subtitle-prefix">&gt;&nbsp;</span>
-                    <span id="typing-text"></span>
-                    <span class="cursor">|</span>
-                </div>
-                <p class="hero-tagline">AI/ML Enthusiast &middot; Full Stack Developer &middot; Professional Dumbass</p>
-                <p class="hero-desc">Passionate about computer vision, intelligent systems, and building things that matter.</p>
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary btn-radial">View Projects</a>
-                    <a href="#contact" class="btn btn-outline">Get In Touch</a>
-                </div>
-            </div>
-            <div class="hero-right">
-                <div class="hero-orb" aria-hidden="true">
-                    <iframe src="AnimatedCOmponents/blackhole_1.html" title="Black hole particle swarm visualisation" loading="eager"></iframe>
-                </div>
-                <div class="hero-card" data-parallax="0.18">
-                    <div class="hero-card-row">
-                        <span class="hero-stat-label">STACK</span>
-                        <span class="hero-stat-val">Python, Rust, JS</span>
-                    </div>
-                    <div class="hero-card-row">
-                        <span class="hero-stat-label">FOCUS</span>
-                        <span class="hero-stat-val">AI / ML / CV</span>
-                    </div>
-                    <div class="hero-card-row">
-                        <span class="hero-stat-label">STATUS</span>
-                        <span class="hero-stat-val">BUILDING</span>
-                    </div>
-                    <div class="hero-card-row">
-                        <span class="hero-stat-label">LOCATION</span>
-                        <span class="hero-stat-val">Nepal</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <main id="main">
 
-<!-- Flagship Project -->
-    <section id="featured" class="featured-project">
-        <div class="container">
-            <div class="featured-grid">
-                <div class="featured-inner">
-                    <span class="badge">FLAGSHIP PROJECT</span>
-                    <h2>Project RAPTORM86</h2>
-                    <p>A 6-DOF fixed-wing flight dynamics engine written in Rust and exposed to Godot 4 through a native GDExtension. Quaternion rigid-body dynamics with RK4 integration, 1976 US Standard Atmosphere, nonlinear post-stall aerodynamics, wind shear and Dryden turbulence — plus an interactive wind-tunnel whose smoke streamlines react to the physics' own lift coefficient.</p>
-                    <div class="featured-stats">
-                        <div class="stat-box">
-                            <span class="stat-val">Rust</span>
-                            <span class="stat-lbl">Physics Core</span>
-                        </div>
-                        <div class="stat-box">
-                            <span class="stat-val">6-DOF</span>
-                            <span class="stat-lbl">Rigid Body</span>
-                        </div>
-                        <div class="stat-box">
-                            <span class="stat-val">60 Hz</span>
-                            <span class="stat-lbl">RK4 Integration</span>
-                        </div>
-                        <div class="stat-box">
-                            <span class="stat-val">RL-ready</span>
-                            <span class="stat-lbl">step_6dof() API</span>
-                        </div>
+        <!-- Shown only when the page is opened straight off disk, where
+             browsers block ES modules and no figure can start. -->
+        <div id="offlineNote" class="offline-note" hidden>
+            <p class="offline-note__head">Opened from disk</p>
+            <p>
+                Your browser blocks ES modules on <code>file://</code>, so the hangar and every
+                isometric plate stay dark. Serve the folder instead:
+            </p>
+            <p class="offline-note__cmd"><code>python3 -m http.server 8000</code> &nbsp;then&nbsp; <code>http://localhost:8000</code></p>
+        </div>
+
+        <!-- ==========================================================
+             01 — HOME
+             ========================================================== -->
+        <section id="home" class="section section--hero" data-station="home">
+            <div class="section__scrim" aria-hidden="true"></div>
+            <div class="wrap wrap--hero">
+                <div class="hero">
+                    <p class="kicker"><span class="kicker__no">№ 001</span> HANGAR 86 — AUTONOMOUS FLIGHT SYSTEMS</p>
+                    <h1 class="display display--hero">Saugat Chaudhary <br><em>Tharu</em></h1>
+                    <p class="hero__lede">AI/ML developer and full-stack engineer. I build flight-dynamics cores, deep reinforcement-learning agents and browser-native instruments that let you watch the physics while it happens.</p>
+                    <p class="hero__typed"><span class="hero__prompt">&gt;</span> <span id="typing-text"></span><span class="caret">|</span></p>
+                    <div class="hero__actions">
+                        <a href="#featured" class="btn btn--solid btn-radial">Enter the hangar</a>
+                        <a href="#research" class="btn btn--ghost">Read the paper</a>
                     </div>
-                    <div class="featured-tags">
-                        <span class="tag">Rust</span>
-                        <span class="tag">Godot 4</span>
-                        <span class="tag">GDExtension</span>
-                        <span class="tag">Flight Physics</span>
-                        <span class="tag">Wind Tunnel</span>
-                        <span class="tag">RL</span>
-                    </div>
-                    <div class="featured-buttons">
-                        <a href="https://github.com/ColdWistler/ProjectRAPTORM86" target="_blank" class="btn btn-primary btn-radial">
-                            <i class="fab fa-github"></i> View Source
-                        </a>
-                        <a href="#research" class="btn btn-outline">
-                            <i class="fas fa-file-lines"></i> Research Paper
-                        </a>
-                    </div>
+                    <dl class="specs">
+                        <div class="spec">
+                            <dt>Stack</dt>
+                            <dd>Python · Rust · JS</dd>
+                        </div>
+                        <div class="spec">
+                            <dt>Focus</dt>
+                            <dd>AI / ML / CV</dd>
+                        </div>
+                        <div class="spec">
+                            <dt>Status</dt>
+                            <dd>Building</dd>
+                        </div>
+                        <div class="spec">
+                            <dt>Location</dt>
+                            <dd>Nepal</dd>
+                        </div>
+                    </dl>
                 </div>
-                <div class="featured-demo-col">
-                    <div class="featured-demo">
-                        <div class="term-bar"><span class="term-dot"></span><span class="term-title">wind_tunnel.rs</span></div>
-                        <div class="featured-demo-body">
-                            <canvas id="windTunnel" class="wind-tunnel"></canvas>
-                            <div class="hud-readouts">
-                                <div class="hud-row"><span class="hud-lbl">&gt; AoA</span><span class="hud-val" id="wtAoa">0.0&deg;</span></div>
-                                <div class="hud-row"><span class="hud-lbl">&gt; CL</span><span class="hud-val" id="wtCl">0.00</span></div>
-                                <div class="hud-row"><span class="hud-lbl">&gt; CD</span><span class="hud-val" id="wtCd">0.03</span></div>
-                                <div class="hud-row"><span class="hud-lbl">&gt; FLOW</span><span class="hud-val" id="wtFlow">ATTACHED</span></div>
+            </div>
+            <div class="scroll-cue" aria-hidden="true">
+                <span class="scroll-cue__rule"></span>
+                <span class="scroll-cue__label">SCROLL</span>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+             02 — FLAGSHIP
+             ========================================================== -->
+        <section id="featured" class="section" data-station="featured">
+            <div class="section__scrim" aria-hidden="true"></div>
+            <div class="wrap">
+                <header class="section__head">
+                    <p class="kicker"><span class="kicker__no">№ 002</span> FLAGSHIP PROJECT</p>
+                    <h2 class="display">Project <em>RAPTORM86</em></h2>
+                    <p class="section__lede">A six-degree-of-freedom fixed-wing flight dynamics engine written in Rust and exposed to Godot 4 through a native GDExtension. Quaternion rigid-body dynamics, RK4 integration, the 1976 US Standard Atmosphere, nonlinear post-stall aerodynamics, wind shear and Dryden turbulence.</p>
+                </header>
+
+                <div class="split">
+                    <div class="split__text">
+                        <p class="body-copy">The wing section below is the same physics the engine uses: drag the plate to set the angle of attack and the lift coefficient, drag coefficient and flow state follow the real aerodynamic model, not a canned animation.</p>
+                        <div class="stat-row">
+                            <div class="stat">
+                                <span class="stat__val">Rust</span>
+                                <span class="stat__lbl">Physics Core</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat__val">6-DOF</span>
+                                <span class="stat__lbl">Rigid Body</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat__val">60 Hz</span>
+                                <span class="stat__lbl">RK4 Integration</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat__val">RL-ready</span>
+                                <span class="stat__lbl">step_6dof() API</span>
                             </div>
                         </div>
+                        <ul class="chips">
+                            <li class="chip">Rust</li>
+                            <li class="chip">Godot 4</li>
+                            <li class="chip">GDExtension</li>
+                            <li class="chip">Flight Physics</li>
+                            <li class="chip">Wind Tunnel</li>
+                            <li class="chip">RL</li>
+                        </ul>
+                        <div class="actions">
+                            <a href="https://github.com/ColdWistler/ProjectRAPTORM86" target="_blank" rel="noopener" class="btn btn--solid btn-radial">
+                                <i class="fab fa-github"></i> View Source
+                            </a>
+                            <a href="#research" class="btn btn--ghost">
+                                <i class="fas fa-file-lines"></i> Research Paper
+                            </a>
+                        </div>
                     </div>
-                    <div class="featured-demo">
-                        <div class="term-bar"><span class="term-dot"></span><span class="term-title">telemetry_hud.rs</span></div>
-                        <div class="featured-demo-body">
-                            <canvas id="flightHud" class="flight-hud"></canvas>
-                            <div class="hud-readouts">
-                                <div class="hud-row"><span class="hud-lbl">&gt; IAS</span><span class="hud-val" id="hudIas">60.0 m/s</span></div>
-                                <div class="hud-row"><span class="hud-lbl">&gt; ALT</span><span class="hud-val" id="hudAlt">1000 m</span></div>
-                                <div class="hud-row"><span class="hud-lbl">&gt; HDG</span><span class="hud-val" id="hudHdg">090&deg;</span></div>
-                                <div class="hud-row"><span class="hud-lbl">&gt; AoA</span><span class="hud-val" id="hudAoa">+4.2&deg;</span></div>
+
+                    <figure class="iso-plate plate" data-figure="rig">
+                        <div class="iso-plate-corners">
+                            <span class="iso-plate-corner" data-corner="fig">FIG 01</span>
+                            <span class="iso-plate-corner" data-corner="title">6-DOF WIND-TUNNEL RIG</span>
+                            <span class="iso-plate-corner" data-corner="hint">DRAG TO SET ANGLE OF ATTACK</span>
+                            <span class="iso-plate-corner" data-corner="readout" data-readout>α 6.0°</span>
+                        </div>
+                        <div class="iso-stage" data-stage></div>
+                    </figure>
+                </div>
+
+                <div class="instrument-row">
+                    <article class="instrument algorithm-container">
+                        <header class="instrument__bar">
+                            <span class="instrument__dot"></span>
+                            <span class="instrument__file">wind_tunnel.rs</span>
+                            <span class="instrument__tag">streamlines</span>
+                        </header>
+                        <div class="instrument__body">
+                            <div class="instrument__canvas instrument__canvas--full">
+                                <canvas id="windTunnel" class="wind-tunnel" aria-label="Wind tunnel streamlines over an aerofoil"></canvas>
+                            </div>
+                            <div class="readouts">
+                                <div class="readout"><span class="readout__k">AoA</span><span class="readout__v" id="wtAoa">0.0°</span></div>
+                                <div class="readout"><span class="readout__k">CL</span><span class="readout__v" id="wtCl">0.00</span></div>
+                                <div class="readout"><span class="readout__k">CD</span><span class="readout__v" id="wtCd">0.03</span></div>
+                                <div class="readout"><span class="readout__k">Flow</span><span class="readout__v" id="wtFlow">ATTACHED</span></div>
                             </div>
                         </div>
+                    </article>
+
+                    <article class="instrument algorithm-container">
+                        <header class="instrument__bar">
+                            <span class="instrument__dot"></span>
+                            <span class="instrument__file">telemetry_hud.rs</span>
+                            <span class="instrument__tag">attitude</span>
+                        </header>
+                        <div class="instrument__body">
+                            <div class="instrument__canvas instrument__canvas--full">
+                                <canvas id="flightHud" class="flight-hud" aria-label="Artificial horizon telemetry display"></canvas>
+                            </div>
+                            <div class="readouts">
+                                <div class="readout"><span class="readout__k">IAS</span><span class="readout__v" id="hudIas">60.0 m/s</span></div>
+                                <div class="readout"><span class="readout__k">ALT</span><span class="readout__v" id="hudAlt">1000 m</span></div>
+                                <div class="readout"><span class="readout__k">HDG</span><span class="readout__v" id="hudHdg">090°</span></div>
+                                <div class="readout"><span class="readout__k">AoA</span><span class="readout__v" id="hudAoa">+4.2°</span></div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+             03 — RESEARCH
+             ========================================================== -->
+        <section id="research" class="section" data-station="research">
+            <div class="section__scrim" aria-hidden="true"></div>
+            <div class="wrap">
+                <header class="section__head">
+                    <p class="kicker"><span class="kicker__no">№ 003</span> PEER-REVIEWED RESEARCH</p>
+                    <h2 class="display">Dueling Double DQN, <em>in Rust</em></h2>
+                    <p class="section__lede">Deep reinforcement learning for autonomous fixed-wing UAV control, implemented without an external ML library and integrated with Godot 4 through GDExtension.</p>
+                </header>
+
+                <div class="split split--wide-left">
+                    <div class="split__text">
+                        <article class="paper">
+                            <p class="paper__badge">PUBLISHED · JAMCS</p>
+                            <h3 class="paper__title">A Rust-Implemented Dueling Double DQN for Fixed-Wing Autonomous Flight</h3>
+                            <p class="paper__meta">Saugat Chaudhary Tharu et al. · JAMCS 41(8), 163–178, 2026 · DOI: 10.9734/jamcs/2026/v41i82191</p>
+                            <p class="body-copy">A Dueling + Double DQN combines prioritised experience replay and three-step returns in a 512→256 hidden configuration — 142,088 parameters for the 16-dimensional input case and seven discrete actions.</p>
+                            <div class="stat-row stat-row--dense">
+                                <div class="stat"><span class="stat__val">4825±40</span><span class="stat__lbl">Mean Best Reward</span></div>
+                                <div class="stat"><span class="stat__val">0.8%</span><span class="stat__lbl">Coeff. of Variation</span></div>
+                                <div class="stat"><span class="stat__val">0 / 30</span><span class="stat__lbl">Crashes, Final Episodes</span></div>
+                                <div class="stat"><span class="stat__val">&lt;1 ms</span><span class="stat__lbl">Gradient Update</span></div>
+                                <div class="stat"><span class="stat__val">35×</span><span class="stat__lbl">Faster than GDScript</span></div>
+                                <div class="stat"><span class="stat__val">&lt;50 MB</span><span class="stat__lbl">Runtime Memory</span></div>
+                            </div>
+                            <div class="actions">
+                                <a href="https://journaljamcs.com/index.php/JAMCS/article/view/2191" target="_blank" rel="noopener" class="btn btn--solid btn-radial">
+                                    <i class="fas fa-file-lines"></i> Read Full Paper
+                                </a>
+                                <a href="https://doi.org/10.9734/jamcs/2026/v41i82191" target="_blank" rel="noopener" class="btn btn--ghost">
+                                    <i class="fas fa-bookmark"></i> DOI
+                                </a>
+                            </div>
+                        </article>
+                    </div>
+
+                    <figure class="iso-plate plate" data-figure="console">
+                        <div class="iso-plate-corners">
+                            <span class="iso-plate-corner" data-corner="fig">FIG 02</span>
+                            <span class="iso-plate-corner" data-corner="title">D3QN TRAINING CONSOLE</span>
+                            <span class="iso-plate-corner" data-corner="hint">HOVER OR PRESS TO RUN A STEP</span>
+                            <span class="iso-plate-corner" data-corner="readout" data-readout>ε 1.000</span>
+                        </div>
+                        <div class="iso-stage" data-stage></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+             04 — ALGORITHMS / THE LAB
+             ========================================================== -->
+        <section id="algorithms" class="section" data-station="algorithms">
+            <div class="section__scrim" aria-hidden="true"></div>
+            <div class="wrap">
+                <header class="section__head">
+                    <p class="kicker"><span class="kicker__no">№ 004</span> THE LAB</p>
+                    <h2 class="display">Everything <em>running live</em></h2>
+                    <p class="section__lede">No screenshots, no pre-rendered loops. RK4 integration, the US Standard Atmosphere, clustering, decision trees, D3QN training and two GPU shaders — all computed in the browser, on the same page, right now.</p>
+                </header>
+
+                <div class="instrument-grid">
+                    <article class="instrument algorithm-container">
+                        <header class="instrument__bar">
+                            <span class="instrument__dot"></span>
+                            <span class="instrument__file">sorter.rs</span>
+                            <span class="instrument__tag">sorting</span>
+                        </header>
+                        <div class="instrument__head">
+                            <h3>Sorting Algorithms</h3>
+                        </div>
+                        <div class="instrument__controls">
+                            <button class="btn btn--tiny sort-btn" data-algorithm="bubble">Bubble</button>
+                            <button class="btn btn--tiny sort-btn" data-algorithm="quick">Quick</button>
+                            <button class="btn btn--tiny sort-btn" data-algorithm="merge">Merge</button>
+                            <button class="btn btn--tiny btn--outline sort-btn" id="resetSort">Reset</button>
+                        </div>
+                        <div class="instrument__canvas">
+                            <canvas id="sortingCanvas" class="sorting-canvas" aria-label="Sorting algorithm visualisation"></canvas>
+                        </div>
+                    </article>
+
+                    <article class="instrument algorithm-container">
+                        <header class="instrument__bar">
+                            <span class="instrument__dot"></span>
+                            <span class="instrument__file">ml_models.py</span>
+                            <span class="instrument__tag">supervised</span>
+                        </header>
+                        <div class="instrument__head">
+                            <h3>ML Algorithms</h3>
+                        </div>
+                        <div class="instrument__controls">
+                            <button class="btn btn--tiny ml-btn is-active" data-ml="kmeans">K-Means</button>
+                            <button class="btn btn--tiny ml-btn" data-ml="knn">kNN</button>
+                            <button class="btn btn--tiny ml-btn" data-ml="linear">Regression</button>
+                            <button class="btn btn--tiny ml-btn" data-ml="tree">Decision Tree</button>
+                            <button class="btn btn--tiny btn--outline ml-btn" id="resetML">Reset</button>
+                        </div>
+                        <div class="instrument__controls" id="mlKControls">
+                            <span class="stat-line">k =</span>
+                            <button class="btn btn--tiny ml-kbtn is-active" data-k="3">3</button>
+                            <button class="btn btn--tiny ml-kbtn" data-k="2">2</button>
+                            <button class="btn btn--tiny ml-kbtn" data-k="4">4</button>
+                        </div>
+                        <div class="instrument__readouts">
+                            <span class="stat-line" id="mlRead1">Iter 0</span>
+                            <span class="stat-line" id="mlRead2">SSE —</span>
+                        </div>
+                        <div class="instrument__canvas">
+                            <canvas id="mlCanvas" class="ml-canvas" aria-label="Machine learning model visualisation"></canvas>
+                        </div>
+                    </article>
+
+                    <article class="instrument algorithm-container">
+                        <header class="instrument__bar">
+                            <span class="instrument__dot"></span>
+                            <span class="instrument__file">integrator.rs</span>
+                            <span class="instrument__tag">ode</span>
+                        </header>
+                        <div class="instrument__head">
+                            <h3>Numerical Integration — RK4</h3>
+                        </div>
+                        <div class="instrument__readouts">
+                            <span class="legend"><span class="legend-dot legend-acc"></span>EXACT</span>
+                            <span class="legend"><span class="legend-dot legend-rk"></span>RK4</span>
+                            <span class="legend"><span class="legend-dot legend-eu"></span>EULER</span>
+                            <span class="stat-line">t: <span id="intTime">0.00s</span></span>
+                            <span class="stat-line">Euler err: <span id="intErr">0%</span></span>
+                        </div>
+                        <div class="instrument__canvas">
+                            <canvas id="integratorCanvas" class="neural-canvas" aria-label="Euler versus RK4 integration error"></canvas>
+                        </div>
+                    </article>
+
+                    <article class="instrument algorithm-container">
+                        <header class="instrument__bar">
+                            <span class="instrument__dot"></span>
+                            <span class="instrument__file">atmosphere.rs</span>
+                            <span class="instrument__tag">1976 std</span>
+                        </header>
+                        <div class="instrument__head">
+                            <h3>US Standard Atmosphere</h3>
+                        </div>
+                        <div class="instrument__readouts">
+                            <span class="stat-line">ALT: <span id="atmAlt">0.0 km</span></span>
+                            <span class="stat-line">T: <span id="atmTemp">15°C</span></span>
+                            <span class="stat-line">P: <span id="atmPress">101.3 kPa</span></span>
+                            <span class="stat-line">ρ: <span id="atmRho">1.225 kg/m³</span></span>
+                        </div>
+                        <div class="instrument__canvas">
+                            <canvas id="atmosphereCanvas" class="neural-canvas" aria-label="Density against altitude"></canvas>
+                        </div>
+                    </article>
+
+                    <article class="instrument algorithm-container instrument--wide">
+                        <header class="instrument__bar">
+                            <span class="instrument__dot"></span>
+                            <span class="instrument__file">rl_agents.rs</span>
+                            <span class="instrument__tag">reinforcement learning</span>
+                        </header>
+                        <div class="instrument__head">
+                            <h3>Reinforcement Learning Agents</h3>
+                        </div>
+                        <div class="instrument__readouts">
+                            <span class="stat-line">Deployed: <span id="rlDeployed" class="accent-stat">D3QN</span></span>
+                            <span class="stat-line">Best reward: <span id="rlBestReward">0</span></span>
+                            <span class="stat-line">Episode: <span id="rlEpisode">0</span></span>
+                        </div>
+                        <div class="instrument__controls instrument__controls--tags">
+                            <span class="tag rl-active">D3QN</span>
+                            <span class="tag">DQN</span>
+                            <span class="tag">Double DQN</span>
+                            <span class="tag">PPO</span>
+                            <span class="tag">SAC</span>
+                            <span class="tag">TD3</span>
+                            <span class="tag">DDPG</span>
+                            <span class="tag">A2C</span>
+                        </div>
+                        <div class="instrument__canvas">
+                            <canvas id="rlCanvas" class="neural-canvas" aria-label="D3QN reward curve"></canvas>
+                        </div>
+                    </article>
+
+                    <article class="instrument algorithm-container instrument--wide instrument--shader">
+                        <header class="instrument__bar">
+                            <span class="instrument__dot"></span>
+                            <span class="instrument__file">fibre_arc.glsl</span>
+                            <span class="instrument__tag">gpu shader</span>
+                        </header>
+                        <div class="instrument__head">
+                            <h3>Fibre Arc — Interactive Strand Shader</h3>
+                        </div>
+                        <div class="instrument__readouts">
+                            <span class="stat-line">GPU: <span class="accent-stat">WebGL</span></span>
+                            <span class="stat-line">Passes: <span>1 full-screen</span></span>
+                            <span class="stat-line">Hover: <span>comb strands</span></span>
+                        </div>
+                        <div class="fibre-arc-wrap">
+                            <canvas id="fibreArcCanvas" class="fibre-arc-canvas" aria-label="Animated fibre arc shader visualisation"></canvas>
+                        </div>
+                    </article>
+
+                    <article class="instrument algorithm-container instrument--wide instrument--shader">
+                        <header class="instrument__bar">
+                            <span class="instrument__dot"></span>
+                            <span class="instrument__file">singularity.js</span>
+                            <span class="instrument__tag">particle swarm</span>
+                        </header>
+                        <div class="instrument__head">
+                            <h3>Singularity — 20 000 Point Swarm</h3>
+                        </div>
+                        <div class="instrument__readouts">
+                            <span class="stat-line">Points: <span>20 000</span></span>
+                            <span class="stat-line">Camera: <span>drag to orbit</span></span>
+                            <span class="stat-line">Post: <span>bloom</span></span>
+                        </div>
+                        <div class="instrument__canvas instrument__canvas--embed">
+                            <iframe src="AnimatedCOmponents/blackhole_1.html" title="Particle swarm visualisation" loading="lazy"></iframe>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+             05 — ABOUT
+             ========================================================== -->
+        <section id="about" class="section" data-station="about">
+            <div class="section__scrim" aria-hidden="true"></div>
+            <div class="wrap">
+                <header class="section__head">
+                    <p class="kicker"><span class="kicker__no">№ 005</span> ABOUT</p>
+                    <h2 class="display">Learning by <em>doing</em></h2>
+                </header>
+
+                <div class="split split--about">
+                    <div class="split__text">
+                        <p class="lede">Passionate AI/ML developer with a focus on computer vision, intelligent systems and real-world problem solving. I believe in learning by doing and embrace the journey of continuous improvement.</p>
+                        <p class="body-copy">I work with cutting-edge technologies including Rust-based ML frameworks like Burn, traditional Python ML stacks, and full-stack development tools. My goal is to build intelligent systems that make a real impact.</p>
+                        <p class="body-copy">My published research — a Rust-implemented Dueling Double DQN for autonomous fixed-wing flight in <em>JAMCS</em> (2026) — is exactly the kind of problem I love: physics, reinforcement learning, and a game engine (Godot 4 through GDExtension) all wired together and documented end to end.</p>
+                        <p class="body-copy">Outside the terminal I'm into flight sims, tinkering with autonomous drones, and pushing browser visualisation far past "good enough". I break things on purpose to learn faster, and I always leave a trail of notes behind.</p>
+                        <p class="stack-label">STACK IN ROTATION //</p>
+                        <ul class="chips">
+                            <li class="chip">Rust</li>
+                            <li class="chip">Burn</li>
+                            <li class="chip">PyTorch</li>
+                            <li class="chip">OpenCV</li>
+                            <li class="chip">Deep RL</li>
+                            <li class="chip">Godot 4</li>
+                            <li class="chip">TypeScript</li>
+                            <li class="chip">React</li>
+                            <li class="chip">Node.js</li>
+                            <li class="chip">PostgreSQL</li>
+                        </ul>
+                    </div>
+
+                    <div class="split__aside">
+                        <figure class="portrait">
+                            <div class="instrument__bar">
+                                <span class="instrument__dot"></span>
+                                <span class="instrument__file">pfp.jpg</span>
+                                <span class="instrument__tag">hover to reveal</span>
+                            </div>
+                            <div class="dither-reveal" data-dither-reveal data-image="1767783887436.jpg" role="img" aria-label="Portrait of Saugat Chaudhary Tharu">
+                                <noscript><img src="1767783887436.jpg" alt="Portrait of Saugat Chaudhary Tharu"></noscript>
+                            </div>
+                        </figure>
+                        <dl class="facts">
+                            <div class="fact"><dt>Focus</dt><dd>AI/ML Enthusiast</dd></div>
+                            <div class="fact"><dt>Role</dt><dd>Full Stack Developer</dd></div>
+                            <div class="fact"><dt>Domain</dt><dd>Computer Vision</dd></div>
+                            <div class="fact"><dt>Systems</dt><dd>Rust &amp; Low-Level</dd></div>
+                        </dl>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Research -->
-    <section id="research" class="research">
-        <div class="container">
-            <h2 class="section-title">RESEARCH</h2>
-            <div class="terminal-note"><span class="terminal-prompt">$</span> // peer-reviewed paper — Journal of Advances in Mathematics and Computer Science</div>
-            <div class="research-card">
-                <div class="research-head">
-                    <span class="badge">PUBLISHED &middot; JAMCS</span>
-                    <h3>A Rust-Implemented Dueling Double DQN for Fixed-Wing Autonomous Flight</h3>
-                    <p class="research-meta">Saugat Chaudhary Tharu et al. &middot; JAMCS 41(8), 163&ndash;178, 2026 &middot; DOI: 10.9734/jamcs/2026/v41i82191</p>
+        <!-- ==========================================================
+             06 — PROJECTS
+             ========================================================== -->
+        <section id="projects" class="section" data-station="projects">
+            <div class="section__scrim" aria-hidden="true"></div>
+            <div class="wrap">
+                <header class="section__head">
+                    <p class="kicker"><span class="kicker__no">№ 006</span> AI &amp; ML PROJECTS</p>
+                    <h2 class="display">Things I <em>shipped</em></h2>
+                </header>
+
+                <div class="card-grid">
+                    <article class="project-card card">
+                        <h3>Capstone: Flight Sim D3QN</h3>
+                        <ul class="project-tags">
+                            <li class="tag">Godot</li>
+                            <li class="tag">Rust</li>
+                            <li class="tag">RL</li>
+                        </ul>
+                        <p>Dueling Double DQN agents trained in Rust for autonomous fixed-wing flight — 142K parameters, prioritised experience replay, &lt;1 ms gradient updates.</p>
+                        <div class="card__links">
+                            <a href="https://github.com/ColdWistler/Capstone2PCASSIE" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a>
+                            <a href="https://journaljamcs.com/index.php/JAMCS/article/view/2191" target="_blank" rel="noopener" class="card-link"><i class="fas fa-file-lines"></i> Published Paper</a>
+                        </div>
+                    </article>
+
+                    <article class="project-card card">
+                        <h3>WildFire Alert System</h3>
+                        <ul class="project-tags">
+                            <li class="tag">Python</li>
+                            <li class="tag">OpenCV</li>
+                            <li class="tag">Jupyter</li>
+                        </ul>
+                        <p>AI-powered wildfire detection using UAV technology for early warning and prevention systems.</p>
+                        <div class="card__links">
+                            <a href="https://github.com/ColdWistler/WildFire-AlertSystemUAV" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a>
+                        </div>
+                    </article>
+
+                    <article class="project-card card">
+                        <h3>Object Detection</h3>
+                        <ul class="project-tags">
+                            <li class="tag">TensorFlow</li>
+                            <li class="tag">OpenCV</li>
+                            <li class="tag">AGPL v3.0</li>
+                        </ul>
+                        <p>Advanced computer vision system for real-time object detection and classification.</p>
+                        <div class="card__links">
+                            <a href="https://github.com/ColdWistler/ObjectDetection" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a>
+                        </div>
+                    </article>
+
+                    <article class="project-card card">
+                        <h3>Devanagri Detection</h3>
+                        <ul class="project-tags">
+                            <li class="tag">OCR</li>
+                            <li class="tag">Scikit-Learn</li>
+                        </ul>
+                        <p>Computer vision for Devanagari script detection and recognition systems.</p>
+                        <div class="card__links">
+                            <a href="https://github.com/ColdWistler/CV_DevnagriDetection" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a>
+                        </div>
+                    </article>
+
+                    <article class="project-card card">
+                        <h3>Genetic Algorithm</h3>
+                        <ul class="project-tags">
+                            <li class="tag">Algorithm</li>
+                            <li class="tag">Evolution</li>
+                        </ul>
+                        <p>Optimization algorithms implementing genetic approaches for complex problem solving.</p>
+                        <div class="card__links">
+                            <a href="https://github.com/ColdWistler/Genetic-Algorithm" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a>
+                        </div>
+                    </article>
                 </div>
-                <p class="research-abstract">Deep reinforcement learning for autonomous fixed-wing UAV control, implemented entirely in Rust without an external ML library and integrated with Godot 4 through GDExtension. A Dueling + Double DQN combines prioritized experience replay and three-step returns in a 512&rarr;256 hidden configuration &mdash; 142,088 parameters for the 16-dimensional input case and seven discrete actions.</p>
-                <div class="research-stats">
-                    <div class="stat-box">
-                        <span class="stat-val">4825&plusmn;40</span>
-                        <span class="stat-lbl">Mean Best Reward</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-val">0.8%</span>
-                        <span class="stat-lbl">Coefficient of Variation</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-val">0 / 30</span>
-                        <span class="stat-lbl">Crashes in Final Episodes</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-val">&lt;1 ms</span>
-                        <span class="stat-lbl">Gradient Update</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-val">35&times;</span>
-                        <span class="stat-lbl">Faster than GDScript</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-val">&lt;50 MB</span>
-                        <span class="stat-lbl">Runtime Memory</span>
-                    </div>
-                </div>
-                <div class="research-links">
-                    <a href="https://journaljamcs.com/index.php/JAMCS/article/view/2191" target="_blank" class="btn btn-primary btn-radial">
-                        <i class="fas fa-file-lines"></i> Read Full Paper
-                    </a>
-                    <a href="https://doi.org/10.9734/jamcs/2026/v41i82191" target="_blank" class="btn btn-outline">
-                        <i class="fas fa-bookmark"></i> DOI
-                    </a>
+
+                <div class="more-projects">
+                    <h3 class="more-projects__title">More AI Projects</h3>
+                    <ul class="project-list">
+                        <li><a href="https://github.com/ColdWistler/SyntheticDataAnalytics" target="_blank" rel="noopener" class="list-item">SyntheticDataAnalytics — Advanced analytics on synthetic datasets for ML model training</a></li>
+                        <li><a href="https://github.com/ColdWistler/KalimatiMachineLearning-" target="_blank" rel="noopener" class="list-item">KalimatiML — Machine learning for local market data analysis</a></li>
+                        <li><a href="https://github.com/ColdWistler/BigDataAssignment2" target="_blank" rel="noopener" class="list-item">BigDataAssignment2 — Big data processing and analytics implementation</a></li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Algorithm Visualization -->
-    <section id="algorithms" class="algorithms-section">
-        <div class="container">
-            <h2 class="section-title">ALGORITHMS</h2>
-            <div class="terminal-note"><span class="terminal-prompt">$</span> // interactive — RK4 integration, US atmosphere, sorting, clustering, decision trees &amp; D3QN training</div>
-            <div class="algorithm-showcase">
-                <div class="algorithm-container">
-                    <div class="term-bar"><span class="term-dot"></span><span class="term-title">sorter.rs</span></div>
-                    <h3>Sorting Algorithms</h3>
-                    <div class="sorting-controls">
-                        <button class="btn btn-small sort-btn" data-algorithm="bubble">Bubble Sort</button>
-                        <button class="btn btn-small sort-btn" data-algorithm="quick">Quick Sort</button>
-                        <button class="btn btn-small sort-btn" data-algorithm="merge">Merge Sort</button>
-                        <button class="btn btn-small btn-outline sort-btn" id="resetSort">Reset</button>
-                    </div>
-                    <canvas id="sortingCanvas" class="sorting-canvas"></canvas>
+        <!-- ==========================================================
+             07 — OTHER PROJECTS
+             ========================================================== -->
+        <section id="other-projects" class="section" data-station="other-projects">
+            <div class="section__scrim" aria-hidden="true"></div>
+            <div class="wrap">
+                <header class="section__head">
+                    <p class="kicker"><span class="kicker__no">№ 007</span> OTHER NOTABLE PROJECTS</p>
+                    <h2 class="display">Off the <em>flight path</em></h2>
+                </header>
+
+                <div class="card-grid">
+                    <article class="project-card card">
+                        <h3>Idiot's Guide to Programming</h3>
+                        <ul class="project-tags">
+                            <li class="tag">Python</li>
+                            <li class="tag">Documentation</li>
+                        </ul>
+                        <p>Comprehensive programming guide for beginners — making complex concepts simple.</p>
+                        <div class="card__links">
+                            <a href="https://github.com/ColdWistler/Idiot-s-Guide-to-Programming." target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a>
+                        </div>
+                    </article>
+
+                    <article class="project-card card">
+                        <h3>Agrifresh Apps</h3>
+                        <ul class="project-tags">
+                            <li class="tag">Flutter</li>
+                            <li class="tag">Dart</li>
+                            <li class="tag">Mobile</li>
+                        </ul>
+                        <p>Fresh vegetables delivery app connecting farmers to consumers.</p>
+                        <div class="card__links">
+                            <a href="https://github.com/ColdWistler/AgrifreshAPP" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a>
+                        </div>
+                    </article>
+
+                    <article class="project-card card">
+                        <h3>VisiNepal</h3>
+                        <ul class="project-tags">
+                            <li class="tag">Java</li>
+                            <li class="tag">Desktop</li>
+                        </ul>
+                        <p>Java-based application showcasing Nepalese cultural heritage and tourism.</p>
+                        <div class="card__links">
+                            <a href="https://github.com/ColdWistler/VisiNepal" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a>
+                        </div>
+                    </article>
+
+                    <article class="project-card card">
+                        <h3>Arch Linux Setup</h3>
+                        <ul class="project-tags">
+                            <li class="tag">Linux</li>
+                            <li class="tag">Arch Linux</li>
+                            <li class="tag">Config</li>
+                        </ul>
+                        <p>Personalized Arch Linux configuration — rice, themes, and productivity tools.</p>
+                        <div class="card__links">
+                            <a href="https://github.com/ColdWistler/ArchLinux-Dots" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a>
+                        </div>
+                    </article>
                 </div>
-                <div class="algorithm-container">
-                    <div class="term-bar"><span class="term-dot"></span><span class="term-title">ml_models.py</span></div>
-                    <h3>ML Algorithms</h3>
-                    <div class="sorting-controls">
-                        <button class="btn btn-small ml-btn is-active" data-ml="kmeans">K-Means</button>
-                        <button class="btn btn-small ml-btn" data-ml="knn">kNN</button>
-                        <button class="btn btn-small ml-btn" data-ml="linear">Regression</button>
-                        <button class="btn btn-small ml-btn" data-ml="tree">Decision Tree</button>
-                        <button class="btn btn-small btn-outline ml-btn" id="resetML">Reset</button>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+             08 — SKILLS
+             ========================================================== -->
+        <section id="skills" class="section" data-station="skills">
+            <div class="section__scrim" aria-hidden="true"></div>
+            <div class="wrap">
+                <header class="section__head">
+                    <p class="kicker"><span class="kicker__no">№ 008</span> TECH STACK &amp; SKILLS</p>
+                    <h2 class="display">The <em>tooling</em></h2>
+                </header>
+
+                <div class="skills-grid">
+                    <div class="skill-group">
+                        <h3 class="skill-category-title">AI/ML</h3>
+                        <ul class="skill-tags">
+                            <li class="skill-tag">Python</li>
+                            <li class="skill-tag">TensorFlow</li>
+                            <li class="skill-tag">PyTorch</li>
+                            <li class="skill-tag">OpenCV</li>
+                            <li class="skill-tag">Scikit-Learn</li>
+                            <li class="skill-tag">HuggingFace</li>
+                            <li class="skill-tag">Transformers</li>
+                            <li class="skill-tag">LangChain</li>
+                            <li class="skill-tag">ONNX</li>
+                            <li class="skill-tag">Burn</li>
+                            <li class="skill-tag">Candle</li>
+                            <li class="skill-tag">LLaMA</li>
+                            <li class="skill-tag">YOLO</li>
+                            <li class="skill-tag">Deep RL</li>
+                            <li class="skill-tag">D3QN</li>
+                        </ul>
                     </div>
-                    <div class="ml-kcontrols" id="mlKControls">
-                        <span class="neural-stat">k =&nbsp;</span>
-                        <button class="btn btn-small ml-kbtn is-active" data-k="3">3</button>
-                        <button class="btn btn-small ml-kbtn" data-k="2">2</button>
-                        <button class="btn btn-small ml-kbtn" data-k="4">4</button>
+                    <div class="skill-group">
+                        <h3 class="skill-category-title">Systems</h3>
+                        <ul class="skill-tags">
+                            <li class="skill-tag">Rust</li>
+                            <li class="skill-tag">C++</li>
+                            <li class="skill-tag">Go</li>
+                            <li class="skill-tag">Zig</li>
+                            <li class="skill-tag">GDExtension</li>
+                            <li class="skill-tag">FFI</li>
+                            <li class="skill-tag">WebAssembly</li>
+                        </ul>
                     </div>
-                    <div class="rl-info">
-                        <span class="neural-stat" id="mlRead1">Iter 0</span>
-                        <span class="neural-stat" id="mlRead2">SSE &mdash;</span>
+                    <div class="skill-group">
+                        <h3 class="skill-category-title">Languages</h3>
+                        <ul class="skill-tags">
+                            <li class="skill-tag">Java</li>
+                            <li class="skill-tag">Dart</li>
+                            <li class="skill-tag">JavaScript</li>
+                            <li class="skill-tag">TypeScript</li>
+                            <li class="skill-tag">C</li>
+                            <li class="skill-tag">Lua</li>
+                        </ul>
                     </div>
-                    <canvas id="mlCanvas" class="ml-canvas"></canvas>
-                </div>
-                <div class="algorithm-container">
-                    <div class="term-bar"><span class="term-dot"></span><span class="term-title">integrator.rs</span></div>
-                    <h3>Numerical Integration — RK4</h3>
-                    <div class="integrator-legend">
-                        <span class="legend"><span class="legend-dot legend-acc"></span>EXACT</span>
-                        <span class="legend"><span class="legend-dot legend-rk"></span>RK4</span>
-                        <span class="legend"><span class="legend-dot legend-eu"></span>EULER</span>
-                        <span class="neural-stat">t: <span id="intTime">0.00s</span></span>
-                        <span class="neural-stat">Euler Err: <span id="intErr">0%</span></span>
+                    <div class="skill-group">
+                        <h3 class="skill-category-title">Cloud</h3>
+                        <ul class="skill-tags">
+                            <li class="skill-tag">AWS</li>
+                            <li class="skill-tag">Docker</li>
+                            <li class="skill-tag">Kubernetes</li>
+                            <li class="skill-tag">GitHub Actions</li>
+                            <li class="skill-tag">CI/CD</li>
+                        </ul>
                     </div>
-                    <canvas id="integratorCanvas" class="neural-canvas"></canvas>
-                </div>
-                <div class="algorithm-container">
-                    <div class="term-bar"><span class="term-dot"></span><span class="term-title">atmosphere.rs</span></div>
-                    <h3>1976 US Standard Atmosphere</h3>
-                    <div class="rl-info">
-                        <span class="neural-stat">ALT: <span id="atmAlt">0.0 km</span></span>
-                        <span class="neural-stat">T: <span id="atmTemp">15&deg;C</span></span>
-                        <span class="neural-stat">P: <span id="atmPress">101.3 kPa</span></span>
-                        <span class="neural-stat">ρ: <span id="atmRho">1.225 kg/m&sup3;</span></span>
+                    <div class="skill-group">
+                        <h3 class="skill-category-title">Tools</h3>
+                        <ul class="skill-tags">
+                            <li class="skill-tag">Flutter</li>
+                            <li class="skill-tag">React</li>
+                            <li class="skill-tag">Next.js</li>
+                            <li class="skill-tag">Godot 4</li>
+                            <li class="skill-tag">Cargo</li>
+                            <li class="skill-tag">Jupyter</li>
+                            <li class="skill-tag">Linux</li>
+                            <li class="skill-tag">Neovim</li>
+                            <li class="skill-tag">Git</li>
+                        </ul>
                     </div>
-                    <canvas id="atmosphereCanvas" class="neural-canvas"></canvas>
-                </div>
-                <div class="algorithm-container rl-wide">
-                    <div class="term-bar"><span class="term-dot"></span><span class="term-title">rl_agents.rs</span></div>
-                    <h3 class="rl-heading">Reinforcement Learning Agents</h3>
-                    <div class="rl-info">
-                        <span class="neural-stat">Deployed: <span id="rlDeployed" class="accent-stat">D3QN</span></span>
-                        <span class="neural-stat">Best Reward: <span id="rlBestReward">0</span></span>
-                        <span class="neural-stat">Episode: <span id="rlEpisode">0</span></span>
-                    </div>
-                    <div class="rl-tags">
-                        <span class="tag rl-active">D3QN</span>
-                        <span class="tag">DQN</span>
-                        <span class="tag">Double DQN</span>
-                        <span class="tag">PPO</span>
-                        <span class="tag">SAC</span>
-                        <span class="tag">TD3</span>
-                        <span class="tag">DDPG</span>
-                        <span class="tag">A2C</span>
-                    </div>
-                    <canvas id="rlCanvas" class="neural-canvas"></canvas>
-                </div>
-                <div class="algorithm-container rl-wide">
-                    <div class="term-bar"><span class="term-dot"></span><span class="term-title">fibre_arc.glsl</span></div>
-                    <h3>Fibre Arc — Interactive GPU Strand Shader</h3>
-                    <div class="rl-info">
-                        <span class="neural-stat">GPU: <span class="accent-stat">WebGL</span></span>
-                        <span class="neural-stat">Passes: <span>1 full-screen</span></span>
-                        <span class="neural-stat">Hover: <span>comb strands</span></span>
-                    </div>
-                    <div class="fibre-arc-wrap">
-                        <canvas id="fibreArcCanvas" class="fibre-arc-canvas" aria-label="Animated fibre arc shader visualisation"></canvas>
+                    <div class="skill-group">
+                        <h3 class="skill-category-title">Data</h3>
+                        <ul class="skill-tags">
+                            <li class="skill-tag">PostgreSQL</li>
+                            <li class="skill-tag">MongoDB</li>
+                            <li class="skill-tag">Redis</li>
+                            <li class="skill-tag">SQLite</li>
+                            <li class="skill-tag">Pandas</li>
+                            <li class="skill-tag">NumPy</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">ABOUT ME</h2>
-            <div class="about-split">
-                <div class="about-left">
-                    <p class="about-lede">Passionate AI/ML developer with a focus on computer vision, intelligent systems, and real-world problem solving. I believe in learning by doing and embrace the journey of continuous improvement.</p>
-                    <p>I work with cutting-edge technologies including Rust-based ML frameworks like Burn, traditional Python ML stacks, and full-stack development tools. My goal is to build intelligent systems that make a real impact.</p>
-                    <p>My published research &mdash; a Rust-implemented Dueling Double DQN for autonomous fixed-wing flight in <em>JAMCS</em> (2026) &mdash; is exactly the kind of problem I love: physics, reinforcement learning, and a game engine (Godot 4 through GDExtension) all wired together and documented end to end.</p>
-                    <p>Outside the terminal I'm into flight sims, tinkering with autonomous drones, and pushing browser visualisation far past "good enough". I break things on purpose to learn faster, and I always leave a trail of notes behind.</p>
-                    <div class="about-stack-label">STACK IN ROTATION //</div>
-                    <div class="about-chips">
-                        <span class="chip">Rust</span>
-                        <span class="chip">Burn</span>
-                        <span class="chip">PyTorch</span>
-                        <span class="chip">OpenCV</span>
-                        <span class="chip">Deep RL</span>
-                        <span class="chip">Godot 4</span>
-                        <span class="chip">TypeScript</span>
-                        <span class="chip">React</span>
-                        <span class="chip">Node.js</span>
-                        <span class="chip">PostgreSQL</span>
+
+        <!-- ==========================================================
+             09 — SCHEMATICS
+             ========================================================== -->
+        <section id="schematics" class="section section--schematic" data-station="schematics">
+            <div class="section__scrim" aria-hidden="true"></div>
+            <div class="wrap">
+                <header class="section__head">
+                    <p class="kicker"><span class="kicker__no">№ 009</span> MACHINE STUDIES</p>
+                    <h2 class="display">Moving <em>parts</em></h2>
+                </header>
+
+                <p class="study-note">
+                    Three drawings in the same isometric grammar as the figures above — a spool, a
+                    linkage, a flow. They are studies in mechanism, not claims about shipped hardware:
+                    drag the throttle, hover the stack, watch the joints resolve.
+                </p>
+
+                <figure class="iso-plate plate plate--engine" data-figure="engine">
+                    <div class="iso-plate-corners" aria-hidden="true">
+                        <span class="iso-plate-corner" data-corner="fig">FIG 03</span>
+                        <span class="iso-plate-corner" data-corner="title">HIGH-BYPASS TURBOFAN · CUTAWAY</span>
+                        <span class="iso-plate-corner" data-corner="hint">MOVE THE THROTTLE</span>
+                        <span class="iso-plate-corner" data-corner="readout" data-engine-readout>—</span>
                     </div>
-                    <hr class="editorial-rule">
+                    <div class="iso-stage" data-engine-stage></div>
+                    <ul class="eng-legend">
+                        <li data-module="fan"><span class="eng-legend__no">01</span><span class="eng-legend__name">Fan</span><span class="eng-legend__val" data-cell="fan">—</span></li>
+                        <li data-module="comp"><span class="eng-legend__no">02</span><span class="eng-legend__name">Compressor</span><span class="eng-legend__val" data-cell="comp">—</span></li>
+                        <li data-module="comb"><span class="eng-legend__no">03</span><span class="eng-legend__name">Combustor</span><span class="eng-legend__val" data-cell="comb">—</span></li>
+                        <li data-module="turb"><span class="eng-legend__no">04</span><span class="eng-legend__name">Turbine</span><span class="eng-legend__val" data-cell="turb">—</span></li>
+                        <li data-module="nozzle"><span class="eng-legend__no">05</span><span class="eng-legend__name">Nozzle</span><span class="eng-legend__val" data-cell="nozzle">—</span></li>
+                    </ul>
+                    <div class="throttle">
+                        <label class="throttle__lbl" for="throttle">THROTTLE</label>
+                        <input class="throttle__range" id="throttle" type="range" min="0" max="100" step="1" value="64" data-throttle>
+                        <output class="throttle__val" for="throttle" data-throttle-val>64%</output>
+                    </div>
+                </figure>
+
+                <div class="plate-pair">
+                    <figure class="iso-plate plate plate--actuator" data-figure="actuator">
+                        <div class="iso-plate-corners" aria-hidden="true">
+                            <span class="iso-plate-corner" data-corner="fig">FIG 04</span>
+                            <span class="iso-plate-corner" data-corner="title">RUDDER · ACTUATOR</span>
+                            <span class="iso-plate-corner" data-corner="readout" data-actuator-readout>—</span>
+                        </div>
+                        <div class="iso-stage" data-actuator-stage></div>
+                        <p class="plate-caption">Barrel → bellcrank → pushrod → rudder. Every joint is solved in 3-D each frame, so the rod never misses the pin.</p>
+                    </figure>
+
+                    <figure class="iso-plate plate plate--fuel" data-figure="fuel">
+                        <div class="iso-plate-corners" aria-hidden="true">
+                            <span class="iso-plate-corner" data-corner="fig">FIG 05</span>
+                            <span class="iso-plate-corner" data-corner="title">FUEL · SCHEMATIC</span>
+                        </div>
+                        <div class="iso-stage" data-fuel-stage></div>
+                        <ol class="fuel-legend">
+                            <li>Tank</li><li>Boost pump</li><li>Filter</li><li>FCU</li><li>Manifold</li><li>Nozzles</li>
+                        </ol>
+                    </figure>
                 </div>
-                <div class="about-right" data-parallax="0.12">
-                    <div class="about-portrait">
-                        <div class="term-bar"><span class="term-dot"></span><span class="term-title">pfp.jpg &mdash; hover to reveal</span></div>
-                        <div class="dither-reveal" data-dither-reveal data-image="1767783887436.jpg" role="img" aria-label="Portrait of Saugat Chaudhary Tharu">
-                            <noscript><img src="1767783887436.jpg" alt="Portrait of Saugat Chaudhary Tharu"></noscript>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+             10 — CONTACT
+             ========================================================== -->
+        <section id="contact" class="section section--contact" data-station="contact">
+            <div class="section__scrim" aria-hidden="true"></div>
+            <div class="wrap">
+                <header class="section__head">
+                    <p class="kicker"><span class="kicker__no">№ 010</span> LET'S CONNECT</p>
+                    <h2 class="display">Open the <em>channel</em></h2>
+                </header>
+
+                <div class="contact-grid">
+                    <div class="contact-copy">
+                        <p class="lede">I'm always interested in collaborating on exciting AI/ML projects or discussing new technologies.</p>
+                        <ul class="contact-list">
+                            <li><i class="fas fa-envelope"></i> <a href="mailto:csaugat862@gmail.com">csaugat862@gmail.com</a></li>
+                            <li><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/saugat-chaudhary-19653b33b" target="_blank" rel="noopener">LinkedIn Profile</a></li>
+                        </ul>
+                        <div class="actions">
+                            <a href="https://github.com/ColdWistler" target="_blank" rel="noopener" class="btn btn--solid btn-radial"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="https://www.linkedin.com/in/saugat-chaudhary-19653b33b" target="_blank" rel="noopener" class="btn btn--ghost"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                            <a href="mailto:csaugat862@gmail.com" class="btn btn--ghost"><i class="fas fa-envelope"></i> Email</a>
                         </div>
                     </div>
-                    <div class="about-highlight">
-                        <i class="fas fa-robot"></i>
-                        <div>
-                            <span class="highlight-label">Focus</span>
-                            <span class="highlight-val">AI/ML Enthusiast</span>
-                        </div>
-                    </div>
-                    <div class="about-highlight">
-                        <i class="fas fa-code"></i>
-                        <div>
-                            <span class="highlight-label">Role</span>
-                            <span class="highlight-val">Full Stack Developer</span>
-                        </div>
-                    </div>
-                    <div class="about-highlight">
-                        <i class="fas fa-brain"></i>
-                        <div>
-                            <span class="highlight-label">Domain</span>
-                            <span class="highlight-val">Computer Vision</span>
-                        </div>
-                    </div>
-                    <div class="about-highlight">
-                        <i class="fas fa-shield-halved"></i>
-                        <div>
-                            <span class="highlight-label">Systems</span>
-                            <span class="highlight-val">Rust & Low-Level</span>
-                        </div>
+                    <div class="signoff">
+                        <div class="signoff__label">SIGN-OFF // 001</div>
+                        <div class="signoff__mark" data-pixel-drift data-text="LET'S CONNECT"></div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Projects -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">AI & ML PROJECTS</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <h3>Capstone: Flight Sim D3QN</h3>
-                    <div class="project-tags">
-                        <span class="tag">Godot</span>
-                        <span class="tag">Rust</span>
-                        <span class="tag">RL</span>
-                    </div>
-                    <p>Dueling Double DQN agents trained in Rust for autonomous fixed-wing flight — 142K parameters, prioritized experience replay, &lt;1 ms gradient updates.</p>
-                    <a href="https://github.com/ColdWistler/Capstone2PCASSIE" target="_blank" class="card-link">
-                        <i class="fab fa-github"></i> View Project
-                    </a>
-                    <a href="https://journaljamcs.com/index.php/JAMCS/article/view/2191" target="_blank" class="card-link">
-                        <i class="fas fa-file-lines"></i> Published Paper
-                    </a>
-                </div>
-
-                <div class="project-card">
-                    <h3>WildFire Alert System</h3>
-                    <div class="project-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">OpenCV</span>
-                        <span class="tag">Jupyter</span>
-                    </div>
-                    <p>AI-powered wildfire detection using UAV technology for early warning and prevention systems.</p>
-                    <a href="https://github.com/ColdWistler/WildFire-AlertSystemUAV" target="_blank" class="card-link">
-                        <i class="fab fa-github"></i> View Project
-                    </a>
-                </div>
-
-                <div class="project-card">
-                    <h3>Object Detection</h3>
-                    <div class="project-tags">
-                        <span class="tag">TensorFlow</span>
-                        <span class="tag">OpenCV</span>
-                        <span class="tag">AGPL v3.0</span>
-                    </div>
-                    <p>Advanced computer vision system for real-time object detection and classification.</p>
-                    <a href="https://github.com/ColdWistler/ObjectDetection" target="_blank" class="card-link">
-                        <i class="fab fa-github"></i> View Project
-                    </a>
-                </div>
-
-                <div class="project-card">
-                    <h3>Devanagri Detection</h3>
-                    <div class="project-tags">
-                        <span class="tag">OCR</span>
-                        <span class="tag">Scikit-Learn</span>
-                    </div>
-                    <p>Computer vision for Devanagari script detection and recognition systems.</p>
-                    <a href="https://github.com/ColdWistler/CV_DevnagriDetection" target="_blank" class="card-link">
-                        <i class="fab fa-github"></i> View Project
-                    </a>
-                </div>
-
-                <div class="project-card">
-                    <h3>Genetic Algorithm</h3>
-                    <div class="project-tags">
-                        <span class="tag">Algorithm</span>
-                        <span class="tag">Evolution</span>
-                    </div>
-                    <p>Optimization algorithms implementing genetic approaches for complex problem solving.</p>
-                    <a href="https://github.com/ColdWistler/Genetic-Algorithm" target="_blank" class="card-link">
-                        <i class="fab fa-github"></i> View Project
-                    </a>
-                </div>
-            </div>
-
-            <div class="more-projects">
-                <h3>More AI Projects</h3>
-                <div class="project-list">
-                    <a href="https://github.com/ColdWistler/SyntheticDataAnalytics" target="_blank" class="list-item">
-                        SyntheticDataAnalytics — Advanced analytics on synthetic datasets for ML model training
-                    </a>
-                    <a href="https://github.com/ColdWistler/KalimatiMachineLearning-" target="_blank" class="list-item">
-                        KalimatiML — Machine learning for local market data analysis
-                    </a>
-                    <a href="https://github.com/ColdWistler/BigDataAssignment2" target="_blank" class="list-item">
-                        BigDataAssignment2 — Big data processing and analytics implementation
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Other Notable Projects -->
-    <section id="other-projects" class="other-projects">
-        <div class="container">
-            <h2 class="section-title">OTHER NOTABLE PROJECTS</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <h3>Idiot's Guide to Programming</h3>
-                    <div class="project-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Documentation</span>
-                    </div>
-                    <p>Comprehensive programming guide for beginners — making complex concepts simple.</p>
-                    <a href="https://github.com/ColdWistler/Idiot-s-Guide-to-Programming." target="_blank" class="card-link">
-                        <i class="fab fa-github"></i> View Project
-                    </a>
-                </div>
-
-                <div class="project-card">
-                    <h3>Agrifresh Apps</h3>
-                    <div class="project-tags">
-                        <span class="tag">Flutter</span>
-                        <span class="tag">Dart</span>
-                        <span class="tag">Mobile</span>
-                    </div>
-                    <p>Fresh vegetables delivery app connecting farmers to consumers.</p>
-                    <a href="https://github.com/ColdWistler/AgrifreshAPP" target="_blank" class="card-link">
-                        <i class="fab fa-github"></i> View Project
-                    </a>
-                </div>
-
-                <div class="project-card">
-                    <h3>VisiNepal</h3>
-                    <div class="project-tags">
-                        <span class="tag">Java</span>
-                        <span class="tag">Desktop</span>
-                    </div>
-                    <p>Java-based application showcasing Nepalese cultural heritage and tourism.</p>
-                    <a href="https://github.com/ColdWistler/VisiNepal" target="_blank" class="card-link">
-                        <i class="fab fa-github"></i> View Project
-                    </a>
-                </div>
-
-                <div class="project-card">
-                    <h3>Arch Linux Setup</h3>
-                    <div class="project-tags">
-                        <span class="tag">Linux</span>
-                        <span class="tag">Arch Linux</span>
-                        <span class="tag">Config</span>
-                    </div>
-                    <p>Personalized Arch Linux configuration — rice, themes, and productivity tools.</p>
-                    <a href="https://github.com/ColdWistler/ArchLinux-Dots" target="_blank" class="card-link">
-                        <i class="fab fa-github"></i> View Project
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">TECH STACK & SKILLS</h2>
-            <div class="skills-grid">
-                <div class="skill-group">
-                    <h3 class="skill-category-title">AI/ML</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">TensorFlow</span>
-                        <span class="skill-tag">PyTorch</span>
-                        <span class="skill-tag">OpenCV</span>
-                        <span class="skill-tag">Scikit-Learn</span>
-                        <span class="skill-tag">HuggingFace</span>
-                        <span class="skill-tag">Transformers</span>
-                        <span class="skill-tag">LangChain</span>
-                        <span class="skill-tag">ONNX</span>
-                        <span class="skill-tag">Burn</span>
-                        <span class="skill-tag">Candle</span>
-                        <span class="skill-tag">LLaMA</span>
-                        <span class="skill-tag">YOLO</span>
-                        <span class="skill-tag">Deep RL</span>
-                        <span class="skill-tag">D3QN</span>
-                    </div>
-                </div>
-                <div class="skill-group">
-                    <h3 class="skill-category-title">Systems</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Rust</span>
-                        <span class="skill-tag">C++</span>
-                        <span class="skill-tag">Go</span>
-                        <span class="skill-tag">Zig</span>
-                        <span class="skill-tag">GDExtension</span>
-                        <span class="skill-tag">FFI</span>
-                        <span class="skill-tag">WebAssembly</span>
-                    </div>
-                </div>
-                <div class="skill-group">
-                    <h3 class="skill-category-title">Languages</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Java</span>
-                        <span class="skill-tag">Dart</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">TypeScript</span>
-                        <span class="skill-tag">C</span>
-                        <span class="skill-tag">Lua</span>
-                    </div>
-                </div>
-                <div class="skill-group">
-                    <h3 class="skill-category-title">Cloud</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">AWS</span>
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">Kubernetes</span>
-                        <span class="skill-tag">GitHub Actions</span>
-                        <span class="skill-tag">CI/CD</span>
-                    </div>
-                </div>
-                <div class="skill-group">
-                    <h3 class="skill-category-title">Tools</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Flutter</span>
-                        <span class="skill-tag">React</span>
-                        <span class="skill-tag">Next.js</span>
-                        <span class="skill-tag">Godot 4</span>
-                        <span class="skill-tag">Cargo</span>
-                        <span class="skill-tag">Jupyter</span>
-                        <span class="skill-tag">Linux</span>
-                        <span class="skill-tag">Neovim</span>
-                        <span class="skill-tag">Git</span>
-                    </div>
-                </div>
-                <div class="skill-group">
-                    <h3 class="skill-category-title">Data</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">PostgreSQL</span>
-                        <span class="skill-tag">MongoDB</span>
-                        <span class="skill-tag">Redis</span>
-                        <span class="skill-tag">SQLite</span>
-                        <span class="skill-tag">Pandas</span>
-                        <span class="skill-tag">NumPy</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title visually-hidden">LET'S CONNECT</h2>
-            <div class="pixel-title" data-pixel-drift data-text="LET'S CONNECT"></div>
-            <div class="contact-split">
-                <div class="contact-left">
-                    <p>I'm always interested in collaborating on exciting AI/ML projects or discussing new technologies.</p>
-                    <div class="contact-info">
-                        <p><i class="fas fa-envelope"></i> csaugat862@gmail.com</p>
-                        <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/saugat-chaudhary-19653b33b" target="_blank">LinkedIn Profile</a></p>
-                    </div>
-                </div>
-                <div class="contact-right" data-parallax="0.12">
-                    <a href="https://github.com/ColdWistler" target="_blank" class="contact-btn">
-                        <i class="fab fa-github"></i> GitHub
-                    </a>
-                    <a href="https://www.linkedin.com/in/saugat-chaudhary-19653b33b" target="_blank" class="contact-btn">
-                        <i class="fab fa-linkedin"></i> LinkedIn
-                    </a>
-                    <a href="mailto:csaugat862@gmail.com" class="contact-btn">
-                        <i class="fas fa-envelope"></i> Email
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p class="footer-quote">"Code, break, fix, repeat — that's how we learn!"</p>
-                <p class="footer-copy">&copy; 2024 Saugat Chaudhary Tharu</p>
-            </div>
+        <div class="wrap footer__inner">
+            <p class="footer__quote">"Code, break, fix, repeat — that's how we learn!"</p>
+            <p class="footer__meta">
+                <span>© 2024 Saugat Chaudhary Tharu</span>
+                <span class="footer__sep">·</span>
+                <span>Hangar 86</span>
+            </p>
         </div>
     </footer>
 
+    <noscript>
+        <div class="noscript-note">This portfolio uses JavaScript for the interactive instruments and the 3D scene. The written content above is complete without it.</div>
+    </noscript>
+
     <script src="js/script.js"></script>
     <script src="js/components.js"></script>
+    <script type="module" id="bootModule" src="js/main.js"></script>
+    <script>
+        /* Progressive fallback for file:// — classic script, so it runs even
+           when the module is blocked. main.js sets __hangarBoot on entry. */
+        (function () {
+            var fired = false;
+            function offline() {
+                if (fired || window.__hangarBoot)
+                    return;
+                fired = true;
+                document.documentElement.classList.add("no-scene");
+                document.body.classList.remove("is-loading");
+                document.body.classList.add("is-ready", "is-offline");
+                var note = document.getElementById("offlineNote");
+                if (note)
+                    note.hidden = false;
+            }
+            var boot = document.getElementById("bootModule");
+            if (boot)
+                boot.addEventListener("error", offline);
+            window.addEventListener("load", function () { setTimeout(offline, 4200); });
+        })();
+    </script>
+    <script>
+        /* backstop: never trap the reader behind the preloader */
+        window.setTimeout(function () {
+            document.body.classList.remove("is-loading");
+        }, 5000);
+    </script>
 </body>
 </html>
