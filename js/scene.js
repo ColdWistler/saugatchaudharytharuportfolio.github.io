@@ -66,107 +66,134 @@ function buildModel(P) {
     const glass = new THREE.MeshStandardMaterial({ color: P.glass, roughness: 0.08, metalness: 0.9 });
     const glow = new THREE.MeshBasicMaterial({ color: P.glow });
 
-    /* fuselage */
-    const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.3, 3.6, 8, 28), skin);
+    const add = (mesh, shade = true) => {
+        mesh.castShadow = shade;
+        mesh.receiveShadow = shade;
+        group.add(mesh);
+        return mesh;
+    };
+
+    /* --- fuselage: a slim cargo pod with a blunt nose --------- */
+    const body = add(new THREE.Mesh(new THREE.CapsuleGeometry(0.3, 3.3, 8, 28), skin));
     body.rotation.x = Math.PI / 2;
-    body.castShadow = true;
-    body.receiveShadow = true;
-    group.add(body);
 
-    const nose = new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.85, 28), skin);
-    nose.rotation.x = -Math.PI / 2;
-    nose.position.z = -2.2;
-    nose.castShadow = true;
-    group.add(nose);
+    const nose = add(new THREE.Mesh(new THREE.SphereGeometry(0.3, 28, 20), skin));
+    nose.scale.set(1, 0.94, 1.3);
+    nose.position.set(0, 0, -1.92);
 
-    const tailCone = new THREE.Mesh(new THREE.ConeGeometry(0.3, 1.1, 28), skin);
-    tailCone.rotation.x = Math.PI / 2;
-    tailCone.position.z = 2.25;
-    tailCone.scale.set(1, 1, 1);
-    tailCone.castShadow = true;
-    group.add(tailCone);
+    /* payload doors down each flank */
+    for (const x of [-0.295, 0.295]) {
+        const door = add(new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.24, 1.05), dark));
+        door.position.set(x, -0.03, -0.3);
+    }
 
-    const belly = new THREE.Mesh(new THREE.CapsuleGeometry(0.27, 2.2, 6, 20), dark);
-    belly.rotation.x = Math.PI / 2;
-    belly.scale.set(0.92, 0.92, 0.7);
-    belly.position.set(0, -0.14, 0.3);
-    group.add(belly);
+    /* gimballed sensor turret under the nose */
+    const turret = add(new THREE.Mesh(new THREE.SphereGeometry(0.14, 20, 14), glass));
+    turret.scale.set(1, 0.9, 1.2);
+    turret.position.set(0, -0.24, -1.46);
 
-    /* accent stripe */
-    const stripe = new THREE.Mesh(new THREE.BoxGeometry(0.012, 0.06, 3.5), accent);
-    stripe.position.set(0.3, 0.06, 0.1);
-    group.add(stripe);
-    const stripe2 = stripe.clone();
-    stripe2.position.x = -0.3;
-    group.add(stripe2);
+    /* dorsal spine and a blade antenna */
+    const spine = add(new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.1, 1.5), dark));
+    spine.position.set(0, 0.31, 0.15);
+    const antenna = add(new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.02, 0.46, 8), dark), false);
+    antenna.position.set(0, 0.56, 1.15);
 
-    /* canopy */
-    const canopy = new THREE.Mesh(new THREE.SphereGeometry(0.26, 24, 16), glass);
-    canopy.scale.set(0.9, 0.72, 1.9);
-    canopy.position.set(0, 0.24, -0.55);
-    group.add(canopy);
+    /* --- high wing with winglets and navigation lights -------- */
+    const wing = add(new THREE.Mesh(airfoilGeometry(1.5, 6.4, 0.13), skin));
+    wing.position.set(0, 0.3, -0.15);
 
-    /* wing */
-    const wing = new THREE.Mesh(airfoilGeometry(1.45, 6.2, 0.12), skin);
-    wing.position.set(0, -0.02, 0.15);
-    wing.castShadow = true;
-    wing.receiveShadow = true;
-    group.add(wing);
+    for (const side of [-1, 1]) {
+        const winglet = add(new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.34, 0.62), accent));
+        winglet.position.set(side * 3.19, 0.42, -0.12);
+        winglet.rotation.z = side * -0.16;
 
-    const wingTip = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.1, 1.2), accent);
-    wingTip.position.set(3.05, 0, 0.1);
-    group.add(wingTip);
-    const wingTip2 = wingTip.clone();
-    wingTip2.position.x = -3.05;
-    group.add(wingTip2);
+        const light = new THREE.Mesh(
+            new THREE.SphereGeometry(0.05, 12, 10),
+            new THREE.MeshBasicMaterial({ color: side < 0 ? 0xff2f7e : 0x35e0d0 }),
+        );
+        light.position.set(side * 3.16, 0.36, 0.34);
+        group.add(light);
 
-    /* tail surfaces */
-    const stab = new THREE.Mesh(airfoilGeometry(0.72, 1.9, 0.1), skin);
-    stab.position.set(0, 0.02, 1.95);
-    stab.castShadow = true;
-    group.add(stab);
+        /* struts from the belly up to the wing */
+        const strut = add(new THREE.Mesh(new THREE.CylinderGeometry(0.028, 0.028, 0.62, 10), dark));
+        strut.position.set(side * 1.25, 0.12, -0.12);
+        strut.rotation.z = side * 0.18;
+    }
 
-    const finGeometry = airfoilGeometry(0.86, 1.15, 0.1);
-    const fin = new THREE.Mesh(finGeometry, skin);
-    fin.rotation.z = Math.PI / 2;
-    fin.position.set(0, 0.42, 1.95);
-    fin.castShadow = true;
-    group.add(fin);
+    /* --- twin tail booms and the tailplane -------------------- */
+    for (const side of [-1, 1]) {
+        const boom = add(new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 2.6, 14), dark));
+        boom.rotation.x = Math.PI / 2;
+        boom.position.set(side * 1.15, 0.24, 1.7);
 
-    /* engine nacelle */
-    const nacelle = new THREE.Mesh(new THREE.CylinderGeometry(0.21, 0.24, 1.05, 28), dark);
-    nacelle.rotation.x = Math.PI / 2;
-    nacelle.position.set(0, -0.52, 0.1);
-    nacelle.castShadow = true;
-    group.add(nacelle);
+        const fin = add(new THREE.Mesh(airfoilGeometry(0.72, 1.0, 0.1), skin));
+        fin.rotation.z = Math.PI / 2;
+        fin.position.set(side * 1.15, 0.74, 2.8);
+    }
 
-    const intake = new THREE.Mesh(new THREE.TorusGeometry(0.2, 0.035, 10, 28), skin);
-    intake.position.set(0, -0.52, -0.42);
-    group.add(intake);
+    const stab = add(new THREE.Mesh(airfoilGeometry(0.62, 2.7, 0.1), skin));
+    stab.position.set(0, 0.26, 2.85);
 
-    const exhaust = new THREE.Mesh(new THREE.CircleGeometry(0.19, 28), glow);
-    exhaust.position.set(0, -0.52, 0.62);
-    exhaust.rotation.y = Math.PI;
-    group.add(exhaust);
+    /* --- pusher motor and propeller --------------------------- */
+    const motor = add(new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.17, 0.5, 20), dark));
+    motor.rotation.x = Math.PI / 2;
+    motor.position.set(0, 0.3, 2.05);
 
-    const pylon = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.34, 0.5), dark);
-    pylon.position.set(0, -0.32, 0.05);
-    group.add(pylon);
+    const prop = new THREE.Group();
+    prop.name = "prop";
+    prop.position.set(0, 0.3, 2.34);
+    const hub = new THREE.Mesh(new THREE.SphereGeometry(0.075, 16, 12), skin);
+    prop.add(hub);
+    for (const side of [-1, 1]) {
+        const blade = new THREE.Mesh(new THREE.BoxGeometry(0.085, 0.78, 0.03), dark);
+        blade.position.y = side * 0.4;
+        blade.rotation.z = side * 0.22;
+        blade.castShadow = true;
+        prop.add(blade);
+    }
+    group.add(prop);
 
-    /* the sting: a slim column down to the floor plate */
-    const sting = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.05, 2.1, 16), dark);
+    /* --- payload: the cargo pod under the wing ---------------- */
+    const pod = add(new THREE.Mesh(new THREE.CapsuleGeometry(0.33, 1.05, 8, 22), dark));
+    pod.rotation.x = Math.PI / 2;
+    pod.scale.set(0.95, 1, 0.78);
+    pod.position.set(0, -0.44, 0.42);
+
+    const podBand = add(new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.07, 0.16), accent), false);
+    podBand.position.set(0, -0.2, 0.42);
+
+    /* --- SkyHook: the recovery hook on the wing shoulder ------ */
+    const hookPylon = add(new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.06, 0.3, 12), dark));
+    hookPylon.position.set(0, 0.5, -0.42);
+
+    const hook = add(new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.035, 8, 26, Math.PI * 1.35), accent));
+    hook.position.set(0, 0.72, -0.42);
+    hook.rotation.z = -Math.PI * 0.34;
+
+    /* capture horns either side of the hook mouth */
+    for (const side of [-1, 1]) {
+        const horn = add(new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.26, 8), accent), false);
+        horn.position.set(side * 0.16, 0.9, -0.42);
+        horn.rotation.z = side * 0.42;
+    }
+
+    /* the capture strop hanging out of the hook: the SkyHook grabs
+       a line on approach and the strop is what it keeps hold of */
+    const strop = add(new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.55, 6), dark), false);
+    strop.position.set(0, 0.44, -0.42);
+    strop.material = new THREE.MeshBasicMaterial({ color: P.dark, transparent: true, opacity: 0.7 });
+
+    /* the display sting, up to the cargo pod */
+    const sting = add(new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.05, 2.1, 16), dark));
     sting.position.set(0, -1.6, 0.2);
-    sting.castShadow = true;
-    group.add(sting);
 
-    const collar = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.16, 20), skin);
-    collar.position.set(0, -0.62, 0.2);
-    group.add(collar);
+    const collar = add(new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.16, 20), skin));
+    collar.position.set(0, -0.66, 0.2);
 
     group.position.y = 2.35;
-    group.name = "raptor";
+    group.name = "skylark";
 
-    return { group, glow, materials: { skin, dark, accent, glass } };
+    return { group, glow, prop, materials: { skin, dark, accent, glass } };
 }
 
 /* ------------------------------------------------------------
@@ -892,6 +919,7 @@ export function initScene(options = {}) {
         group.rotation.y = sway + pointer.x * 0.12;
         group.rotation.z = Math.sin(t * 0.11) * 0.03 * drift;
         group.position.y = 2.35 + bob * 0.6;
+        model.prop.rotation.z = t * 24 * drift;
 
         glow.opacity = 0.75 + Math.sin(t * 2.1) * 0.12 * drift;
         key.intensity = baseKey * (1 + Math.sin(t * 0.7) * 0.05 * drift);

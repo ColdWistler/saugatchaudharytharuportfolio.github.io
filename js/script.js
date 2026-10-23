@@ -115,7 +115,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var typingText = document.getElementById('typing-text');
   var phrases = [
     'Building Intelligent Systems',
-    'Learning Through Trial and Error',
+    'Neural policy, symbolic guard',
+    'Teaching a UAV to Explain Itself',
     'Code | Break | Fix | Repeat'
   ];
   var phraseIndex = 0;

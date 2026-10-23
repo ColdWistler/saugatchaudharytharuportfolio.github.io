@@ -1134,42 +1134,74 @@ body.is-offline .throttle { opacity: .4; pointer-events: none; }
 }
 
 /* ------------------------------------------------------------
-   13b. SCHEMATIC SHEET (engine plates)
+   13b. SCHEMATIC SHEET (systems plates)
    ------------------------------------------------------------ */
 
-.plate--engine .iso-svg { max-height: min(66vh, 580px); }
+/* --- the systems sheet: sim world / control loop / pipeline --- */
+.iso-plate.iso-plate.plate--sim .iso-svg { max-height: min(72vh, 660px); }
+.iso-plate.iso-plate.plate--loop .iso-svg { max-height: min(52vh, 440px); }
+.iso-plate.iso-plate.plate--pipeline .iso-svg { max-height: min(44vh, 380px); }
 
-.eng-hatch { fill: url(#engHatch); stroke: none; }
+.sim-uav .iso-fill { fill: var(--anatomy-lit-top); }
+.sim-uav .iso-edge { stroke: var(--anatomy-hi); }
+.sim-body .iso-top { fill: var(--anatomy-lit-top); }
+.sim-gate .iso-top { fill: var(--anatomy-lit-top); }
+.sim-ray { stroke-dasharray: 2 7; stroke-width: 1; }
+.sim-ring { stroke-dasharray: 4 7; }
+.sim-rule-line { stroke-dasharray: 2 6; }
+.sim-rule.is-active .iso-top { fill: var(--anatomy-lit-top); }
+.sim-rule.is-active .iso-edge { stroke: var(--accent); stroke-width: 1.4; }
 
-.eng-cut { stroke-width: .9; }
+.iso-head { fill: var(--anatomy-mid); stroke: none; }
+.loop-track { stroke-dasharray: 2 6; }
+.loop-token { fill: var(--accent); stroke: none; }
+.loop-halo { fill: var(--accent); stroke: none; opacity: .16; }
+.loop-runner { filter: drop-shadow(0 0 5px color-mix(in srgb, var(--accent) 55%, transparent)); }
+.loop-node .iso-edge { stroke: var(--anatomy-mid); }
+.loop-node.is-active .iso-top { fill: var(--anatomy-lit-top); }
+.loop-node.is-active .iso-edge { stroke: var(--accent-3); stroke-width: 1.4; }
+.loop-node.is-blocked .iso-edge { stroke: var(--accent-2); stroke-width: 1.6; }
+.loop-node.is-blocked .iso-fill { fill: var(--anatomy-lit-shade); }
 
-.eng-burner { mix-blend-mode: screen; }
-.eng-flame { fill: url(#flameGrad); opacity: .62; }
+.pipe-block .iso-edge { stroke: var(--anatomy-mid); }
+.pipe-block .iso-top { fill: var(--anatomy-lit-top); }
+.pipe-line { stroke-width: 1.3; }
+.pipe-return { stroke-dasharray: 3 6; }
+.pipe-pulse { fill: var(--accent); stroke: none; filter: drop-shadow(0 0 4px var(--accent)); }
 
-.eng-flow { stroke-width: 1.1; opacity: .45; }
+.eng-legend__val.is-warn { color: var(--accent-2); }
 
-.eng-anchor { fill: var(--anatomy-mid); stroke: none; }
+/* --- current research ------------ */
+.now {
+    margin-top: clamp(26px, 3.6vw, 46px);
+    display: grid;
+    grid-template-columns: minmax(0, .78fr) minmax(0, 1.55fr);
+    gap: clamp(18px, 3vw, 40px);
+    padding: clamp(22px, 2.6vw, 34px);
+    border: 1px solid var(--hairline);
+    border-left: 2px solid var(--accent-3);
+    background: color-mix(in srgb, var(--surface) 95%, transparent);
+    box-shadow: var(--shadow);
+}
 
-.eng-note .iso-line { stroke-dasharray: 2.5 2.5; stroke-width: .55; }
-.eng-note__label { letter-spacing: .12em; }
-.eng-note__sub { letter-spacing: .1em; }
+.now__title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.35rem, 2.2vw, 1.9rem);
+    line-height: 1.16;
+    color: var(--ink);
+    max-width: 22ch;
+}
 
-.eng-note.is-focus .iso-line { stroke: var(--accent); stroke-dasharray: none; stroke-width: .8; }
-.eng-note.is-focus .eng-anchor { fill: var(--accent); }
-.eng-note.is-focus .eng-note__label { fill: var(--accent); }
-.eng-note.is-focus .eng-note__sub { fill: var(--ink-muted); }
+.now__body .body-copy + .body-copy { margin-top: .9rem; }
+.now__body .chips { margin-top: 1.2rem; }
 
-.plate--actuator .iso-svg { max-height: min(50vh, 430px); }
-.plate--fuel .iso-svg { max-height: min(42vh, 360px); }
+@media (max-width: 860px) {
+    .now { grid-template-columns: minmax(0, 1fr); }
+    .now__title { max-width: none; }
+}
 
-.act-rod { stroke-width: 3.4; stroke-linecap: round; }
-.act-push { stroke-width: 1.7; stroke-linecap: round; }
-.act-joint { fill: var(--accent); stroke: none; }
 
-.fuel-line { stroke-width: 2; }
-.fuel-flow { stroke-dasharray: 6 7; animation: fuelFlow 1.7s linear infinite; }
-
-@keyframes fuelFlow { to { stroke-dashoffset: -13; } }
 
 /* schematic section */
 .study-note {

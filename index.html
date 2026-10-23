@@ -12,7 +12,7 @@
         } catch (error) { /* private mode: keep the default */ }
     </script>
     <title>Saugat Chaudhary Tharu — AI/ML &amp; Full Stack Developer</title>
-    <meta name="description" content="Portfolio of Saugat Chaudhary Tharu — AI/ML &amp; Full-Stack developer in Rust, deep reinforcement learning, and Godot 4. Creator of Project RAPTORM86 and author of 'A Rust-Implemented Dueling Double DQN for Fixed-Wing Autonomous Flight' (JAMCS, 2026).">
+    <meta name="description" content="Portfolio of Saugat Chaudhary Tharu — AI/ML and full-stack developer working in Rust, deep reinforcement learning and neuro-symbolic control. Creator of Project RAPTORM86, author of the Dueling Double DQN flight paper (JAMCS, 2026), and currently building hybrid neuro-symbolic UAV agents in AirSim.">
     <link rel="canonical" href="https://saugatchaudharytharu.com.np/">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Saugat Chaudhary Tharu — AI/ML &amp; Full Stack Developer">
@@ -22,7 +22,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Portfolio of Saugat Chaudhary Tharu — AI/ML &amp; Full-Stack Developer">
-    <meta property="og:description" content="Rust · Deep RL · Godot 4. Project RAPTORM86 flight dynamics engine and the published Dueling Double DQN autonomous-flight paper.">
+    <meta property="og:description" content="Rust · Deep RL · Neuro-symbolic autonomy. Project RAPTORM86 flight dynamics engine, the published Dueling Double DQN flight paper, and current AirSim UAV research.">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Saugat Chaudhary Tharu — AI/ML & Full Stack Developer">
     <meta name="twitter:description" content="Rust · Deep RL · Godot 4. Project RAPTORM86 flight dynamics engine and the published Dueling Double DQN autonomous-flight paper.">
@@ -131,9 +131,9 @@
             <div class="section__scrim" aria-hidden="true"></div>
             <div class="wrap wrap--hero">
                 <div class="hero">
-                    <p class="kicker"><span class="kicker__no">№ 001</span> HANGAR 86 — AUTONOMOUS FLIGHT SYSTEMS</p>
+                    <p class="kicker"><span class="kicker__no">№ 001</span> HANGAR 86 — NEURO-SYMBOLIC AUTONOMY</p>
                     <h1 class="display display--hero">Saugat Chaudhary <br><em>Tharu</em></h1>
-                    <p class="hero__lede">AI/ML developer and full-stack engineer. I build flight-dynamics cores, deep reinforcement-learning agents and browser-native instruments that let you watch the physics while it happens.</p>
+                    <p class="hero__lede">AI/ML developer and full-stack engineer. I build flight-dynamics cores, deep reinforcement-learning agents and the hybrid neuro-symbolic controllers that keep them honest — most recently a delivery UAV learning to fly itself inside AirSim.</p>
                     <p class="hero__typed"><span class="hero__prompt">&gt;</span> <span id="typing-text"></span><span class="caret">|</span></p>
                     <div class="hero__actions">
                         <a href="#featured" class="btn btn--solid btn-radial">Enter the hangar</a>
@@ -317,6 +317,25 @@
                         <div class="iso-stage" data-stage></div>
                     </figure>
                 </div>
+
+                <article class="now">
+                    <div class="now__head">
+                        <p class="paper__badge">IN PROGRESS · 2026</p>
+                        <h3 class="now__title">Hybrid neuro-symbolic control for RL in AirSim</h3>
+                    </div>
+                    <div class="now__body">
+                        <p class="body-copy">My current research asks a practical question: a policy network can learn to fly, but can it explain or respect a rule? I am pairing a learned controller with an explicit symbolic layer — predicates, safety envelopes and mission constraints — inside a delivery fixed-wing UAV simulation built on <em>AirSim</em>.</p>
+                        <p class="body-copy">The loop is deliberately split: the neural side proposes continuous actions from a compact observation vector, the symbolic side verifies and, where needed, amends them before they reach the flight model. The aim is a controller that keeps the sample efficiency of deep RL and the auditability of a rule base — and one that can be interrogated when it does something strange.</p>
+                        <ul class="chips">
+                            <li class="chip">AirSim</li>
+                            <li class="chip">Neuro-symbolic</li>
+                            <li class="chip">Deep RL</li>
+                            <li class="chip">UAV Autonomy</li>
+                            <li class="chip">Knowledge Graphs</li>
+                            <li class="chip">Safety Envelopes</li>
+                        </ul>
+                    </div>
+                </article>
             </div>
         </section>
 
@@ -511,6 +530,7 @@
                         <p class="lede">Passionate AI/ML developer with a focus on computer vision, intelligent systems and real-world problem solving. I believe in learning by doing and embrace the journey of continuous improvement.</p>
                         <p class="body-copy">I work with cutting-edge technologies including Rust-based ML frameworks like Burn, traditional Python ML stacks, and full-stack development tools. My goal is to build intelligent systems that make a real impact.</p>
                         <p class="body-copy">My published research — a Rust-implemented Dueling Double DQN for autonomous fixed-wing flight in <em>JAMCS</em> (2026) — is exactly the kind of problem I love: physics, reinforcement learning, and a game engine (Godot 4 through GDExtension) all wired together and documented end to end.</p>
+                        <p class="body-copy">That thread continues in my current work: a hybrid neuro-symbolic controller for reinforcement-learning agents flying a delivery UAV in AirSim, where a learned policy and an explicit rule base have to agree before anything moves.</p>
                         <p class="body-copy">Outside the terminal I'm into flight sims, tinkering with autonomous drones, and pushing browser visualisation far past "good enough". I break things on purpose to learn faster, and I always leave a trail of notes behind.</p>
                         <p class="stack-label">STACK IN ROTATION //</p>
                         <ul class="chips">
@@ -732,6 +752,10 @@
                             <li class="skill-tag">YOLO</li>
                             <li class="skill-tag">Deep RL</li>
                             <li class="skill-tag">D3QN</li>
+                            <li class="skill-tag">AirSim</li>
+                            <li class="skill-tag">Neuro-symbolic</li>
+                            <li class="skill-tag">Knowledge Graphs</li>
+                            <li class="skill-tag">UAV Autonomy</li>
                         </ul>
                     </div>
                     <div class="skill-group">
@@ -804,57 +828,59 @@
             <div class="section__scrim" aria-hidden="true"></div>
             <div class="wrap">
                 <header class="section__head">
-                    <p class="kicker"><span class="kicker__no">№ 009</span> MACHINE STUDIES</p>
+                    <p class="kicker"><span class="kicker__no">№ 009</span> SYSTEM STUDIES</p>
                     <h2 class="display">Moving <em>parts</em></h2>
                 </header>
 
                 <p class="study-note">
-                    Three drawings in the same isometric grammar as the figures above — a spool, a
-                    linkage, a flow. They are studies in mechanism, not claims about shipped hardware:
-                    drag the throttle, hover the stack, watch the joints resolve.
+                    Three drawings in the same isometric grammar as the figures above — a world, a loop,
+                    a pipeline. They are studies of the systems I build: a simulated volume with an agent
+                    inside it, the neuro-symbolic control loop, and the training run that feeds it. Scrub
+                    the episode, watch the guard pass or override, follow the batch round the loop.
                 </p>
 
-                <figure class="iso-plate plate plate--engine" data-figure="engine">
+                <figure class="iso-plate plate plate--sim" data-figure="sim">
                     <div class="iso-plate-corners" aria-hidden="true">
                         <span class="iso-plate-corner" data-corner="fig">FIG 03</span>
-                        <span class="iso-plate-corner" data-corner="title">HIGH-BYPASS TURBOFAN · CUTAWAY</span>
-                        <span class="iso-plate-corner" data-corner="hint">MOVE THE THROTTLE</span>
-                        <span class="iso-plate-corner" data-corner="readout" data-engine-readout>—</span>
+                        <span class="iso-plate-corner" data-corner="title">AIRSIM WORLD · CUTAWAY</span>
+                        <span class="iso-plate-corner" data-corner="hint">DRAG TO SCRUB THE EPISODE</span>
+                        <span class="iso-plate-corner" data-corner="readout" data-sim-readout>—</span>
                     </div>
-                    <div class="iso-stage" data-engine-stage></div>
+                    <div class="iso-stage" data-sim-stage></div>
                     <ul class="eng-legend">
-                        <li data-module="fan"><span class="eng-legend__no">01</span><span class="eng-legend__name">Fan</span><span class="eng-legend__val" data-cell="fan">—</span></li>
-                        <li data-module="comp"><span class="eng-legend__no">02</span><span class="eng-legend__name">Compressor</span><span class="eng-legend__val" data-cell="comp">—</span></li>
-                        <li data-module="comb"><span class="eng-legend__no">03</span><span class="eng-legend__name">Combustor</span><span class="eng-legend__val" data-cell="comb">—</span></li>
-                        <li data-module="turb"><span class="eng-legend__no">04</span><span class="eng-legend__name">Turbine</span><span class="eng-legend__val" data-cell="turb">—</span></li>
-                        <li data-module="nozzle"><span class="eng-legend__no">05</span><span class="eng-legend__name">Nozzle</span><span class="eng-legend__val" data-cell="nozzle">—</span></li>
+                        <li data-module="obs"><span class="eng-legend__no">01</span><span class="eng-legend__name">Observation</span><span class="eng-legend__val" data-cell="obs">—</span></li>
+                        <li data-module="policy"><span class="eng-legend__no">02</span><span class="eng-legend__name">Policy</span><span class="eng-legend__val" data-cell="policy">—</span></li>
+                        <li data-module="guard"><span class="eng-legend__no">03</span><span class="eng-legend__name">Symbolic Guard</span><span class="eng-legend__val" data-cell="guard">—</span></li>
+                        <li data-module="act"><span class="eng-legend__no">04</span><span class="eng-legend__name">Airspeed</span><span class="eng-legend__val" data-cell="act">—</span></li>
+                        <li data-module="reward"><span class="eng-legend__no">05</span><span class="eng-legend__name">Reward</span><span class="eng-legend__val" data-cell="reward">—</span></li>
                     </ul>
                     <div class="throttle">
-                        <label class="throttle__lbl" for="throttle">THROTTLE</label>
-                        <input class="throttle__range" id="throttle" type="range" min="0" max="100" step="1" value="64" data-throttle>
-                        <output class="throttle__val" for="throttle" data-throttle-val>64%</output>
+                        <label class="throttle__lbl" for="scrub">EPISODE</label>
+                        <input class="throttle__range" id="scrub" type="range" min="0" max="100" step="1" value="32" data-scrub>
+                        <output class="throttle__val" for="scrub" data-scrub-val>32%</output>
                     </div>
                 </figure>
 
                 <div class="plate-pair">
-                    <figure class="iso-plate plate plate--actuator" data-figure="actuator">
+                    <figure class="iso-plate plate plate--loop" data-figure="loop">
                         <div class="iso-plate-corners" aria-hidden="true">
                             <span class="iso-plate-corner" data-corner="fig">FIG 04</span>
-                            <span class="iso-plate-corner" data-corner="title">RUDDER · ACTUATOR</span>
-                            <span class="iso-plate-corner" data-corner="readout" data-actuator-readout>—</span>
+                            <span class="iso-plate-corner" data-corner="title">NEURO-SYMBOLIC · CONTROL LOOP</span>
+                            <span class="iso-plate-corner" data-corner="readout" data-loop-readout>—</span>
                         </div>
-                        <div class="iso-stage" data-actuator-stage></div>
-                        <p class="plate-caption">Barrel → bellcrank → pushrod → rudder. Every joint is solved in 3-D each frame, so the rod never misses the pin.</p>
+                        <div class="iso-stage" data-loop-stage></div>
+                        <p class="plate-caption">The policy proposes, the rule base disposes. Every action crosses the symbolic verifier before AirSim sees it, and the verifier can amend or veto — the token turning red is a rule catching the network.</p>
                     </figure>
 
-                    <figure class="iso-plate plate plate--fuel" data-figure="fuel">
+                    <figure class="iso-plate plate plate--pipeline" data-figure="pipeline">
                         <div class="iso-plate-corners" aria-hidden="true">
                             <span class="iso-plate-corner" data-corner="fig">FIG 05</span>
-                            <span class="iso-plate-corner" data-corner="title">FUEL · SCHEMATIC</span>
+                            <span class="iso-plate-corner" data-corner="title">TRAINING · PIPELINE</span>
+                            <span class="iso-plate-corner" data-corner="readout" data-pipeline-readout>—</span>
                         </div>
-                        <div class="iso-stage" data-fuel-stage></div>
+                        <div class="iso-stage" data-pipeline-stage></div>
                         <ol class="fuel-legend">
-                            <li>Tank</li><li>Boost pump</li><li>Filter</li><li>FCU</li><li>Manifold</li><li>Nozzles</li>
+                            <li>Replay buffer</li><li>Prioritised sample</li><li>Policy + target</li><li>Symbolic guard</li><li>AirSim step</li><li>Reward</li>
                         </ol>
                     </figure>
                 </div>
