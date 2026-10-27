@@ -1554,6 +1554,91 @@ body.is-offline .throttle { opacity: .4; pointer-events: none; }
     gap: 6px;
 }
 
+/* skill tag icons */
+.skill-tag i {
+    margin-right: 6px;
+    font-size: .62rem;
+    width: 12px;
+    text-align: center;
+    opacity: .7;
+}
+.skill-tag:hover i { opacity: 1; }
+
+.skill-icon {
+    margin-right: 8px;
+    width: 14px;
+    text-align: center;
+    opacity: .85;
+}
+
+/* ------------------------------------------------------------
+   16b. SKILLS LAYOUT — categories + constellation graph
+   ------------------------------------------------------------ */
+
+.skills-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+    align-items: start;
+}
+
+.skill-graph {
+    position: relative;
+    height: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.skill-graph__head h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    line-height: 1.1;
+    color: var(--ink);
+    margin: 0;
+}
+
+.skill-graph__sub {
+    color: var(--accent);
+    font-style: italic;
+}
+
+.skill-graph__desc {
+    font-size: .72rem;
+    line-height: 1.5;
+    color: var(--ink-muted);
+    margin: 0;
+    max-width: 260px;
+}
+
+.skill-graph__canvas {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    background: color-mix(in srgb, var(--surface) 60%, transparent);
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    cursor: default;
+    display: block;
+}
+
+/* responsive: stack on narrow screens */
+@media (max-width: 1060px) {
+    .skills-layout {
+        grid-template-columns: 1fr;
+        gap: 26px;
+    }
+    .skill-graph {
+        height: 340px;
+    }
+    .skill-graph__desc { max-width: none; }
+}
+
+@media (max-width: 640px) {
+    .skill-graph { height: 280px; }
+}
+
 /* ------------------------------------------------------------
    17. PORTRAIT & ABOUT
    ------------------------------------------------------------ */
