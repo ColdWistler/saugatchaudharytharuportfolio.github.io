@@ -1452,6 +1452,9 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // --- Init ---
+  var graph = {
+    canvas: null, ctx: null, nodes: [], edges: [], hover: null, frame: 0
+  };
   initSortingVisualization();
   initML();
   initFlightHud();
@@ -1552,9 +1555,6 @@ document.addEventListener('DOMContentLoaded', function () {
   attachSkillIcons();
 
   // --- Skill constellation graph ---
-  var graph = {
-    canvas: null, ctx: null, nodes: [], edges: [], hover: null, frame: 0
-  };
 
   function graphDist(a, b) {
     var dx = a.x - b.x, dy = a.y - b.y;
