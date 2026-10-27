@@ -25,54 +25,54 @@
 
 :root,
 [data-theme="dark"] {
-    /* surfaces — indigo night */
-    --bg: #08061c;
-    --paper: #0b0827;          /* canvas well */
-    --surface: #120d30;
-    --insert: #06041a;
-    --plate: #0d0a28;          /* opaque plate for the iso figures */
-    --scrim: #07051a;
+    /* surfaces — warm charcoal (editorial, no neon) */
+    --bg: #0a0a08;
+    --paper: #12120f;          /* canvas well */
+    --surface: #1a1a15;
+    --insert: #080807;
+    --plate: #0f0f0d;          /* opaque plate for the iso figures */
+    --scrim: #090908;
 
-    /* ink */
-    --ink: #f3ecff;
-    --ink-soft: #c7bee6;
-    --ink-muted: #9c92c6;
-    --ink-faint: #8a80b6;
-    --rule: #251d4d;
-    --hairline: #332a63;
+    /* ink — warm cream, never stark white */
+    --ink: #e8e4d9;
+    --ink-soft: #c9c2b4;
+    --ink-muted: #8e8779;
+    --ink-faint: #6e685d;
+    --rule: #2a2923;
+    --hairline: #3a3830;
 
-    /* the lit accents */
-    --accent: #ff6a35;         /* sunset */
-    --accent-ink: #ffa06e;
-    --accent-2: #ff2f7e;       /* magenta */
-    --accent-3: #35e0d0;       /* cyan */
-    --on-accent: #150719;
-    --on-ink: #0d0a22;
+    /* lit accents — amber / ochre / muted sage */
+    --accent: #c9a25c;         /* warm gold */
+    --accent-ink: #e0c99e;
+    --accent-2: #a87e47;       /* deep ochre */
+    --accent-3: #8a9a8b;       /* muted sage */
+    --on-accent: #1c160c;
+    --on-ink: #0d0d0b;
 
-    /* anatomy figure tokens (night) */
-    --anatomy-paper: #0d0a28;
-    --anatomy-face: #231b4d;
-    --anatomy-top: #2c2360;
-    --anatomy-shade-0: #0a0722;
-    --anatomy-shade-1: #110c33;
-    --anatomy-shade-2: #191142;
-    --anatomy-shade-3: #211652;
-    --anatomy-lit-top: #3a2a72;
-    --anatomy-lit-shade: #2e2160;
-    --anatomy-hi: #efe8ff;
-    --anatomy-mid: #a99ed2;
-    --anatomy-lo: #6c6099;
-    --anatomy-faint: #3b3170;
-    --anatomy-lit: #ff6a35;
-    --anatomy-halo: #05031a;
+    /* anatomy figure tokens (warm neutral) */
+    --anatomy-paper: #0f0f0d;
+    --anatomy-face: #1a1a16;
+    --anatomy-top: #24241f;
+    --anatomy-shade-0: #0a0a09;
+    --anatomy-shade-1: #121211;
+    --anatomy-shade-2: #1c1b19;
+    --anatomy-shade-3: #282724;
+    --anatomy-lit-top: #34322c;
+    --anatomy-lit-shade: #2a2825;
+    --anatomy-hi: #e8e4d9;
+    --anatomy-mid: #b5ada0;
+    --anatomy-lo: #7d7769;
+    --anatomy-faint: #4e4b43;
+    --anatomy-lit: #c9a25c;
+    --anatomy-halo: #070706;
     --anatomy-halo-opacity: .85;
-    --anatomy-dot: #ded6ff;
+    --anatomy-dot: #d8d3c7;
     --anatomy-weight: .6px;
 
     /* grade */
     --grain-opacity: .05;
-    --vignette: rgba(6, 4, 24, .66);
-    --shadow: 0 24px 60px -28px rgba(4, 2, 20, .92);
+    --vignette: rgba(10, 10, 8, .66);
+    --shadow: 0 24px 60px -28px rgba(8, 8, 7, .92);
     --panel-blur: saturate(120%) blur(14px);
 
     /* layout — keeps every section off the page edges */
