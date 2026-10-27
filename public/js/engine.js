@@ -507,13 +507,13 @@ function mountPipeline(plate) {
         let x;
         let y;
         if (cycle < stops.length - 1) {
-            const i = Math.floor(cycle);
+            const i = Math.min(stops.length - 2, Math.floor(Math.min(cycle, stops.length - 1.0001)));
             const f = cycle - i;
             x = lerp(stops[i][0], stops[i + 1][0], f);
             y = lerp(stops[i][1], stops[i + 1][1], f);
         } else {
             const local = cycle - (stops.length - 1);
-            const i = Math.min(home.length - 2, Math.floor(local));
+            const i = Math.min(home.length - 2, Math.floor(Math.min(local, home.length - 1.0001)));
             const f = local - i;
             x = lerp(home[i][0], home[i + 1][0], f);
             y = lerp(home[i][1], home[i + 1][1], f);

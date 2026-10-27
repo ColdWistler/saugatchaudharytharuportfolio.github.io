@@ -25,6 +25,7 @@
     "puppeteer": "^25.16.0"
   },
   "dependencies": {
+    "canvas": "^3.2.3",
     "three": "^0.180.0"
   }
 }

@@ -455,8 +455,16 @@ export function initScene(options = {}) {
         return null;
 
     let renderer;
+    const gl = canvas.getContext('webgl2', { alpha: false, antialias: true, powerPreference: 'high-performance', preserveDrawingBuffer: true });
+    if (!gl) {
+        document.documentElement.classList.add("no-scene");
+        return null;
+    }
+    // Set GL context clear color BEFORE creating renderer (external context needs this for autoClear)
+    gl.clearColor(10/255, 9/255, 8/255, 1);
     try {
-        renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
+        renderer = new THREE.WebGLRenderer({ canvas, context: gl, antialias: true, alpha: false, powerPreference: "high-performance", preserveDrawingBuffer: true });
+    renderer.setClearColor(0x0a0908, 1);
     } catch (error) {
         document.documentElement.classList.add("no-scene");
         return null;
@@ -474,7 +482,7 @@ export function initScene(options = {}) {
     const cores = navigator.hardwareConcurrency || 8;
     const small = window.matchMedia("(max-width: 900px)").matches;
     const lowPower = small || cores <= 4;
-    const usePost = !small && cores > 2;
+    const usePost = false; // !small && cores > 2;
     const maxPixels = lowPower ? 900000 : 2000000;
     const renderScale = lowPower ? 1 : 0.9;
 
@@ -484,7 +492,7 @@ export function initScene(options = {}) {
     function ratioFor(w, h) {
         const dpr = window.devicePixelRatio || 1;
         const budget = Math.sqrt(maxPixels / Math.max(1, w * h));
-        return Math.min(dpr, budget) * renderScale;
+        return Math.max(0.5, Math.min(dpr, budget) * renderScale);
     }
 
     renderer.setPixelRatio(ratioFor(window.innerWidth, window.innerHeight));
@@ -497,10 +505,8 @@ export function initScene(options = {}) {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(34, window.innerWidth / window.innerHeight, 0.1, 160);
 
-    const pmrem = new THREE.PMREMGenerator(renderer);
-    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-
-    scene.background = skyTexture(PALETTES.dark);
+    // scene.background = skyTexture(PALETTES.dark); // TEST: disable sky texture
+    scene.background = new THREE.Color(0x0a0908);
 
     scene.fog = new THREE.FogExp2(PALETTES.dark.fog, PALETTES.dark.fogDensity);
 
