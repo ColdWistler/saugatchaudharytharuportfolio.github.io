@@ -1,0 +1,436 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Saugat Chaudhary Tharu — AI/ML & Full Stack Developer">
+	<!-- 01 — HOME -->
+	<section id="home" class="section section--hero" data-station="home">
+		<div class="section__scrim" aria-hidden="true"></div>
+		<div class="wrap wrap--hero">
+			<div class="hero">
+				<p class="kicker"><span class="kicker__no">№ 001</span> HANGAR 86 — NEURO-SYMBOLIC AUTONOMY</p>
+				<h1 class="display display--hero">Saugat Chaudhary <br><em>Tharu</em></h1>
+				<p class="hero__lede">AI/ML developer and full-stack engineer. I build flight-dynamics cores, deep reinforcement-learning agents and the hybrid neuro-symbolic controllers that keep them honest — most recently a delivery UAV learning to fly itself inside AirSim.</p>
+				<p class="hero__typed"><span class="hero__prompt">&gt;</span> <span id="typing-text"></span><span class="caret">|</span></p>
+				<div class="hero__actions">
+					<a href="#featured" class="btn btn--solid btn-radial">Enter the hangar</a>
+					<a href="#research" class="btn btn--ghost">Read the paper</a>
+				</div>
+				<dl class="specs">
+					<div class="spec"><dt>Stack</dt><dd>Python · Rust · JS</dd></div>
+					<div class="spec"><dt>Focus</dt><dd>AI / ML / CV</dd></div>
+					<div class="spec"><dt>Status</dt><dd>Building</dd></div>
+					<div class="spec"><dt>Location</dt><dd>Nepal</dd></div>
+				</dl>
+			</div>
+			<div class="scroll-cue" aria-hidden="true">
+				<span class="scroll-cue__rule"></span>
+				<span class="scroll-cue__label">SCROLL</span>
+			</div>
+		</div>
+	</section>
+
+	<!-- 02 — FLAGSHIP -->
+	<section id="featured" class="section" data-station="featured">
+		<div class="section__scrim" aria-hidden="true"></div>
+		<div class="wrap">
+			<header class="section__head">
+				<p class="kicker"><span class="kicker__no">№ 002</span> FLAGSHIP PROJECT</p>
+				<h2 class="display">Project <em>RAPTORM86</em></h2>
+				<p class="section__lede">A six-degree-of-freedom fixed-wing flight dynamics engine written in Rust and exposed to Godot 4 through a native GDExtension. Quaternion rigid-body dynamics, RK4 integration, the 1976 US Standard Atmosphere, nonlinear post-stall aerodynamics, wind shear and Dryden turbulence.</p>
+			</header>
+			<div class="split">
+				<div class="split__text">
+					<p class="body-copy">The wing section below is the same physics the engine uses: drag the plate to set the angle of attack and the lift coefficient, drag coefficient and flow state follow the real aerodynamic model, not a canned animation.</p>
+					<div class="stat-row">
+						<div class="stat"><span class="stat__val">Rust</span><span class="stat__lbl">Physics Core</span></div>
+						<div class="stat"><span class="stat__val">6-DOF</span><span class="stat__lbl">Rigid Body</span></div>
+						<div class="stat"><span class="stat__val">60 Hz</span><span class="stat__lbl">RK4 Integration</span></div>
+						<div class="stat"><span class="stat__val">RL-ready</span><span class="stat__lbl">step_6dof() API</span></div>
+					</div>
+					<ul class="chips"><li class="chip">Rust</li><li class="chip">Godot 4</li><li class="chip">GDExtension</li><li class="chip">Flight Physics</li><li class="chip">Wind Tunnel</li><li class="chip">RL</li></ul>
+					<div class="actions">
+						<a href="https://github.com/ColdWistler/ProjectRAPTORM86" target="_blank" rel="noopener" class="btn btn--solid btn-radial"><i class="fab fa-github"></i> View Source</a>
+						<a href="#research" class="btn btn--ghost"><i class="fas fa-file-lines"></i> Research Paper</a>
+					</div>
+				</div>
+				<figure class="iso-plate plate" data-figure="rig">
+					<div class="iso-plate-corners">
+						<span class="iso-plate-corner" data-corner="fig">FIG 01</span>
+						<span class="iso-plate-corner" data-corner="title">6-DOF WIND-TUNNEL RIG</span>
+						<span class="iso-plate-corner" data-corner="hint">DRAG TO SET ANGLE OF ATTACK</span>
+						<span class="iso-plate-corner" data-corner="readout" data-readout>α 6.0°</span>
+					</div>
+					<div class="iso-stage" data-stage></div>
+				</figure>
+			</div>
+		</div>
+	</section>
+
+	<!-- 03 — RESEARCH -->
+	<section id="research" class="section" data-station="research">
+		<div class="section__scrim" aria-hidden="true"></div>
+		<div class="wrap">
+			<header class="section__head">
+				<p class="kicker"><span class="kicker__no">№ 003</span> PEER-REVIEWED RESEARCH</p>
+				<h2 class="display">Dueling Double DQN, <em>in Rust</em></h2>
+				<p class="section__lede">Deep reinforcement learning for autonomous fixed-wing UAV control, implemented without an external ML library and integrated with Godot 4 through GDExtension.</p>
+			</header>
+			<div class="split split--wide-left">
+				<div class="split__text">
+					<article class="paper">
+						<p class="paper__badge">PUBLISHED · JAMCS</p>
+						<h3 class="paper__title">A Rust-Implemented Dueling Double DQN for Fixed-Wing Autonomous Flight</h3>
+						<p class="paper__meta">Saugat Chaudhary Tharu et al. · JAMCS 41(8), 163–178, 2026 · DOI: 10.9734/jamcs/2026/v41i82191</p>
+						<p class="body-copy">A Dueling + Double DQN combines prioritised experience replay and three-step returns in a 512→256 hidden configuration — 142,088 parameters for the 16-dimensional input case and seven discrete actions.</p>
+						<div class="stat-row stat-row--dense">
+							<div class="stat"><span class="stat__val">4825±40</span><span class="stat__lbl">Mean Best Reward</span></div>
+							<div class="stat"><span class="stat__val">0.8%</span><span class="stat__lbl">Coeff. of Variation</span></div>
+							<div class="stat"><span class="stat__val">0 / 30</span><span class="stat__lbl">Crashes, Final Episodes</span></div>
+							<div class="stat"><span class="stat__val">&lt;1 ms</span><span class="stat__lbl">Gradient Update</span></div>
+							<div class="stat"><span class="stat__val">35×</span><span class="stat__lbl">Faster than GDScript</span></div>
+							<div class="stat"><span class="stat__val">&lt;50 MB</span><span class="stat__lbl">Runtime Memory</span></div>
+						</div>
+						<div class="actions">
+							<a href="https://journaljamcs.com/index.php/JAMCS/article/view/2191" target="_blank" rel="noopener" class="btn btn--solid btn-radial"><i class="fas fa-file-lines"></i> Read Full Paper</a>
+							<a href="https://doi.org/10.9734/jamcs/2026/v41i82191" target="_blank" rel="noopener" class="btn btn--ghost"><i class="fas fa-bookmark"></i> DOI</a>
+						</div>
+					</article>
+				</div>
+				<figure class="iso-plate plate" data-figure="console">
+					<div class="iso-plate-corners">
+						<span class="iso-plate-corner" data-corner="fig">FIG 02</span>
+						<span class="iso-plate-corner" data-corner="title">D3QN TRAINING CONSOLE</span>
+						<span class="iso-plate-corner" data-corner="hint">HOVER OR PRESS TO RUN A STEP</span>
+						<span class="iso-plate-corner" data-corner="readout" data-readout>ε 1.000</span>
+					</div>
+					<div class="iso-stage" data-stage></div>
+				</figure>
+			</div>
+		</div>
+	</section>
+
+	<!-- 04 — ALGORITHMS / THE LAB -->
+	<section id="algorithms" class="section" data-station="algorithms">
+		<div class="section__scrim" aria-hidden="true"></div>
+		<div class="wrap">
+			<header class="section__head">
+				<p class="kicker"><span class="kicker__no">№ 004</span> THE LAB</p>
+				<h2 class="display">Everything <em>running live</em></h2>
+				<p class="section__lede">No screenshots, no pre-rendered loops. RK4 integration, the US Standard Atmosphere, clustering, decision trees, D3QN training and two GPU shaders — all computed in the browser, on the same page, right now.</p>
+			</header>
+			<div class="instrument-grid">
+				<article class="instrument algorithm-container">
+					<header class="instrument__bar">
+						<span class="instrument__dot"></span>
+						<span class="instrument__file">sorter.rs</span>
+						<span class="instrument__tag">sorting</span>
+					</header>
+					<div class="instrument__head"><h3>Sorting Algorithms</h3></div>
+					<div class="instrument__controls">
+						<button class="btn btn--tiny sort-btn" data-algorithm="bubble">Bubble</button>
+						<button class="btn btn--tiny sort-btn" data-algorithm="quick">Quick</button>
+						<button class="btn btn--tiny sort-btn" data-algorithm="merge">Merge</button>
+						<button class="btn btn--tiny btn--outline sort-btn" id="resetSort">Reset</button>
+					</div>
+					<div class="instrument__canvas"><canvas id="sortingCanvas" class="sorting-canvas" aria-label="Sorting algorithm visualisation"></canvas></div>
+				</article>
+				<article class="instrument algorithm-container">
+					<header class="instrument__bar">
+						<span class="instrument__dot"></span>
+						<span class="instrument__file">ml_models.py</span>
+						<span class="instrument__tag">supervised</span>
+					</header>
+					<div class="instrument__head"><h3>ML Algorithms</h3></div>
+					<div class="instrument__controls">
+						<button class="btn btn--tiny ml-btn is-active" data-ml="kmeans">K-Means</button>
+						<button class="btn btn--tiny ml-btn" data-ml="knn">kNN</button>
+						<button class="btn btn--tiny ml-btn" data-ml="linear">Regression</button>
+						<button class="btn btn--tiny ml-btn" data-ml="tree">Decision Tree</button>
+						<button class="btn btn--tiny btn--outline ml-btn" id="resetML">Reset</button>
+					</div>
+					<div class="instrument__controls" id="mlKControls">
+						<span class="stat-line">k =</span>
+						<button class="btn btn--tiny ml-kbtn is-active" data-k="3">3</button>
+						<button class="btn btn--tiny ml-kbtn" data-k="2">2</button>
+						<button class="btn btn--tiny ml-kbtn" data-k="4">4</button>
+					</div>
+					<div class="instrument__readouts"><span class="stat-line" id="mlRead1">Iter 0</span><span class="stat-line" id="mlRead2">SSE —</span></div>
+					<div class="instrument__canvas"><canvas id="mlCanvas" class="ml-canvas" aria-label="Machine learning model visualisation"></canvas></div>
+				</article>
+				<article class="instrument algorithm-container">
+					<header class="instrument__bar">
+						<span class="instrument__dot"></span>
+						<span class="instrument__file">integrator.rs</span>
+						<span class="instrument__tag">ode</span>
+					</header>
+					<div class="instrument__head"><h3>Numerical Integration — RK4</h3></div>
+					<div class="instrument__readouts"><span class="legend"><span class="legend-dot legend-acc"></span>EXACT</span><span class="legend"><span class="legend-dot legend-rk"></span>RK4</span><span class="legend"><span class="legend-dot legend-eu"></span>EULER</span><span class="stat-line">t: <span id="intTime">0.00s</span></span><span class="stat-line">Euler err: <span id="intErr">0%</span></span></div>
+					<div class="instrument__canvas"><canvas id="integratorCanvas" class="neural-canvas" aria-label="Euler versus RK4 integration error"></canvas></div>
+				</article>
+				<article class="instrument algorithm-container">
+					<header class="instrument__bar">
+						<span class="instrument__dot"></span>
+						<span class="instrument__file">atmosphere.rs</span>
+						<span class="instrument__tag">1976 std</span>
+					</header>
+					<div class="instrument__head"><h3>US Standard Atmosphere</h3></div>
+					<div class="instrument__readouts"><span class="stat-line">ALT: <span id="atmAlt">0.0 km</span></span><span class="stat-line">T: <span id="atmTemp">15°C</span></span><span class="stat-line">P: <span id="atmPress">101.3 kPa</span></span><span class="stat-line">ρ: <span id="atmRho">1.225 kg/m³</span></span></div>
+					<div class="instrument__canvas"><canvas id="atmosphereCanvas" class="neural-canvas" aria-label="Density against altitude"></canvas></div>
+				</article>
+				<article class="instrument algorithm-container instrument--wide">
+					<header class="instrument__bar">
+						<span class="instrument__dot"></span>
+						<span class="instrument__file">rl_agents.rs</span>
+						<span class="instrument__tag">reinforcement learning</span>
+					</header>
+					<div class="instrument__head"><h3>Reinforcement Learning Agents</h3></div>
+					<div class="instrument__readouts"><span class="stat-line">Deployed: <span id="rlDeployed" class="accent-stat">D3QN</span></span><span class="stat-line">Best reward: <span id="rlBestReward">0</span></span><span class="stat-line">Episode: <span id="rlEpisode">0</span></span></div>
+					<div class="instrument__controls instrument__controls--tags"><span class="tag rl-active">D3QN</span><span class="tag">DQN</span><span class="tag">Double DQN</span><span class="tag">PPO</span><span class="tag">SAC</span><span class="tag">TD3</span><span class="tag">DDPG</span><span class="tag">A2C</span></div>
+					<div class="instrument__canvas"><canvas id="rlCanvas" class="neural-canvas" aria-label="D3QN reward curve"></canvas></div>
+				</article>
+				<article class="instrument algorithm-container instrument--wide instrument--shader">
+					<header class="instrument__bar">
+						<span class="instrument__dot"></span>
+						<span class="instrument__file">fibre_arc.glsl</span>
+						<span class="instrument__tag">gpu shader</span>
+					</header>
+					<div class="instrument__head"><h3>Fibre Arc — Interactive Strand Shader</h3></div>
+					<div class="instrument__readouts"><span class="stat-line">GPU: <span class="accent-stat">WebGL</span></span><span class="stat-line">Passes: <span>1 full-screen</span></span><span class="stat-line">Hover: <span>comb strands</span></span></div>
+					<div class="fibre-arc-wrap"><canvas id="fibreArcCanvas" class="fibre-arc-canvas" aria-label="Animated fibre arc shader visualisation"></canvas></div>
+				</article>
+				<article class="instrument algorithm-container instrument--wide instrument--shader">
+					<header class="instrument__bar">
+						<span class="instrument__dot"></span>
+						<span class="instrument__file">singularity.js</span>
+						<span class="instrument__tag">particle swarm</span>
+					</header>
+					<div class="instrument__head"><h3>Singularity — 20 000 Point Swarm</h3></div>
+					<div class="instrument__readouts"><span class="stat-line">Points: <span>20 000</span></span><span class="stat-line">Camera: <span>drag to orbit</span></span><span class="stat-line">Post: <span>bloom</span></span></div>
+					<div class="instrument__canvas instrument__canvas--embed"><iframe src="/AnimatedCOmponents/blackhole_1.html" title="Particle swarm visualisation" loading="lazy"></iframe></div>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<!-- 05 — ABOUT -->
+	<section id="about" class="section" data-station="about">
+		<div class="section__scrim" aria-hidden="true"></div>
+		<div class="wrap">
+			<header class="section__head">
+				<p class="kicker"><span class="kicker__no">№ 005</span> ABOUT</p>
+				<h2 class="display">Learning by <em>doing</em></h2>
+			</header>
+			<div class="split split--about">
+				<div class="split__text">
+					<p class="lede">Passionate AI/ML developer with a focus on computer vision, intelligent systems and real-world problem solving. I believe in learning by doing and embrace the journey of continuous improvement.</p>
+					<p class="body-copy">I work with cutting-edge technologies including Rust-based ML frameworks like Burn, traditional Python ML stacks, and full-stack development tools. My goal is to build intelligent systems that make a real impact.</p>
+					<p class="body-copy">My published research — a Rust-implemented Dueling Double DQN for autonomous fixed-wing flight in <em>JAMCS</em> (2026) — is exactly the kind of problem I love: physics, reinforcement learning, and a game engine (Godot 4 through GDExtension) all wired together and documented end to end.</p>
+					<p class="body-copy">That thread continues in my current work: a hybrid neuro-symbolic controller for reinforcement-learning agents flying a delivery UAV in AirSim, where a learned policy and an explicit rule base have to agree before anything moves.</p>
+					<p class="body-copy">Outside the terminal I'm into flight sims, tinkering with autonomous drones, and pushing browser visualisation far past "good enough". I break things on purpose to learn faster, and I always leave a trail of notes behind.</p>
+					<p class="stack-label">STACK IN ROTATION //</p>
+					<ul class="chips"><li class="chip">Rust</li><li class="chip">Burn</li><li class="chip">PyTorch</li><li class="chip">OpenCV</li><li class="chip">Deep RL</li><li class="chip">Godot 4</li><li class="chip">TypeScript</li><li class="chip">React</li><li class="chip">Node.js</li><li class="chip">PostgreSQL</li></ul>
+				</div>
+				<div class="split__aside">
+					<figure class="portrait">
+						<div class="instrument__bar"><span class="instrument__dot"></span><span class="instrument__file">pfp.jpg</span><span class="instrument__tag">hover to reveal</span></div>
+						<div class="dither-reveal" data-dither-reveal data-image="1767783887436.jpg" role="img" aria-label="Portrait of Saugat Chaudhary Tharu"><noscript><img src="/1767783887436.jpg" alt="Portrait of Saugat Chaudhary Tharu" /></noscript></div>
+					</figure>
+					<dl class="facts">
+						<div class="fact"><dt>Focus</dt><dd>AI/ML Enthusiast</dd></div>
+						<div class="fact"><dt>Role</dt><dd>Full Stack Developer</dd></div>
+						<div class="fact"><dt>Domain</dt><dd>Computer Vision</dd></div>
+						<div class="fact"><dt>Systems</dt><dd>Rust &amp; Low-Level</dd></div>
+					</dl>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- 06 — PROJECTS -->
+	<section id="projects" class="section" data-station="projects">
+		<div class="section__scrim" aria-hidden="true"></div>
+		<div class="wrap">
+			<header class="section__head">
+				<p class="kicker"><span class="kicker__no">№ 006</span> AI &amp; ML PROJECTS</p>
+				<h2 class="display">Things I <em>shipped</em></h2>
+			</header>
+			<div class="card-grid">
+				<article class="project-card card">
+					<h3>Capstone: Flight Sim D3QN</h3>
+					<ul class="project-tags"><li class="tag">Godot</li><li class="tag">Rust</li><li class="tag">RL</li></ul>
+					<p>Dueling Double DQN agents trained in Rust for autonomous fixed-wing flight — 142K parameters, prioritised experience replay, &lt;1 ms gradient updates.</p>
+					<div class="card__links"><a href="https://github.com/ColdWistler/Capstone2PCASSIE" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a><a href="https://journaljamcs.com/index.php/JAMCS/article/view/2191" target="_blank" rel="noopener" class="card-link"><i class="fas fa-file-lines"></i> Published Paper</a></div>
+				</article>
+				<article class="project-card card">
+					<h3>WildFire Alert System</h3>
+					<ul class="project-tags"><li class="tag">Python</li><li class="tag">OpenCV</li><li class="tag">Jupyter</li></ul>
+					<p>AI-powered wildfire detection using UAV technology for early warning and prevention systems.</p>
+					<div class="card__links"><a href="https://github.com/ColdWistler/WildFire-AlertSystemUAV" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a></div>
+				</article>
+				<article class="project-card card">
+					<h3>Object Detection</h3>
+					<ul class="project-tags"><li class="tag">TensorFlow</li><li class="tag">OpenCV</li><li class="tag">AGPL v3.0</li></ul>
+					<p>Advanced computer vision system for real-time object detection and classification.</p>
+					<div class="card__links"><a href="https://github.com/ColdWistler/ObjectDetection" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a></div>
+				</article>
+				<article class="project-card card">
+					<h3>Devanagri Detection</h3>
+					<ul class="project-tags"><li class="tag">OCR</li><li class="tag">Scikit-Learn</li></ul>
+					<p>Computer vision for Devanagari script detection and recognition systems.</p>
+					<div class="card__links"><a href="https://github.com/ColdWistler/CV_DevnagriDetection" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a></div>
+				</article>
+				<article class="project-card card">
+					<h3>Genetic Algorithm</h3>
+					<ul class="project-tags"><li class="tag">Algorithm</li><li class="tag">Evolution</li></ul>
+					<p>Optimization algorithms implementing genetic approaches for complex problem solving.</p>
+					<div class="card__links"><a href="https://github.com/ColdWistler/Genetic-Algorithm" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a></div>
+				</article>
+			</div>
+			<div class="more-projects">
+				<h3 class="more-projects__title">More AI Projects</h3>
+				<ul class="project-list">
+					<li><a href="https://github.com/ColdWistler/SyntheticDataAnalytics" target="_blank" rel="noopener" class="list-item">SyntheticDataAnalytics — Advanced analytics on synthetic datasets for ML model training</a></li>
+					<li><a href="https://github.com/ColdWistler/KalimatiMachineLearning-" target="_blank" rel="noopener" class="list-item">KalimatiML — Machine learning for local market data analysis</a></li>
+					<li><a href="https://github.com/ColdWistler/BigDataAssignment2" target="_blank" rel="noopener" class="list-item">BigDataAssignment2 — Big data processing and analytics implementation</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- 07 — OTHER PROJECTS -->
+	<section id="other-projects" class="section" data-station="other-projects">
+		<div class="section__scrim" aria-hidden="true"></div>
+		<div class="wrap">
+			<header class="section__head">
+				<p class="kicker"><span class="kicker__no">№ 007</span> OTHER NOTABLE PROJECTS</p>
+				<h2 class="display">Off the <em>flight path</em></h2>
+			</header>
+			<div class="card-grid">
+				<article class="project-card card">
+					<h3>Idiot's Guide to Programming</h3>
+					<ul class="project-tags"><li class="tag">Python</li><li class="tag">Documentation</li></ul>
+					<p>Comprehensive programming guide for beginners — making complex concepts simple.</p>
+					<div class="card__links"><a href="https://github.com/ColdWistler/Idiot-s-Guide-to-Programming." target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a></div>
+				</article>
+				<article class="project-card card">
+					<h3>Agrifresh Apps</h3>
+					<ul class="project-tags"><li class="tag">Flutter</li><li class="tag">Dart</li><li class="tag">Mobile</li></ul>
+					<p>Fresh vegetables delivery app connecting farmers to consumers.</p>
+					<div class="card__links"><a href="https://github.com/ColdWistler/AgrifreshAPP" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a></div>
+				</article>
+				<article class="project-card card">
+					<h3>VisiNepal</h3>
+					<ul class="project-tags"><li class="tag">Java</li><li class="tag">Desktop</li></ul>
+					<p>Java-based application showcasing Nepalese cultural heritage and tourism.</p>
+					<div class="card__links"><a href="https://github.com/ColdWistler/VisiNepal" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a></div>
+				</article>
+				<article class="project-card card">
+					<h3>Arch Linux Setup</h3>
+					<ul class="project-tags"><li class="tag">Linux</li><li class="tag">Arch Linux</li><li class="tag">Config</li></ul>
+					<p>Personalized Arch Linux configuration — rice, themes, and productivity tools.</p>
+					<div class="card__links"><a href="https://github.com/ColdWistler/ArchLinux-Dots" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a></div>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<!-- 08 — SKILLS / TOOLING -->
+	<section id="skills" class="section" data-station="skills">
+		<div class="section__scrim" aria-hidden="true"></div>
+		<div class="wrap">
+			<header class="section__head">
+				<p class="kicker"><span class="kicker__no">№ 008</span> TECH STACK &amp; SKILLS</p>
+				<h2 class="display">The <em>tooling</em></h2>
+			</header>
+			<div class="skills-layout">
+				<div class="skills-grid">
+					<div class="skill-group">
+						<h3 class="skill-category-title"><i class="fas fa-brain skill-icon"></i> AI/ML</h3>
+						<ul class="skill-tags">
+							<li class="skill-tag">Python</li><li class="skill-tag">TensorFlow</li><li class="skill-tag">PyTorch</li><li class="skill-tag">OpenCV</li><li class="skill-tag">Scikit-Learn</li><li class="skill-tag">HuggingFace</li><li class="skill-tag">Transformers</li><li class="skill-tag">LangChain</li><li class="skill-tag">ONNX</li><li class="skill-tag">Burn</li><li class="skill-tag">Candle</li><li class="skill-tag">LLaMA</li><li class="skill-tag">YOLO</li><li class="skill-tag">Deep RL</li><li class="skill-tag">D3QN</li><li class="skill-tag">AirSim</li><li class="skill-tag">Neuro-symbolic</li><li class="skill-tag">Knowledge Graphs</li><li class="skill-tag">UAV Autonomy</li>
+						</ul>
+					</div>
+					<div class="skill-group">
+						<h3 class="skill-category-title"><i class="fas fa-cpu skill-icon"></i> Systems</h3>
+						<ul class="skill-tags"><li class="skill-tag">Rust</li><li class="skill-tag">C++</li><li class="skill-tag">Go</li><li class="skill-tag">Zig</li><li class="skill-tag">GDExtension</li><li class="skill-tag">FFI</li><li class="skill-tag">WebAssembly</li></ul>
+					</div>
+					<div class="skill-group">
+						<h3 class="skill-category-title"><i class="fas fa-code skill-icon"></i> Languages</h3>
+						<ul class="skill-tags"><li class="skill-tag">Java</li><li class="skill-tag">Dart</li><li class="skill-tag">JavaScript</li><li class="skill-tag">TypeScript</li><li class="skill-tag">C</li><li class="skill-tag">Lua</li></ul>
+					</div>
+					<div class="skill-group">
+						<h3 class="skill-category-title"><i class="fas fa-cloud skill-icon"></i> Cloud</h3>
+						<ul class="skill-tags"><li class="skill-tag">AWS</li><li class="skill-tag">Docker</li><li class="skill-tag">Kubernetes</li><li class="skill-tag">GitHub Actions</li><li class="skill-tag">CI/CD</li></ul>
+					</div>
+					<div class="skill-group">
+						<h3 class="skill-category-title"><i class="fas fa-tools skill-icon"></i> Tools</h3>
+						<ul class="skill-tags"><li class="skill-tag">Flutter</li><li class="skill-tag">React</li><li class="skill-tag">Next.js</li><li class="skill-tag">Godot 4</li><li class="skill-tag">Cargo</li><li class="skill-tag">Jupyter</li><li class="skill-tag">Linux</li><li class="skill-tag">Neovim</li><li class="skill-tag">Git</li></ul>
+					</div>
+					<div class="skill-group">
+						<h3 class="skill-category-title"><i class="fas fa-database skill-icon"></i> Data</h3>
+						<ul class="skill-tags"><li class="skill-tag">PostgreSQL</li><li class="skill-tag">MongoDB</li><li class="skill-tag">Redis</li><li class="skill-tag">SQLite</li><li class="skill-tag">Pandas</li><li class="skill-tag">NumPy</li></ul>
+					</div>
+				</div>
+				<div class="skill-graph">
+					<div class="skill-graph__head">
+						<h3 class="skill-graph__title">Stack <em class="skill-graph__sub">constellation</em></h3>
+						<p class="skill-graph__desc">Each node is a technology; the lines show where they overlap in my work. Hover a node to light its connections.</p>
+					</div>
+					<canvas id="skillGraph" class="skill-graph__canvas" aria-label="Technology skill constellation" role="img"></canvas>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- 09 — SCHEMATICS -->
+	<section id="schematics" class="section section--schematic" data-station="schematics">
+		<div class="section__scrim" aria-hidden="true"></div>
+		<div class="wrap">
+			<header class="section__head">
+				<p class="kicker"><span class="kicker__no">№ 009</span> SYSTEM STUDIES</p>
+				<h2 class="display">Moving <em>parts</em></h2>
+			</header>
+			<p class="study-note">Three drawings in the same isometric grammar as the figures above — a world, a loop, a pipeline. They are studies of the systems I build: a simulated volume with an agent inside it, the neuro-symbolic control loop, and the training run that feeds it. Scrub the episode, watch the guard pass or override, follow the batch round the loop.</p>
+			<figure class="iso-plate plate plate--sim" data-figure="sim">
+				<div class="iso-plate-corners" aria-hidden="true">
+					<span class="iso-plate-corner" data-corner="fig">FIG 03</span><span class="iso-plate-corner" data-corner="title">AIRSIM WORLD · CUTAWAY</span><span class="iso-plate-corner" data-corner="hint">DRAG TO SCRUB THE EPISODE</span><span class="iso-plate-corner" data-corner="readout" data-sim-readout>—</span>
+				</div>
+				<div class="iso-stage" data-sim-stage></div>
+				<ul class="eng-legend"><li data-module="obs"><span class="eng-legend__no">01</span><span class="eng-legend__name">Observation</span><span class="eng-legend__val" data-cell="obs">—</span></li><li data-module="policy"><span class="eng-legend__no">02</span><span class="eng-legend__name">Policy</span><span class="eng-legend__val" data-cell="policy">—</span></li><li data-module="guard"><span class="eng-legend__no">03</span><span class="eng-legend__name">Symbolic Guard</span><span class="eng-legend__val" data-cell="guard">—</span></li><li data-module="act"><span class="eng-legend__no">04</span><span class="eng-legend__name">Airspeed</span><span class="eng-legend__val" data-cell="act">—</span></li><li data-module="reward"><span class="eng-legend__no">05</span><span class="eng-legend__name">Reward</span><span class="eng-legend__val" data-cell="reward">—</span></li></ul>
+				<div class="throttle"><label class="throttle__lbl" for="scrub">EPISODE</label><input class="throttle__range" id="scrub" type="range" min="0" max="100" step="1" value="32" data-scrub /><output class="throttle__val" for="scrub" data-scrub-val>32%</output></div>
+			</figure>
+			<div class="plate-pair">
+				<figure class="iso-plate plate plate--loop" data-figure="loop">
+					<div class="iso-plate-corners" aria-hidden="true"><span class="iso-plate-corner" data-corner="fig">FIG 04</span><span class="iso-plate-corner" data-corner="title">NEURO-SYMBOLIC · CONTROL LOOP</span><span class="iso-plate-corner" data-corner="readout" data-loop-readout>—</span></div>
+					<div class="iso-stage" data-loop-stage></div>
+					<p class="plate-caption">The policy proposes, the rule base disposes. Every action crosses the symbolic verifier before AirSim sees it, and the verifier can amend or veto — the token turning red is a rule catching the network.</p>
+				</figure>
+				<figure class="iso-plate plate plate--pipeline" data-figure="pipeline">
+					<div class="iso-plate-corners" aria-hidden="true"><span class="iso-plate-corner" data-corner="fig">FIG 05</span><span class="iso-plate-corner" data-corner="title">TRAINING · PIPELINE</span><span class="iso-plate-corner" data-corner="readout" data-pipeline-readout>—</span></div>
+					<div class="iso-stage" data-pipeline-stage></div>
+					<ol class="fuel-legend"><li>Replay buffer</li><li>Prioritised sample</li><li>Policy + target</li><li>Symbolic guard</li><li>AirSim step</li><li>Reward</li></ol>
+				</figure>
+			</div>
+		</div>
+	</section>
+
+	<!-- 10 — CONTACT -->
+	<section id="contact" class="section section--contact" data-station="contact">
+		<div class="section__scrim" aria-hidden="true"></div>
+		<div class="wrap">
+			<header class="section__head">
+				<p class="kicker"><span class="kicker__no">№ 010</span> LET'S CONNECT</p>
+				<h2 class="display">Open the <em>channel</em></h2>
+			</header>
+			<div class="contact-grid">
+				<div class="contact-copy">
+					<p class="lede">I'm always interested in collaborating on exciting AI/ML projects or discussing new technologies.</p>
+					<ul class="contact-list"><li><i class="fas fa-envelope"></i> <a href="mailto:csaugat862@gmail.com">csaugat862@gmail.com</a></li><li><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/saugat-chaudhary-19653b33b" target="_blank" rel="noopener">LinkedIn Profile</a></li></ul>
+					<div class="actions"><a href="https://github.com/ColdWistler" target="_blank" rel="noopener" class="btn btn--solid btn-radial"><i class="fab fa-github"></i> GitHub</a><a href="https://www.linkedin.com/in/saugat-chaudhary-19653b33b" target="_blank" rel="noopener" class="btn btn--ghost"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="mailto:csaugat862@gmail.com" class="btn btn--ghost"><i class="fas fa-envelope"></i> Email</a></div>
+				</div>
+				<div class="signoff"><div class="signoff__label">SIGN-OFF // 001</div><div class="signoff__mark" data-pixel-drift data-text="LET'S CONNECT"></div></div>
+			</div>
+		</div>
+	</section>
+</BaseLayout>

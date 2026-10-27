@@ -1,0 +1,155 @@
+---
+export interface Props {
+	title?: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script>
+			/* honour the saved theme before the first paint */
+			try {
+				var savedTheme = localStorage.getItem("theme");
+				if (savedTheme === "light" || savedTheme === "dark")
+					document.documentElement.setAttribute("data-theme", savedTheme);
+			} catch (error) { /* private mode: keep the default */ }
+		</script>
+		<title>{title || 'Saugat Chaudhary Tharu — AI/ML & Full Stack Developer'}</title>
+		<meta name="description" content="Portfolio of Saugat Chaudhary Tharu — AI/ML and full-stack developer working in Rust, deep reinforcement learning and neuro-symbolic control. Creator of Project RAPTORM86, author of the Dueling Double DQN flight paper (JAMCS, 2026), and currently building hybrid neuro-symbolic UAV agents in AirSim." />
+		<link rel="canonical" href="https://saugatchaudharytharu.com.np/" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title || 'Saugat Chaudhary Tharu — AI/ML & Full Stack Developer'} />
+		<meta property="og:site_name" content="Saugat Chaudhary Tharu" />
+		<meta property="og:url" content="https://saugatchaudharytharu.com.np/" />
+		<meta property="og:image" content="https://saugatchaudharytharu.com.np/og-image.png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="Portfolio of Saugat Chaudhary Tharu — AI/ML & Full-Stack Developer" />
+		<meta property="og:description" content="Rust · Deep RL · Neuro-symbolic autonomy. Project RAPTORM86 flight dynamics engine, the published Dueling Double DQN flight paper, and current AirSim UAV research." />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title || 'Saugat Chaudhary Tharu — AI/ML & Full Stack Developer'} />
+		<meta name="twitter:description" content="Rust · Deep RL · Godot 4. Project RAPTORM86 flight dynamics engine and the published Dueling Double DQN autonomous-flight paper." />
+		<meta name="twitter:image" content="https://saugatchaudharytharu.com.np/og-image.png" />
+		<meta name="twitter:image:alt" content="Portfolio of Saugat Chaudhary Tharu — AI/ML &amp; Full-Stack Developer" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0f14'/%3E%3Ccircle cx='32' cy='32' r='17' fill='none' stroke='%23ff8a2b' stroke-width='3'/%3E%3Cpath d='M32 17v30M17 32h30' stroke='%23ff8a2b' stroke-width='1.5' opacity='.5'/%3E%3C/svg%3E" />
+
+		<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+		<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'" />
+		<noscript>
+			<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+		</noscript>
+
+		<link rel="stylesheet" href="/styles/global.css" />
+	</head>
+	<body class="is-loading">
+		<!-- PRELOADER -->
+		<div class="preloader" id="preloader" role="status" aria-live="polite">
+			<div class="preloader__inner">
+				<p class="preloader__mark">HANGAR 86</p>
+				<div class="preloader__bar"><span class="preloader__fill" id="preloaderFill"></span></div>
+				<p class="preloader__note" id="preloaderNote">warming the floodlights…</p>
+			</div>
+		</div>
+
+		<!-- THE SCENE -->
+		<canvas id="scene" aria-hidden="true"></canvas>
+		<div class="scene-scrim" aria-hidden="true"></div>
+		<div class="grain" aria-hidden="true"></div>
+		<div class="vignette" aria-hidden="true"></div>
+
+		<div class="cursor" id="cursor" aria-hidden="true">
+			<span class="cursor__ring"></span>
+			<span class="cursor__dot"></span>
+		</div>
+
+		<!-- NAVIGATION -->
+		<nav class="navbar" id="navbar">
+			<div class="nav-container">
+				<a href="#home" class="nav-logo">SCT<span class="nav-logo__dot">·</span>86</a>
+				<ul class="nav-menu">
+					<li><a href="#featured" class="nav-link">Flagship</a></li>
+					<li><a href="#research" class="nav-link">Research</a></li>
+					<li><a href="#algorithms" class="nav-link">Lab</a></li>
+					<li><a href="#about" class="nav-link">About</a></li>
+					<li><a href="#projects" class="nav-link">Projects</a></li>
+					<li><a href="#other-projects" class="nav-link">Other</a></li>
+					<li><a href="#skills" class="nav-link">Stack</a></li>
+					<li><a href="#schematics" class="nav-link">Studies</a></li>
+					<li><a href="#contact" class="nav-link">Contact</a></li>
+				</ul>
+				<div class="nav-actions">
+					<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+						<i class="fas fa-sun" id="themeIcon"></i>
+					</button>
+					<div class="hamburger" role="button" tabindex="0" aria-label="Open menu">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<main id="main">
+			<!-- Offline note -->
+			<div id="offlineNote" class="offline-note" hidden>
+				<p class="offline-note__head">Opened from disk</p>
+				<p>Your browser blocks ES modules on <code>file://</code>, so the hangar and every isometric plate stay dark. Serve the folder instead:</p>
+				<p class="offline-note__cmd"><code>python3 -m http.server 8000</code> &nbsp;then&nbsp; <code>http://localhost:8000</code></p>
+			</div>
+
+			<slot />
+		</main>
+
+		<!-- FOOTER -->
+		<footer class="footer">
+			<div class="wrap footer__inner">
+				<p class="footer__quote">"Code, break, fix, repeat — that's how we learn!"</p>
+				<p class="footer__meta">
+					<span>© 2024 Saugat Chaudhary Tharu</span>
+					<span class="footer__sep">·</span>
+					<span>Hangar 86</span>
+				</p>
+			</div>
+		</footer>
+
+		<noscript>
+			<div class="noscript-note">This portfolio uses JavaScript for the interactive instruments and the 3D scene. The written content above is complete without it.</div>
+		</noscript>
+
+		<script src="/js/script.js" is:inline></script>
+		<script src="/js/components.js" is:inline></script>
+		<script type="module" id="bootModule" src="/js/main.js" is:inline></script>
+		<script>
+			(function () {
+				var fired = false;
+				function offline() {
+					if (fired || window.__hangarBoot) return;
+					fired = true;
+					document.documentElement.classList.add("no-scene");
+					document.body.classList.remove("is-loading");
+					document.body.classList.add("is-ready", "is-offline");
+					var note = document.getElementById("offlineNote");
+					if (note) note.hidden = false;
+				}
+				var boot = document.getElementById("bootModule");
+				if (boot) boot.addEventListener("error", offline);
+				window.addEventListener("load", function () { setTimeout(offline, 4200); });
+			})();
+		</script>
+		<script>
+			window.setTimeout(function () {
+				document.body.classList.remove("is-loading");
+			}, 5000);
+		</script>
+	</body>
+</html>
