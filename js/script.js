@@ -1549,6 +1549,7 @@ document.addEventListener('DOMContentLoaded', function () {
       tag.insertBefore(i, tag.firstChild);
     });
   }
+  attachSkillIcons();
 
   // --- Skill constellation graph ---
   var graph = {
@@ -1711,12 +1712,11 @@ document.addEventListener('DOMContentLoaded', function () {
       ctx.lineWidth = 1;
       ctx.stroke();
 
+      // center dot
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, bright ? 3 : 2, 0, Math.PI * 2);
       ctx.fillStyle = '#0a0a08';
-      ctx.font = (bright ? 12 : 9) + 'px "Font Awesome 6 Free"';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      var glyph = nodeGlyph(n.label);
-      if (glyph) ctx.fillText(glyph, n.x, n.y);
+      ctx.fill();
 
       if (bright || graph.frame % 120 < 20) {
         ctx.fillStyle = bright ? '#e8e4d9' : '#8e8779';
@@ -1724,26 +1724,6 @@ document.addEventListener('DOMContentLoaded', function () {
         ctx.fillText(n.label, n.x, n.y - (r + 10));
       }
     });
-  }
-
-  function nodeGlyph(label) {
-    var map = {
-      'AI/ML': '\uf1e0',
-      Systems: '\uf0e4',
-      Languages: '\uf121',
-      Cloud: '\uf0c2',
-      Tools: '\uf0ad',
-      Data: '\uf1c0',
-      Rust: '\uf121',
-      Python: '\uf121',
-      PyTorch: '\uf121',
-      React: '\uf121',
-      Docker: '\uf1c0',
-      PostgreSQL: '\uf1c0',
-      'Godot 4': '\uf11b',
-      'WebAssembly': '\uf121'
-    };
-    return map[label] || null;
   }
 
   function colorMix(c1, c2, t) {
