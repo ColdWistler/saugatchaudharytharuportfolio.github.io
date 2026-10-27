@@ -177,11 +177,11 @@ html.no-scene[data-theme="light"] body {
             var(--scrim) 0%,
             color-mix(in srgb, var(--scrim) 82%, transparent) 34%,
             transparent 68%);
-    opacity: .94;
+    opacity: 0.35;
 }
 
 [data-theme="light"] .scene-scrim {
-    opacity: 1;
+    opacity: 0.35;
     background:
         linear-gradient(100deg,
             color-mix(in srgb, var(--scrim) 90%, transparent) 0%,
