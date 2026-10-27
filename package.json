@@ -21,6 +21,10 @@
   },
   "homepage": "https://github.com/ColdWistler/saugatchaudharytharuportfolio.github.io#readme",
   "devDependencies": {
-    "astro": "^5.13.0"
+    "astro": "^5.13.0",
+    "puppeteer": "^25.16.0"
+  },
+  "dependencies": {
+    "three": "^0.180.0"
   }
 }

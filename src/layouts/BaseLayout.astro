@@ -19,6 +19,14 @@ const { title } = Astro.props;
 					document.documentElement.setAttribute("data-theme", savedTheme);
 			} catch (error) { /* private mode: keep the default */ }
 		</script>
+		<script type="importmap">
+			{
+				"imports": {
+					"three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+					"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+				}
+			}
+		</script>
 		<title>{title || 'Saugat Chaudhary Tharu — AI/ML & Full Stack Developer'}</title>
 		<meta name="description" content="Portfolio of Saugat Chaudhary Tharu — AI/ML and full-stack developer working in Rust, deep reinforcement learning and neuro-symbolic control. Creator of Project RAPTORM86, author of the Dueling Double DQN flight paper (JAMCS, 2026), and currently building hybrid neuro-symbolic UAV agents in AirSim." />
 		<link rel="canonical" href="https://saugatchaudharytharu.com.np/" />
