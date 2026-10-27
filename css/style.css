@@ -74,6 +74,10 @@
     --vignette: rgba(6, 4, 24, .66);
     --shadow: 0 24px 60px -28px rgba(4, 2, 20, .92);
     --panel-blur: saturate(120%) blur(14px);
+
+    /* layout — keeps every section off the page edges */
+    --gutter: 24px;
+    --wrap: 1200px;
 }
 
 [data-theme="light"] {
@@ -341,7 +345,7 @@ body:not(.is-loading) .preloader {
 .nav-container {
     width: min(var(--wrap), 100% - var(--gutter) * 2);
     margin-left: var(--gutter);
-    margin-right: auto;
+    margin-right: var(--gutter);
     display: flex;
     align-items: center;
     gap: 28px;
@@ -478,7 +482,7 @@ main { position: relative; z-index: 4; }
     position: relative;
     width: min(var(--wrap), 100% - var(--gutter) * 2);
     margin-left: var(--gutter);
-    margin-right: auto;
+    margin-right: var(--gutter);
 }
 
 .section--hero {
