@@ -1452,6 +1452,9 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // --- Init ---
+  var graph = {
+    canvas: null, ctx: null, nodes: [], edges: [], hover: null, frame: 0
+  };
   initSortingVisualization();
   initML();
   initFlightHud();
@@ -1459,6 +1462,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initWindTunnel();
   initIntegrator();
   initAtmosphere();
+  initSkillsGraph();
 
   if (parallaxOn) {
     hudLoop();
@@ -1476,6 +1480,267 @@ document.addEventListener('DOMContentLoaded', function () {
     itgDraw();
     atmDraw();
     mlDrawStatic();
+  }
+
+  // --- Skill tag icons ---
+  var skillIcons = {
+    python: { icon: 'fa-python', pack: 'fab' },
+    tensorflow: { icon: 'fa-cube', pack: 'fas' },
+    pytorch: { icon: 'fa-cube', pack: 'fas' },
+    opencv: { icon: 'fa-eye', pack: 'fas' },
+    'scikit-learn': { icon: 'fa-layer-group', pack: 'fas' },
+    huggingface: { icon: 'fa-huggingface', pack: 'fab' },
+    transformers: { icon: 'fa-exchange-alt', pack: 'fas' },
+    onnx: { icon: 'fa-cube', pack: 'fas' },
+    burn: { icon: 'fa-fire', pack: 'fas' },
+    candle: { icon: 'fa-fire', pack: 'fas' },
+    llama: { icon: 'fa-comments', pack: 'fas' },
+    yolo: { icon: 'fa-bullseye', pack: 'fas' },
+    'deep rl': { icon: 'fa-robot', pack: 'fas' },
+    d3qn: { icon: 'fa-robot', pack: 'fas' },
+    airsim: { icon: 'fa-drone', pack: 'fas' },
+    'neuro-symbolic': { icon: 'fa-brain', pack: 'fas' },
+    'knowledge graphs': { icon: 'fa-sitemap', pack: 'fas' },
+    'uav autonomy': { icon: 'fa-plane', pack: 'fas' },
+    rust: { icon: 'fa-terminal', pack: 'fas' },
+    'c++': { icon: 'fa-terminal', pack: 'fas' },
+    go: { icon: 'fa-terminal', pack: 'fas' },
+    zig: { icon: 'fa-terminal', pack: 'fas' },
+    'gd extension': { icon: 'fa-gamepad', pack: 'fas' },
+    ffi: { icon: 'fa-plug', pack: 'fas' },
+    webassembly: { icon: 'fa-microchip', pack: 'fas' },
+    java: { icon: 'fa-code', pack: 'fas' },
+    dart: { icon: 'fa-code', pack: 'fas' },
+    javascript: { icon: 'fa-code', pack: 'fas' },
+    typescript: { icon: 'fa-code', pack: 'fas' },
+    c: { icon: 'fa-code', pack: 'fas' },
+    lua: { icon: 'fa-code', pack: 'fas' },
+    aws: { icon: 'fa-cloud', pack: 'fas' },
+    docker: { icon: 'fa-docker', pack: 'fab' },
+    kubernetes: { icon: 'fa-cube', pack: 'fas' },
+    'github actions': { icon: 'fa-github', pack: 'fab' },
+    'ci/cd': { icon: 'fa-sync-alt', pack: 'fas' },
+    flutter: { icon: 'fa-mobile-alt', pack: 'fas' },
+    react: { icon: 'fa-react', pack: 'fab' },
+    'next.js': { icon: 'fa-code', pack: 'fas' },
+    'godot 4': { icon: 'fa-gamepad', pack: 'fas' },
+    cargo: { icon: 'fa-box', pack: 'fas' },
+    jupyter: { icon: 'fa-book', pack: 'fas' },
+    linux: { icon: 'fa-linux', pack: 'fab' },
+    neovim: { icon: 'fa-keyboard', pack: 'fas' },
+    git: { icon: 'fa-git-alt', pack: 'fab' },
+    postgresql: { icon: 'fa-database', pack: 'fas' },
+    mongodb: { icon: 'fa-database', pack: 'fas' },
+    redis: { icon: 'fa-database', pack: 'fas' },
+    sqlite: { icon: 'fa-database', pack: 'fas' },
+    pandas: { icon: 'fa-table', pack: 'fas' },
+    numpy: { icon: 'fa-calculator', pack: 'fas' }
+  };
+
+  function attachSkillIcons() {
+    document.querySelectorAll('.skill-tag').forEach(function (tag) {
+      var text = tag.textContent.trim().toLowerCase();
+      var match = null;
+      Object.keys(skillIcons).some(function (k) {
+        if (text.indexOf(k) !== -1) { match = k; return true; }
+        return false;
+      });
+      if (!match) return;
+      var info = skillIcons[match];
+      var i = document.createElement('i');
+      i.className = (info.pack === 'fab' ? 'fab ' : 'fas ') + info.icon;
+      tag.insertBefore(i, tag.firstChild);
+    });
+  }
+  attachSkillIcons();
+
+  // --- Skill constellation graph ---
+
+  function graphDist(a, b) {
+    var dx = a.x - b.x, dy = a.y - b.y;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  function initSkillsGraph() {
+    var c = document.getElementById('skillGraph');
+    if (!c) return;
+    graph.canvas = c;
+    graph.ctx = c.getContext('2d');
+    resizeGraph();
+    c.addEventListener('pointermove', onGraphMove);
+    c.addEventListener('pointerleave', function () { graph.hover = null; });
+    window.addEventListener('resize', resizeGraph);
+    graphLoop();
+  }
+
+  function resizeGraph() {
+    var c = graph.canvas;
+    var p = c.parentElement;
+    var dpr = window.devicePixelRatio || 1;
+    var r = p.getBoundingClientRect();
+    c.width = Math.max(200, r.width) * dpr;
+    c.height = Math.max(200, r.height) * dpr;
+    c.style.width = r.width + 'px';
+    c.style.height = r.height + 'px';
+    graph.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    buildGraph();
+  }
+
+  function buildGraph() {
+    var ctx = graph.ctx;
+    var dpr = window.devicePixelRatio || 1;
+    var w = graph.canvas.width / dpr;
+    var h = graph.canvas.height / dpr;
+    var cx = w * 0.5, cy = h * 0.5;
+    var radius = Math.min(w, h) * 0.42;
+
+    var palette = [
+      '#c9a25c', '#a87e47', '#8a9a8b', '#e0c99e', '#b5ada0', '#7d7769'
+    ];
+
+    graph.nodes = [
+      { label: 'AI/ML', cat: 'ai', angle: -Math.PI / 2, r: radius, color: palette[0] },
+      { label: 'Systems', cat: 'sys', angle: -Math.PI / 6, r: radius, color: palette[1] },
+      { label: 'Languages', cat: 'lang', angle: Math.PI / 6, r: radius, color: palette[2] },
+      { label: 'Cloud', cat: 'cloud', angle: Math.PI / 2, r: radius, color: palette[3] },
+      { label: 'Tools', cat: 'tools', angle: 5 * Math.PI / 6, r: radius, color: palette[4] },
+      { label: 'Data', cat: 'data', angle: 7 * Math.PI / 6, r: radius, color: palette[5] },
+      { label: 'Rust', cat: 'sys', angle: -Math.PI / 3, r: radius * 0.62, color: palette[1] },
+      { label: 'Python', cat: 'ai', angle: -Math.PI / 3, r: radius * 0.85, color: palette[0] },
+      { label: 'PyTorch', cat: 'ai', angle: -Math.PI / 4, r: radius * 0.72, color: palette[0] },
+      { label: 'React', cat: 'tools', angle: Math.PI / 3, r: radius * 0.8, color: palette[4] },
+      { label: 'Docker', cat: 'cloud', angle: Math.PI / 3, r: radius * 0.66, color: palette[3] },
+      { label: 'PostgreSQL', cat: 'data', angle: Math.PI, r: radius * 0.7, color: palette[5] },
+      { label: 'Godot 4', cat: 'tools', angle: 2 * Math.PI / 3, r: radius * 0.75, color: palette[4] },
+      { label: 'WebAssembly', cat: 'sys', angle: 2 * Math.PI / 3, r: radius * 0.6, color: palette[1] }
+    ];
+
+    graph.nodes.forEach(function (n) {
+      n.x = cx + Math.cos(n.angle) * n.r;
+      n.y = cy + Math.sin(n.angle) * n.r;
+      n.baseX = n.x;
+      n.baseY = n.y;
+      n.vx = 0;
+      n.vy = 0;
+      n.index = graph.nodes.indexOf(n);
+      n.connected = [];
+    });
+
+    var related = [
+      ['AI/ML', 'Python'], ['AI/ML', 'PyTorch'], ['AI/ML', 'Systems'],
+      ['Systems', 'Rust'], ['Systems', 'WebAssembly'], ['Systems', 'Languages'],
+      ['Languages', 'Rust'], ['Languages', 'Python'], ['Languages', 'C++'],
+      ['Cloud', 'Docker'], ['Cloud', 'Systems'], ['Cloud', 'AI/ML'],
+      ['Tools', 'React'], ['Tools', 'Godot 4'], ['Tools', 'Languages'],
+      ['Data', 'PostgreSQL'], ['Data', 'Python'], ['Data', 'AI/ML'],
+      ['PyTorch', 'Python'], ['React', 'JavaScript'], ['Docker', 'Kubernetes']
+    ];
+
+    graph.edges = [];
+    related.forEach(function (pair) {
+      var a = findNode(pair[0]), b = findNode(pair[1]);
+      if (a && b) {
+        graph.edges.push({ a: a.index, b: b.index });
+        a.connected.push(b.index);
+        b.connected.push(a.index);
+      }
+    });
+  }
+
+  function findNode(label) {
+    var i;
+    for (i = 0; i < graph.nodes.length; i++) {
+      if (graph.nodes[i].label === label) return graph.nodes[i];
+    }
+    return null;
+  }
+
+  function onGraphMove(e) {
+    var c = graph.canvas;
+    var r = c.getBoundingClientRect();
+    var mx = e.clientX - r.left;
+    var my = e.clientY - r.top;
+    graph.hover = null;
+    graph.nodes.forEach(function (n) {
+      var d = graphDist(n, { x: mx, y: my });
+      if (d < 20) graph.hover = n;
+    });
+  }
+
+  function graphStep() {
+    graph.frame++;
+    var ctx = graph.ctx;
+    var dpr = window.devicePixelRatio || 1;
+    var w = graph.canvas.width / dpr;
+    var h = graph.canvas.height / dpr;
+    var cx = w * 0.5, cy = h * 0.5;
+
+    ctx.clearRect(0, 0, w, h);
+
+    graph.edges.forEach(function (e) {
+      var a = graph.nodes[e.a], b = graph.nodes[e.b];
+      var bright = graph.hover && (graph.hover.index === a.index || graph.hover.index === b.index);
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.strokeStyle = bright ? a.color : colorMix(a.color, '#2a2923', 0.6);
+      ctx.globalAlpha = bright ? 0.9 : 0.16;
+      ctx.lineWidth = bright ? 2.2 : 1;
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    });
+
+    graph.nodes.forEach(function (n) {
+      n.x = n.baseX + Math.sin(graph.frame * 0.002 + n.index) * 6;
+      n.y = n.baseY + Math.cos(graph.frame * 0.002 + n.index) * 4;
+
+      var bright = graph.hover === n || (graph.hover && n.connected.indexOf(graph.hover.index) !== -1);
+      var r = bright ? 9 : 6;
+
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, bright ? 13 : 10, 0, Math.PI * 2);
+      ctx.fillStyle = n.color;
+      ctx.globalAlpha = bright ? 0.14 : 0.08;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+      ctx.fillStyle = bright ? colorLighten(n.color, 0.35) : n.color;
+      ctx.fill();
+      ctx.strokeStyle = '#0a0a08';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // center dot
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, bright ? 3 : 2, 0, Math.PI * 2);
+      ctx.fillStyle = '#0a0a08';
+      ctx.fill();
+
+      if (bright || graph.frame % 120 < 20) {
+        ctx.fillStyle = bright ? '#e8e4d9' : '#8e8779';
+        ctx.font = bright ? '700 14px JetBrains Mono, monospace' : '12px JetBrains Mono, monospace';
+        ctx.fillText(n.label, n.x, n.y - (r + 10));
+      }
+    });
+  }
+
+  function colorMix(c1, c2, t) {
+    var f = parseInt(c1.slice(1), 16), g = parseInt(c2.slice(1), 16);
+    var r = ((f >> 16) * (1 - t) + (g >> 16) * t) | 0;
+    var gr = ((f >> 8 & 0xff) * (1 - t) + (g >> 8 & 0xff) * t) | 0;
+    var b = ((f & 0xff) * (1 - t) + (g & 0xff) * t) | 0;
+    return 'rgb(' + r + ',' + gr + ',' + b + ')';
+  }
+
+  function colorLighten(hex, t) {
+    return colorMix(hex, '#ffffff', t);
+  }
+
+  function graphLoop() {
+    graphStep();
+    requestAnimationFrame(graphLoop);
   }
 
   window.addEventListener('resize', function () {

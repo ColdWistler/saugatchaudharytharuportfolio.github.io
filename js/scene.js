@@ -109,7 +109,7 @@ function buildModel(P) {
 
         const light = new THREE.Mesh(
             new THREE.SphereGeometry(0.05, 12, 10),
-            new THREE.MeshBasicMaterial({ color: side < 0 ? 0xff2f7e : 0x35e0d0 }),
+            new THREE.MeshBasicMaterial({ color: side < 0 ? 0xa87e47 : 0xc9a25c }),
         );
         light.position.set(side * 3.16, 0.36, 0.34);
         group.add(light);
@@ -318,25 +318,24 @@ const GradeShader = {
 };
 
 /* ------------------------------------------------------------
-   Palettes — night neon and daylight cel
+   Palettes — warm charcoal night and daylight cel
    ------------------------------------------------------------
-   Same composition both ways, which is what sells it: an indigo
-   sunset with a magenta counter-light at night, and a bleached
-   cyan-and-cream poster by day. */
+   Same composition both ways: a warm charcoal hangar at night with
+   gold / ochre / sage accent lights, and a bleached poster by day. */
 const PALETTES = {
     dark: {
-        skyTop: 0x07051c, skyMid: 0x2b0d44, skyHorizon: 0xb8331f, skyGround: 0x05030f,
-        sun: 0xff7a3c, sunSize: 0.17,
-        fog: 0x120a2a, fogDensity: 0.028,
-        floorBase: 0x0a0722, floorLine: 0x2f6f9e, floorPool: 0x4a1230,
-        skin: 0xd8d0ea, dark: 0x241d4a, accent: 0xff6a35, accentGlow: 0xff3d10,
-        glass: 0x0a0a24, glow: 0xff9a5a, dust: 0xffc9a0,
-        key: 0xffb27a, keyIntensity: 260,
-        rim: 0x35e0d0, rimIntensity: 1.8,
-        kick: 0xff2f7e, kickIntensity: 14,
-        hemiSky: 0x2c2a72, hemiGround: 0x08040f, hemiIntensity: 0.5,
-        ring: 0x35e0d0, shaft: 0xffb27a, shaftOpacity: 0.055,
-        plate: 0x11162c,
+        skyTop: 0x14120e, skyMid: 0x2a2721, skyHorizon: 0x9a7c52, skyGround: 0x0a0908,
+        sun: 0xdcb88c, sunSize: 0.17,
+        fog: 0x1a1814, fogDensity: 0.028,
+        floorBase: 0x12110e, floorLine: 0x5a6a58, floorPool: 0x5d4a2d,
+        skin: 0xd8d0c0, dark: 0x38342e, accent: 0xc9a25c, accentGlow: 0xe0c99e,
+        glass: 0x181612, glow: 0xe0c99e, dust: 0xe8e4d9,
+        key: 0xe0c99e, keyIntensity: 260,
+        rim: 0x8a9a8b, rimIntensity: 1.8,
+        kick: 0xa87e47, kickIntensity: 14,
+        hemiSky: 0x4a453d, hemiGround: 0x0d0d0b, hemiIntensity: 0.5,
+        ring: 0xc9a25c, shaft: 0xe0c99e, shaftOpacity: 0.055,
+        plate: 0x1a1814,
         exposure: 1.05, env: 0.32,
         bloomStrength: 0.58, bloomRadius: 0.62, bloomThreshold: 0.72,
         vignette: 1.05,
