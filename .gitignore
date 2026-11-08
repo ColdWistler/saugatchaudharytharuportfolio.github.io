@@ -1,0 +1,16 @@
+# dependencies
+node_modules/
+
+# build output (CI builds this)
+dist/
+.astro/
+
+# rust build artifacts
+rust/target/
+
+# local scratch / debug scripts
+test-*.cjs
+
+# logs & OS cruft
+*.log
+.DS_Store

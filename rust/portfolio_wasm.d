@@ -1,0 +1,1 @@
+/home/soggygenus/Documents/GitHub/saugatchaudharytharuportfolio.github.io/rust/target/wasm32-unknown-unknown/release/portfolio_wasm.wasm: /home/soggygenus/Documents/GitHub/saugatchaudharytharuportfolio.github.io/rust/src/lib.rs

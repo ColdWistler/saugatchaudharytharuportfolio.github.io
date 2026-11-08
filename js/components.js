@@ -2,8 +2,11 @@
    ANIMATED COMPONENTS — vanilla ports of the AnimatedCOmponents/
    Fibre Arc, Pixel Drift and Radial Reveal Button pieces.
    ============================================================ */
+import { addLoop, lazyInit, reducedMotion } from './perf.js';
+
 document.addEventListener('DOMContentLoaded', function () {
   var pixelInstances = [];
+  var pixelReady = false;
   var currentFibre = null;
   var ditherInstances = [];
 
@@ -97,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function initPixelDrift() {
+    pixelReady = true;
     destroyPixelInstances();
     var containers = document.querySelectorAll('[data-pixel-drift]');
     for (var c = 0; c < containers.length; c++) {
@@ -133,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var cssW = 0, cssH = 0, dpr = 1;
     var formVal = 0, reverse = false, hidden = true, entered = false;
-    var lastFrame = null, raf = null, ro = null, io = null;
+    var lastFrame = null, stopLoop = null, ro = null, io = null;
     var prevMx = -99999, prevMy = -99999, mouseSpeed = 0;
     var smoothX = -99999, smoothY = -99999;
     var pointer = { x: -99999, y: -99999, active: false };
@@ -316,7 +320,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function loop() {
       drawFrame();
-      raf = requestAnimationFrame(loop);
     }
 
     function onMove(e) {
@@ -383,7 +386,7 @@ document.addEventListener('DOMContentLoaded', function () {
     ro.observe(container);
 
     function destroy() {
-      if (raf) cancelAnimationFrame(raf);
+      if (stopLoop) stopLoop();
       if (ro) ro.disconnect();
       if (io) io.disconnect();
       if (sentinel && sentinel.parentNode) sentinel.parentNode.removeChild(sentinel);
@@ -394,7 +397,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     resize();
-    raf = requestAnimationFrame(loop);
+    drawFrame();
+    if (!reducedMotion) stopLoop = addLoop(loop, { el: canvas, minInterval: 33 });
 
     return { destroy: destroy };
   }
@@ -552,10 +556,11 @@ void main(){
 
     var speed = 70 / 50;
     var ptr = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5, on: 0, onTarget: 0 };
-    var raf = 0, last = performance.now(), clock = 0;
+    var stopLoop = null, last = performance.now(), clock = 0;
     var DPR = Math.min(window.devicePixelRatio || 1, 2);
 
     function render(now) {
+      now = now || performance.now();
       var dt = Math.min(0.05, (now - last) / 1000);
       last = now;
       clock = (clock + dt * speed) % 3600;
@@ -592,7 +597,6 @@ void main(){
       gl.uniform1f(u('uComb'), 1.70);
 
       gl.drawArrays(gl.TRIANGLES, 0, 3);
-      raf = requestAnimationFrame(render);
     }
 
     function track(e) {
@@ -610,14 +614,15 @@ void main(){
     canvas.addEventListener('pointerleave', onLeave);
 
     function destroy() {
-      cancelAnimationFrame(raf);
+      if (stopLoop) stopLoop();
       canvas.removeEventListener('pointermove', track);
       canvas.removeEventListener('pointerenter', track);
       canvas.removeEventListener('pointerleave', onLeave);
     }
 
     currentFibre = { destroy: destroy, retheme: retheme };
-    raf = requestAnimationFrame(render);
+    render();
+    if (!reducedMotion) stopLoop = addLoop(render, { el: canvas, minInterval: 33 });
   }
 
   function destroyDitherInstances() {
@@ -732,7 +737,6 @@ void main(){
     img.src = imgUrl;
 
     var mouse = { x: 0.5, y: 0.5, active: 0, target: 0, entered: false };
-    var inView = true;
 
     function onMove(e) {
       var r = container.getBoundingClientRect();
@@ -759,17 +763,10 @@ void main(){
     var ro = new ResizeObserver(resize);
     ro.observe(container);
 
-    var io = new IntersectionObserver(function (entries) {
-      inView = entries[0].isIntersecting;
-    }, { threshold: 0.01 });
-    io.observe(container);
-
     var start = performance.now();
-    var raf = 0;
-    function render() {
-      raf = requestAnimationFrame(render);
-      if (!inView) return;
-      var now = performance.now();
+    var stopLoop = null;
+    function render(now) {
+      now = now || performance.now();
       mouse.active += (mouse.target - mouse.active) * 0.08;
 
       gl.uniform1f(u('uTime'), (now - start) / 1000);
@@ -792,11 +789,11 @@ void main(){
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     }
     render();
+    if (!reducedMotion) stopLoop = addLoop(render, { el: canvas, minInterval: 33 });
 
     function destroy() {
-      cancelAnimationFrame(raf);
+      if (stopLoop) stopLoop();
       ro.disconnect();
-      io.disconnect();
       img.onload = null;
       img.onerror = null;
       container.removeEventListener('pointermove', onMove);
@@ -901,12 +898,14 @@ void main(){
 
   // --- Init + theme re-coloring ---
   initRadialButtons();
-  initPixelDrift();
-  initFibreArc();
-  initDitherReveal();
+
+  /* Heavy canvases wait until their section is near the viewport. */
+  lazyInit('[data-pixel-drift]', initPixelDrift);
+  lazyInit('#fibreArcCanvas', initFibreArc);
+  lazyInit('[data-dither-reveal]', initDitherReveal);
 
   document.addEventListener('theme:change', function () {
-    initPixelDrift();
+    if (pixelReady) initPixelDrift();
     if (currentFibre && currentFibre.retheme) currentFibre.retheme();
   });
 });

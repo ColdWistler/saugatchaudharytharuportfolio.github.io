@@ -12,8 +12,18 @@
       on the way down and sticks on the way up.
    ============================================================ */
 
+import "@fontsource-variable/inter/wght.css";
+import "@fontsource-variable/jetbrains-mono/wght.css";
+import "@fontsource/instrument-serif/latin-400.css";
+import "@fontsource/instrument-serif/latin-400-italic.css";
+
 import { initFigures } from "./figures.js";
 import { initEngines } from "./engine.js";
+import { whenIdle, addLoop } from "./perf.js";
+import { initMotion } from "./motion.js";
+
+import "./script.js";
+import "./components.js";
 
 /* the classic-script fallback in index.html watches for this */
 window.__hangarBoot = true;
@@ -58,21 +68,23 @@ function release() {
 }
 
 /* never let a slow asset hold the page hostage */
-window.setTimeout(release, 3200);
+window.setTimeout(release, 800);
 
 /* ------------------------------------------------------------
    3. THE HANGAR
    ------------------------------------------------------------ */
 
-import("./scene.js")
-    .then((module) => {
-        module.initScene({ onReady: release });
-    })
-    .catch((error) => {
-        console.warn("Hangar scene unavailable —", error);
-        document.documentElement.classList.add("no-scene");
-        release();
-    });
+whenIdle(() => {
+    import("./scene.js")
+        .then((module) => {
+            module.initScene({ onReady: release });
+        })
+        .catch((error) => {
+            console.warn("Hangar scene unavailable —", error);
+            document.documentElement.classList.add("no-scene");
+            release();
+        });
+});
 
 /* ------------------------------------------------------------
    4. CUSTOM CURSOR
@@ -120,14 +132,13 @@ if (cursor && fine) {
             cursor.dataset.state = "";
     });
 
-    (function follow() {
+    addLoop(() => {
         rx += (mx - rx) * 0.17;
         ry += (my - ry) * 0.17;
         scale += (target - scale) * 0.14;
         if (ring)
             ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) scale(${scale.toFixed(3)})`;
-        requestAnimationFrame(follow);
-    })();
+    });
 }
 
 /* ------------------------------------------------------------
@@ -148,3 +159,16 @@ if (navbar) {
         last = y;
     }, { passive: true });
 }
+
+/* ------------------------------------------------------------
+   6. MOTION
+   ------------------------------------------------------------ */
+
+function startMotion() {
+    initMotion();
+}
+
+if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", startMotion, { once: true });
+else
+    startMotion();

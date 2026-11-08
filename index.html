@@ -28,34 +28,34 @@
     <meta name="twitter:description" content="Rust · Deep RL · Godot 4. Project RAPTORM86 flight dynamics engine and the published Dueling Double DQN autonomous-flight paper.">
     <meta name="twitter:image" content="https://saugatchaudharytharu.com.np/og-image.png">
     <meta name="twitter:image:alt" content="Portfolio of Saugat Chaudhary Tharu — AI/ML &amp; Full-Stack Developer">
+    <meta name="theme-color" content="#0a0a08">
+    <meta name="color-scheme" content="dark light">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0f14'/%3E%3Ccircle cx='32' cy='32' r='17' fill='none' stroke='%23ff8a2b' stroke-width='3'/%3E%3Cpath d='M32 17v30M17 32h30' stroke='%23ff8a2b' stroke-width='1.5' opacity='.5'/%3E%3C/svg%3E">
 
-    <!-- Third-party CSS is fetched off the critical path: a slow CDN
-         must never hold the page blank. -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap"
-          onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-          onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    </noscript>
-
     <link rel="stylesheet" href="css/style.css">
-
-    <script type="importmap">
-    {
-        "imports": {
-            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
-            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
-        }
-    }
-    </script>
 </head>
 <body class="is-loading">
+
+    <div class="scroll-progress" aria-hidden="true"></div>
+
+    <!-- Inline icon sprite: replaces the Font Awesome CDN + webfont with
+         ~3 KB of paths that ship in the HTML. -->
+    <svg class="icon-sprite" aria-hidden="true" focusable="false">
+        <symbol id="i-github" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
+        <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></symbol>
+        <symbol id="i-file-lines" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
+        <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></symbol>
+        <symbol id="i-envelope" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+        <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+        <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+        <symbol id="i-brain" viewBox="0 0 24 24"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/></symbol>
+        <symbol id="i-cpu" viewBox="0 0 24 24"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></symbol>
+        <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></symbol>
+        <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></symbol>
+        <symbol id="i-tools" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+        <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></symbol>
+    </svg>
 
     <!-- ============================================================
          PRELOADER — the hangar door opening
@@ -100,7 +100,7 @@
             </ul>
             <div class="nav-actions">
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <i class="fas fa-sun" id="themeIcon"></i>
+                    <svg class="icon" id="themeIcon" aria-hidden="true"><use href="#i-sun"></use></svg>
                 </button>
                 <div class="hamburger" role="button" tabindex="0" aria-label="Open menu">
                     <span></span>
@@ -132,7 +132,10 @@
             <div class="wrap wrap--hero">
                 <div class="hero">
                     <p class="kicker"><span class="kicker__no">№ 001</span> HANGAR 86 — NEURO-SYMBOLIC AUTONOMY</p>
-                    <h1 class="display display--hero">Saugat Chaudhary <br><em>Tharu</em></h1>
+                    <h1 class="display display--hero">
+                        <span class="hero-line"><span class="hero-line__inner">Saugat Chaudhary</span></span>
+                        <span class="hero-line"><span class="hero-line__inner"><em>Tharu</em></span></span>
+                    </h1>
                     <p class="hero__lede">AI/ML developer and full-stack engineer. I build flight-dynamics cores, deep reinforcement-learning agents and the hybrid neuro-symbolic controllers that keep them honest — most recently a delivery UAV learning to fly itself inside AirSim.</p>
                     <p class="hero__typed"><span class="hero__prompt">&gt;</span> <span id="typing-text"></span><span class="caret">|</span></p>
                     <div class="hero__actions">
@@ -208,10 +211,10 @@
                         </ul>
                         <div class="actions">
                             <a href="https://github.com/ColdWistler/ProjectRAPTORM86" target="_blank" rel="noopener" class="btn btn--solid btn-radial">
-                                <i class="fab fa-github"></i> View Source
+                                <svg class="icon icon--brand" aria-hidden="true"><use href="#i-github"></use></svg> View Source
                             </a>
                             <a href="#research" class="btn btn--ghost">
-                                <i class="fas fa-file-lines"></i> Research Paper
+                                <svg class="icon" aria-hidden="true"><use href="#i-file-lines"></use></svg> Research Paper
                             </a>
                         </div>
                     </div>
@@ -298,10 +301,10 @@
                             </div>
                             <div class="actions">
                                 <a href="https://journaljamcs.com/index.php/JAMCS/article/view/2191" target="_blank" rel="noopener" class="btn btn--solid btn-radial">
-                                    <i class="fas fa-file-lines"></i> Read Full Paper
+                                    <svg class="icon" aria-hidden="true"><use href="#i-file-lines"></use></svg> Read Full Paper
                                 </a>
                                 <a href="https://doi.org/10.9734/jamcs/2026/v41i82191" target="_blank" rel="noopener" class="btn btn--ghost">
-                                    <i class="fas fa-bookmark"></i> DOI
+                                    <svg class="icon" aria-hidden="true"><use href="#i-bookmark"></use></svg> DOI
                                 </a>
                             </div>
                         </article>
@@ -507,7 +510,7 @@
                             <span class="stat-line">Post: <span>bloom</span></span>
                         </div>
                         <div class="instrument__canvas instrument__canvas--embed">
-                            <iframe src="AnimatedCOmponents/blackhole_1.html" title="Particle swarm visualisation" loading="lazy"></iframe>
+                            <iframe src="./AnimatedCOmponents/blackhole_1.html" title="Particle swarm visualisation" loading="lazy"></iframe>
                         </div>
                     </article>
                 </div>
@@ -554,8 +557,8 @@
                                 <span class="instrument__file">pfp.jpg</span>
                                 <span class="instrument__tag">hover to reveal</span>
                             </div>
-                            <div class="dither-reveal" data-dither-reveal data-image="1767783887436.jpg" role="img" aria-label="Portrait of Saugat Chaudhary Tharu">
-                                <noscript><img src="1767783887436.jpg" alt="Portrait of Saugat Chaudhary Tharu"></noscript>
+                            <div class="dither-reveal" data-dither-reveal data-image="./1767783887436.jpg" role="img" aria-label="Portrait of Saugat Chaudhary Tharu">
+                                <noscript><img src="./1767783887436.jpg" alt="Portrait of Saugat Chaudhary Tharu"></noscript>
                             </div>
                         </figure>
                         <dl class="facts">
@@ -590,8 +593,8 @@
                         </ul>
                         <p>Dueling Double DQN agents trained in Rust for autonomous fixed-wing flight — 142K parameters, prioritised experience replay, &lt;1 ms gradient updates.</p>
                         <div class="card__links">
-                            <a href="https://github.com/ColdWistler/Capstone2PCASSIE" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a>
-                            <a href="https://journaljamcs.com/index.php/JAMCS/article/view/2191" target="_blank" rel="noopener" class="card-link"><i class="fas fa-file-lines"></i> Published Paper</a>
+                            <a href="https://github.com/ColdWistler/Capstone2PCASSIE" target="_blank" rel="noopener" class="card-link"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-github"></use></svg> View Project</a>
+                            <a href="https://journaljamcs.com/index.php/JAMCS/article/view/2191" target="_blank" rel="noopener" class="card-link"><svg class="icon" aria-hidden="true"><use href="#i-file-lines"></use></svg> Published Paper</a>
                         </div>
                     </article>
 
@@ -604,7 +607,7 @@
                         </ul>
                         <p>AI-powered wildfire detection using UAV technology for early warning and prevention systems.</p>
                         <div class="card__links">
-                            <a href="https://github.com/ColdWistler/WildFire-AlertSystemUAV" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a>
+                            <a href="https://github.com/ColdWistler/WildFire-AlertSystemUAV" target="_blank" rel="noopener" class="card-link"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-github"></use></svg> View Project</a>
                         </div>
                     </article>
 
@@ -617,7 +620,7 @@
                         </ul>
                         <p>Advanced computer vision system for real-time object detection and classification.</p>
                         <div class="card__links">
-                            <a href="https://github.com/ColdWistler/ObjectDetection" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a>
+                            <a href="https://github.com/ColdWistler/ObjectDetection" target="_blank" rel="noopener" class="card-link"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-github"></use></svg> View Project</a>
                         </div>
                     </article>
 
@@ -629,7 +632,7 @@
                         </ul>
                         <p>Computer vision for Devanagari script detection and recognition systems.</p>
                         <div class="card__links">
-                            <a href="https://github.com/ColdWistler/CV_DevnagriDetection" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a>
+                            <a href="https://github.com/ColdWistler/CV_DevnagriDetection" target="_blank" rel="noopener" class="card-link"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-github"></use></svg> View Project</a>
                         </div>
                     </article>
 
@@ -641,7 +644,7 @@
                         </ul>
                         <p>Optimization algorithms implementing genetic approaches for complex problem solving.</p>
                         <div class="card__links">
-                            <a href="https://github.com/ColdWistler/Genetic-Algorithm" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a>
+                            <a href="https://github.com/ColdWistler/Genetic-Algorithm" target="_blank" rel="noopener" class="card-link"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-github"></use></svg> View Project</a>
                         </div>
                     </article>
                 </div>
@@ -677,7 +680,7 @@
                         </ul>
                         <p>Comprehensive programming guide for beginners — making complex concepts simple.</p>
                         <div class="card__links">
-                            <a href="https://github.com/ColdWistler/Idiot-s-Guide-to-Programming." target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a>
+                            <a href="https://github.com/ColdWistler/Idiot-s-Guide-to-Programming." target="_blank" rel="noopener" class="card-link"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-github"></use></svg> View Project</a>
                         </div>
                     </article>
 
@@ -690,7 +693,7 @@
                         </ul>
                         <p>Fresh vegetables delivery app connecting farmers to consumers.</p>
                         <div class="card__links">
-                            <a href="https://github.com/ColdWistler/AgrifreshAPP" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a>
+                            <a href="https://github.com/ColdWistler/AgrifreshAPP" target="_blank" rel="noopener" class="card-link"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-github"></use></svg> View Project</a>
                         </div>
                     </article>
 
@@ -702,7 +705,7 @@
                         </ul>
                         <p>Java-based application showcasing Nepalese cultural heritage and tourism.</p>
                         <div class="card__links">
-                            <a href="https://github.com/ColdWistler/VisiNepal" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a>
+                            <a href="https://github.com/ColdWistler/VisiNepal" target="_blank" rel="noopener" class="card-link"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-github"></use></svg> View Project</a>
                         </div>
                     </article>
 
@@ -715,7 +718,7 @@
                         </ul>
                         <p>Personalized Arch Linux configuration — rice, themes, and productivity tools.</p>
                         <div class="card__links">
-                            <a href="https://github.com/ColdWistler/ArchLinux-Dots" target="_blank" rel="noopener" class="card-link"><i class="fab fa-github"></i> View Project</a>
+                            <a href="https://github.com/ColdWistler/ArchLinux-Dots" target="_blank" rel="noopener" class="card-link"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-github"></use></svg> View Project</a>
                         </div>
                     </article>
                 </div>
@@ -736,7 +739,7 @@
                 <div class="skills-layout">
                     <div class="skills-grid">
                         <div class="skill-group">
-                            <h3 class="skill-category-title"><i class="fas fa-brain skill-icon"></i> AI/ML</h3>
+                            <h3 class="skill-category-title"><svg class="icon icon--skill" aria-hidden="true"><use href="#i-brain"></use></svg> AI/ML</h3>
                             <ul class="skill-tags">
                                 <li class="skill-tag">Python</li>
                                 <li class="skill-tag">TensorFlow</li>
@@ -760,7 +763,7 @@
                             </ul>
                         </div>
                         <div class="skill-group">
-                            <h3 class="skill-category-title"><i class="fas fa-cpu skill-icon"></i> Systems</h3>
+                            <h3 class="skill-category-title"><svg class="icon icon--skill" aria-hidden="true"><use href="#i-cpu"></use></svg> Systems</h3>
                             <ul class="skill-tags">
                                 <li class="skill-tag">Rust</li>
                                 <li class="skill-tag">C++</li>
@@ -772,7 +775,7 @@
                             </ul>
                         </div>
                         <div class="skill-group">
-                            <h3 class="skill-category-title"><i class="fas fa-code skill-icon"></i> Languages</h3>
+                            <h3 class="skill-category-title"><svg class="icon icon--skill" aria-hidden="true"><use href="#i-code"></use></svg> Languages</h3>
                             <ul class="skill-tags">
                                 <li class="skill-tag">Java</li>
                                 <li class="skill-tag">Dart</li>
@@ -783,7 +786,7 @@
                             </ul>
                         </div>
                         <div class="skill-group">
-                            <h3 class="skill-category-title"><i class="fas fa-cloud skill-icon"></i> Cloud</h3>
+                            <h3 class="skill-category-title"><svg class="icon icon--skill" aria-hidden="true"><use href="#i-cloud"></use></svg> Cloud</h3>
                             <ul class="skill-tags">
                                 <li class="skill-tag">AWS</li>
                                 <li class="skill-tag">Docker</li>
@@ -793,7 +796,7 @@
                             </ul>
                         </div>
                         <div class="skill-group">
-                            <h3 class="skill-category-title"><i class="fas fa-tools skill-icon"></i> Tools</h3>
+                            <h3 class="skill-category-title"><svg class="icon icon--skill" aria-hidden="true"><use href="#i-tools"></use></svg> Tools</h3>
                             <ul class="skill-tags">
                                 <li class="skill-tag">Flutter</li>
                                 <li class="skill-tag">React</li>
@@ -807,7 +810,7 @@
                             </ul>
                         </div>
                         <div class="skill-group">
-                            <h3 class="skill-category-title"><i class="fas fa-database skill-icon"></i> Data</h3>
+                            <h3 class="skill-category-title"><svg class="icon icon--skill" aria-hidden="true"><use href="#i-database"></use></svg> Data</h3>
                             <ul class="skill-tags">
                                 <li class="skill-tag">PostgreSQL</li>
                                 <li class="skill-tag">MongoDB</li>
@@ -912,13 +915,13 @@
                     <div class="contact-copy">
                         <p class="lede">I'm always interested in collaborating on exciting AI/ML projects or discussing new technologies.</p>
                         <ul class="contact-list">
-                            <li><i class="fas fa-envelope"></i> <a href="mailto:csaugat862@gmail.com">csaugat862@gmail.com</a></li>
-                            <li><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/saugat-chaudhary-19653b33b" target="_blank" rel="noopener">LinkedIn Profile</a></li>
+                            <li><svg class="icon" aria-hidden="true"><use href="#i-envelope"></use></svg> <a href="mailto:csaugat862@gmail.com">csaugat862@gmail.com</a></li>
+                            <li><svg class="icon icon--brand" aria-hidden="true"><use href="#i-linkedin"></use></svg> <a href="https://www.linkedin.com/in/saugat-chaudhary-19653b33b" target="_blank" rel="noopener">LinkedIn Profile</a></li>
                         </ul>
                         <div class="actions">
-                            <a href="https://github.com/ColdWistler" target="_blank" rel="noopener" class="btn btn--solid btn-radial"><i class="fab fa-github"></i> GitHub</a>
-                            <a href="https://www.linkedin.com/in/saugat-chaudhary-19653b33b" target="_blank" rel="noopener" class="btn btn--ghost"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                            <a href="mailto:csaugat862@gmail.com" class="btn btn--ghost"><i class="fas fa-envelope"></i> Email</a>
+                            <a href="https://github.com/ColdWistler" target="_blank" rel="noopener" class="btn btn--solid btn-radial"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-github"></use></svg> GitHub</a>
+                            <a href="https://www.linkedin.com/in/saugat-chaudhary-19653b33b" target="_blank" rel="noopener" class="btn btn--ghost"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-linkedin"></use></svg> LinkedIn</a>
+                            <a href="mailto:csaugat862@gmail.com" class="btn btn--ghost"><svg class="icon" aria-hidden="true"><use href="#i-envelope"></use></svg> Email</a>
                         </div>
                     </div>
                     <div class="signoff">
@@ -948,8 +951,6 @@
         <div class="noscript-note">This portfolio uses JavaScript for the interactive instruments and the 3D scene. The written content above is complete without it.</div>
     </noscript>
 
-    <script src="js/script.js"></script>
-    <script src="js/components.js"></script>
     <script type="module" id="bootModule" src="js/main.js"></script>
     <script>
         /* Progressive fallback for file:// — classic script, so it runs even

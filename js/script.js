@@ -1,4 +1,15 @@
+import { addLoop, lazyInit, reducedMotion } from './perf.js';
+
 document.addEventListener('DOMContentLoaded', function () {
+  // Each demo registers one shared-ticker loop, even if its init is
+  // repeated by a resize handler.
+  var demoLoops = {};
+  function startDemoLoop(key, fn, el, minInterval) {
+    if (reducedMotion || demoLoops[key]) return;
+    demoLoops[key] = true;
+    addLoop(fn, { el: el, minInterval: minInterval });
+  }
+
   // --- Theme Toggle ---
   const themeToggle = document.getElementById('themeToggle');
   const themeIcon = document.getElementById('themeIcon');
@@ -19,7 +30,8 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function updateThemeIcon(theme) {
-    themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    var use = themeIcon && themeIcon.querySelector('use');
+    if (use) use.setAttribute('href', theme === 'dark' ? '#i-sun' : '#i-moon');
   }
 
   // --- Hamburger Menu ---
@@ -38,78 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // --- Active Nav on Scroll ---
-  var sections = document.querySelectorAll('section');
-  var navItems = document.querySelectorAll('.nav-link');
-
-  window.addEventListener('scroll', function () {
-    var current = '';
-    sections.forEach(function (section) {
-      if (window.scrollY >= section.offsetTop - 200) {
-        current = section.getAttribute('id');
-      }
-    });
-    navItems.forEach(function (item) {
-      item.classList.remove('active');
-      if (item.getAttribute('href') === '#' + current) {
-        item.classList.add('active');
-      }
-    });
-  });
-
-  // --- Smooth Scroll (custom eased speed) ---
-  function easeInOutCubic(t) {
-    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  }
-
-  function smoothScrollTo(targetY, duration) {
-    var startY = window.scrollY;
-    var diff = targetY - startY;
-    var startTime = null;
-    function step(timestamp) {
-      if (startTime === null) startTime = timestamp;
-      var progress = Math.min((timestamp - startTime) / duration, 1);
-      window.scrollTo(0, startY + diff * easeInOutCubic(progress));
-      if (progress < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      var target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        smoothScrollTo(target.offsetTop - 60, 650);
-      }
-    });
-  });
-
-  // --- Parallax ---
-  var parallaxOn = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
-  var parallaxTick = false;
-
-  function updateParallax() {
-    parallaxTick = false;
-    var viewCenter = window.innerHeight / 2;
-    document.querySelectorAll('[data-parallax]').forEach(function (el) {
-      var speed = parseFloat(el.getAttribute('data-parallax')) || 0;
-      var rect = el.getBoundingClientRect();
-      var delta = (rect.top + rect.height / 2) - viewCenter;
-      var translate = Math.max(-100, Math.min(100, delta * speed));
-      el.style.transform = 'translate3d(0,' + translate + 'px,0)';
-    });
-  }
-
-  if (parallaxOn) {
-    window.addEventListener('scroll', function () {
-      if (!parallaxTick) {
-        parallaxTick = true;
-        requestAnimationFrame(updateParallax);
-      }
-    });
-    updateParallax();
-  }
+  // --- Active nav, smooth scroll and parallax live in js/motion.js ---
 
   // --- Typing Effect ---
   var typingText = document.getElementById('typing-text');
@@ -145,23 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   typeEffect();
 
-  // --- Scroll Reveal ---
-  var revealElements = document.querySelectorAll('.project-card, .skill-group, .algorithm-container');
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
-
-  revealElements.forEach(function (el, i) {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(24px)';
-    el.style.transition = 'opacity 0.5s ease ' + (i % 4) * 0.08 + 's, transform 0.5s ease ' + (i % 4) * 0.08 + 's';
-    observer.observe(el);
-  });
+  // --- Scroll reveals are choreographed by js/motion.js ---
 
   // --- Sorting Visualization ---
   var sortingState = {
@@ -767,7 +692,6 @@ document.addEventListener('DOMContentLoaded', function () {
       if (ml.reveal >= ml.treeTotal) ml.converged = true;
     }
     mlDrawActive();
-    requestAnimationFrame(mlLoop);
   }
 
   function mlDrawStatic() {
@@ -797,6 +721,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     mlReset();
     setKControlsVisible();
+    if (reducedMotion) mlDrawStatic();
+    else startDemoLoop('ml', mlLoop, ml.canvas, 33);
     document.querySelectorAll('.ml-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var m = this.getAttribute('data-ml');
@@ -843,6 +769,9 @@ document.addEventListener('DOMContentLoaded', function () {
     hud.ctx = hud.canvas.getContext('2d');
     hud.canvas.width = hud.canvas.parentElement.clientWidth;
     hud.canvas.height = 260;
+    updateHudReadouts();
+    drawFlightHud();
+    startDemoLoop('hud', hudLoop, hud.canvas, 33);
   }
 
   function updateHudReadouts() {
@@ -935,7 +864,6 @@ document.addEventListener('DOMContentLoaded', function () {
     hud.frame++;
     if (hud.frame % 12 === 0) updateHudReadouts();
     drawFlightHud();
-    requestAnimationFrame(hudLoop);
   }
 
   // --- RL Training Curve (D3QN) ---
@@ -956,8 +884,15 @@ document.addEventListener('DOMContentLoaded', function () {
     rl.canvas.height = 250;
     rl.points = [];
     rl.done = false;
-    updateRlReadouts();
-    drawRl();
+    if (reducedMotion) {
+      for (var i = 0; i < 200; i++) rl.points.push(rlRewardAt(i));
+      updateRlReadouts();
+      drawRl();
+    } else {
+      updateRlReadouts();
+      drawRl();
+      startDemoLoop('rl', rlLoop, rl.canvas, 50);
+    }
   }
 
   function updateRlReadouts() {
@@ -1040,7 +975,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     drawRl();
     updateRlReadouts();
-    requestAnimationFrame(rlLoop);
   }
 
   // --- Wind-Tunnel Aero Flow (mirrors RAPTORM86 wind_tunnel.tscn) ---
@@ -1090,6 +1024,8 @@ document.addEventListener('DOMContentLoaded', function () {
       var k = (i / n) * 2.4 - 1.2;
       wt.particles.push({ px: Math.random() * wt.canvas.width, py: wt.canvas.height / 2 + k * wt.canvas.height * 0.30, k: k, prev: null });
     }
+    wtStepAndDraw();
+    startDemoLoop('wt', wtStepAndDraw, wt.canvas, 33);
   }
 
   function wtStepAndDraw() {
@@ -1235,6 +1171,7 @@ document.addEventListener('DOMContentLoaded', function () {
     itg.canvas.height = 250;
     itgReset();
     itgDraw();
+    startDemoLoop('itg', function () { itgStep(); itgDraw(); }, itg.canvas, 40);
   }
 
   function itgStep() {
@@ -1361,6 +1298,7 @@ document.addEventListener('DOMContentLoaded', function () {
       atm.curve.push({ z: z, s: stdAtmosphere(z) });
     }
     atmDraw();
+    startDemoLoop('atm', atmDraw, atm.canvas, 50);
   }
 
   function atmDraw() {
@@ -1443,116 +1381,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  function vizLoop() {
-    wtStepAndDraw();
-    itgStep();
-    itgDraw();
-    atmDraw();
-    requestAnimationFrame(vizLoop);
-  }
-
   // --- Init ---
   var graph = {
     canvas: null, ctx: null, nodes: [], edges: [], hover: null, frame: 0
   };
-  initSortingVisualization();
-  initML();
-  initFlightHud();
-  initRL();
-  initWindTunnel();
-  initIntegrator();
-  initAtmosphere();
-  initSkillsGraph();
 
-  if (parallaxOn) {
-    hudLoop();
-    rlLoop();
-    vizLoop();
-    mlLoop();
-  } else {
-    updateHudReadouts();
-    drawFlightHud();
-    for (var e = 0; e < 200; e++) rl.points.push(rlRewardAt(e));
-    updateRlReadouts();
-    drawRl();
-    for (var s = 0; s < 100; s++) { itgStep(); }
-    wtStepAndDraw();
-    itgDraw();
-    atmDraw();
-    mlDrawStatic();
-  }
-
-  // --- Skill tag icons ---
-  var skillIcons = {
-    python: { icon: 'fa-python', pack: 'fab' },
-    tensorflow: { icon: 'fa-cube', pack: 'fas' },
-    pytorch: { icon: 'fa-cube', pack: 'fas' },
-    opencv: { icon: 'fa-eye', pack: 'fas' },
-    'scikit-learn': { icon: 'fa-layer-group', pack: 'fas' },
-    huggingface: { icon: 'fa-huggingface', pack: 'fab' },
-    transformers: { icon: 'fa-exchange-alt', pack: 'fas' },
-    onnx: { icon: 'fa-cube', pack: 'fas' },
-    burn: { icon: 'fa-fire', pack: 'fas' },
-    candle: { icon: 'fa-fire', pack: 'fas' },
-    llama: { icon: 'fa-comments', pack: 'fas' },
-    yolo: { icon: 'fa-bullseye', pack: 'fas' },
-    'deep rl': { icon: 'fa-robot', pack: 'fas' },
-    d3qn: { icon: 'fa-robot', pack: 'fas' },
-    airsim: { icon: 'fa-drone', pack: 'fas' },
-    'neuro-symbolic': { icon: 'fa-brain', pack: 'fas' },
-    'knowledge graphs': { icon: 'fa-sitemap', pack: 'fas' },
-    'uav autonomy': { icon: 'fa-plane', pack: 'fas' },
-    rust: { icon: 'fa-terminal', pack: 'fas' },
-    'c++': { icon: 'fa-terminal', pack: 'fas' },
-    go: { icon: 'fa-terminal', pack: 'fas' },
-    zig: { icon: 'fa-terminal', pack: 'fas' },
-    'gd extension': { icon: 'fa-gamepad', pack: 'fas' },
-    ffi: { icon: 'fa-plug', pack: 'fas' },
-    webassembly: { icon: 'fa-microchip', pack: 'fas' },
-    java: { icon: 'fa-code', pack: 'fas' },
-    dart: { icon: 'fa-code', pack: 'fas' },
-    javascript: { icon: 'fa-code', pack: 'fas' },
-    typescript: { icon: 'fa-code', pack: 'fas' },
-    c: { icon: 'fa-code', pack: 'fas' },
-    lua: { icon: 'fa-code', pack: 'fas' },
-    aws: { icon: 'fa-cloud', pack: 'fas' },
-    docker: { icon: 'fa-docker', pack: 'fab' },
-    kubernetes: { icon: 'fa-cube', pack: 'fas' },
-    'github actions': { icon: 'fa-github', pack: 'fab' },
-    'ci/cd': { icon: 'fa-sync-alt', pack: 'fas' },
-    flutter: { icon: 'fa-mobile-alt', pack: 'fas' },
-    react: { icon: 'fa-react', pack: 'fab' },
-    'next.js': { icon: 'fa-code', pack: 'fas' },
-    'godot 4': { icon: 'fa-gamepad', pack: 'fas' },
-    cargo: { icon: 'fa-box', pack: 'fas' },
-    jupyter: { icon: 'fa-book', pack: 'fas' },
-    linux: { icon: 'fa-linux', pack: 'fab' },
-    neovim: { icon: 'fa-keyboard', pack: 'fas' },
-    git: { icon: 'fa-git-alt', pack: 'fab' },
-    postgresql: { icon: 'fa-database', pack: 'fas' },
-    mongodb: { icon: 'fa-database', pack: 'fas' },
-    redis: { icon: 'fa-database', pack: 'fas' },
-    sqlite: { icon: 'fa-database', pack: 'fas' },
-    pandas: { icon: 'fa-table', pack: 'fas' },
-    numpy: { icon: 'fa-calculator', pack: 'fas' }
-  };
-
-  function attachSkillIcons() {
-    document.querySelectorAll('.skill-tag').forEach(function (tag) {
-      var text = tag.textContent.trim().toLowerCase();
-      var match = null;
-      Object.keys(skillIcons).some(function (k) {
-        if (text.indexOf(k) !== -1) { match = k; return true; }
-        return false;
-      });
-      if (!match) return;
-      var info = skillIcons[match];
-      var i = document.createElement('i');
-      i.className = (info.pack === 'fab' ? 'fab ' : 'fas ') + info.icon;
-      tag.insertBefore(i, tag.firstChild);
-    });
-  }
-  attachSkillIcons();
+  /* Each instrument starts only when its section approaches the
+     viewport; until then it stays a static canvas and costs no frames. */
+  lazyInit('#sortingCanvas', initSortingVisualization);
+  lazyInit('#mlCanvas', initML);
+  lazyInit('#flightHud', initFlightHud);
+  lazyInit('#rlCanvas', initRL);
+  lazyInit('#windTunnel', initWindTunnel);
+  lazyInit('#integratorCanvas', initIntegrator);
+  lazyInit('#atmosphereCanvas', initAtmosphere);
+  lazyInit('#skillGraph', initSkillsGraph);
 
   // --- Skill constellation graph ---
 
@@ -1570,7 +1413,8 @@ document.addEventListener('DOMContentLoaded', function () {
     c.addEventListener('pointermove', onGraphMove);
     c.addEventListener('pointerleave', function () { graph.hover = null; });
     window.addEventListener('resize', resizeGraph);
-    graphLoop();
+    if (reducedMotion) graphStep();
+    else startDemoLoop('graph', graphLoop, c, 33);
   }
 
   function resizeGraph() {
@@ -1740,7 +1584,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function graphLoop() {
     graphStep();
-    requestAnimationFrame(graphLoop);
   }
 
   window.addEventListener('resize', function () {
